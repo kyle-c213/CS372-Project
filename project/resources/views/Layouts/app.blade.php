@@ -22,7 +22,7 @@
 </head>
 <body>
     @include('inc.navbar')
-    <h2 style="background-color:  #00425c; color:white;">{{$title ?? ''}}</h2>
+    <h2 style="background-color:  #003807; color:white;">{{$title ?? ''}}</h2>
     <div class="content">
         @yield('content')
     </div>   

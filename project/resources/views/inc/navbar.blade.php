@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light" style="background:#34aeee">
+<nav class="navbar navbar-expand-md navbar-light" style="background:#ffc21c">
     <a href="#" class="navbar-brand">
     <img src="images/logo.svg" height="28" alt="{{config('app.name', 'Application')}}">
     </a>
