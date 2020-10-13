@@ -28,3 +28,6 @@ Route::get('Home/signup', [HomeController::class, 'signup']);
 
 Route::post('Home/post_signup', [HomeController::class, 'post_signup']);
 //Route::resource('Home', 'HomeController');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
