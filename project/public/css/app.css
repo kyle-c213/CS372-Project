@@ -10922,8 +10922,8 @@ a.text-dark:focus {
 
 .sidebar {
   position: fixed;
-  top: 89px;
-  bottom: 39px;
+  top: 108px;
+  bottom: 0;
   left: 0;
   z-index: 100;
   padding: 48px 0 0;
@@ -10932,8 +10932,8 @@ a.text-dark:focus {
 
 .contacts-sidebar {
   position: fixed;
-  top: 89px;
-  bottom: 39px;
+  top: 108px;
+  bottom: 0;
   right: 0;
   z-index: 100;
   padding-left: 48px 0 0;
@@ -10959,4 +10959,14 @@ a.text-dark:focus {
   text-align: center;
   padding-top: 5%;
   padding-bottom: 5%;
+}
+
+.header{
+  padding: 0.75rem 0.75rem;
+  margin-top: -28;
+  background-color: #003807;
+  /*border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  added white text colour to help legibility */
+  color: #fdfdfe;
+  font-size: 20px;
 }
