@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-light" style="background:#ffc21c">
     <a href="#" class="navbar-brand">
-    <img src="images/logo.svg" height="28" alt="{{config('app.name', 'Application')}}">
     </a>
     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
