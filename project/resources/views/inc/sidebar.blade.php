@@ -9,7 +9,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active nav-side-item" href="#">
+                <a class="nav-link active nav-side-item" href="../profRate/search.blade.php">
                 Ratings
                 </a>
             </li>
