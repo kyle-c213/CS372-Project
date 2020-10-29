@@ -4,8 +4,9 @@
     "\\project",
     "\\project\\resources",
     "\\project\\resources\\views",
-    "\\project\\resources\\views\\inc"
+    "\\project\\resources\\views\\Home",
+    "\\project\\resources\\views\\profRate"
   ],
-  "SelectedNode": "\\project\\resources\\views",
+  "SelectedNode": "\\project\\resources\\views\\Home\\index.blade.php",
   "PreviewInSolutionExplorer": false
 }
