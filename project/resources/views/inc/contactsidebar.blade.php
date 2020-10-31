@@ -1,6 +1,6 @@
 <!-- Contacts sidebar -->
 
-<nav id="contacts-sidebar" class="card col-md-3 col-lg-2 d-md-block bg-light contacts-sidebar collapse">
+<nav id="contacts-sidebar" class="card col-md-4 d-md-block bg-light contacts-sidebar collapse">
         <div class="sidebar-sticky pt-3">
             <h2 class="card-header">Contacts</h2>
             <ul class="nav flex-column">
