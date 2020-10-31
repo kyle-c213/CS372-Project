@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito); 
 
 /*!
  * Bootstrap v4.5.2 (https://getbootstrap.com/)
@@ -4940,6 +4940,7 @@ input[type=button].btn-block {
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
+  width: 925px;
 }
 
 .card > hr {
@@ -4996,11 +4997,18 @@ input[type=button].btn-block {
   margin-left: 1.25rem;
 }
 
+/*
+Original background-color for card-header:
+rgba(0, 0, 0, 0.03);
+*/
 .card-header {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: #003807;
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  /*added white text colour to help legibility */
+  color: #fdfdfe;
+
 }
 
 .card-header:first-child {
@@ -10897,6 +10905,19 @@ a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6;
   }
+}
+
+.middle-page{
+  position: absolute;
+  margin: 0;
+  left: 50%;
+  top: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.sidebar-sticky{
+  position: sticky;
 }
 
 /*!
