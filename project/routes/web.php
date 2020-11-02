@@ -35,4 +35,3 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/profile/{user_id}', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
 Route::get('/profile/{uder_id}/edit', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile/{user_id}', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
-

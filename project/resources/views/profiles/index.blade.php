@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row ">
         <div class="col-3 p-5">
-            <img src="{{ asset($user->profile->profilePic())}}" alt="User picture" class="rounded-circle w-100">
+            <img src="{{ asset($user->profile->profilePic()) }}" alt="User picture" class="rounded-circle w-100">
         </div>
         <div class="col-9 pt-5 pl-2">
             <div class="d-flex justify-content-between align-items-baseline">
@@ -40,7 +40,7 @@
                     <h4 class="d-flex align-items-center">Recent Posts</h4>
                 </div>
                 <div class="card-body">
-
+                    
                 </div>
             </div>
         </div>
