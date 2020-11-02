@@ -1,5 +1,25 @@
 @extends('layouts.app')
 
+<style>
+    .container {
+  display: flex;
+}
+
+.item {
+  height: 100px;
+  width: 100px; /* A fixed width as the default */
+}
+
+.item-center { 
+  flex-grow: 1; /* Set the middle element to grow and stretch */
+}
+
+.item + .item { 
+  margin-left: 2%; 
+}
+
+</style>
+
 
 
 @if (session('status'))
@@ -9,16 +29,20 @@
 @endif
 <!--{{ __('You are logged in!') }}-->
 
-<!-- Left sidebar-->
-@include('inc.sidebar')
+
 
 @section('content')
-<div class="header">
-    {{ __('Dashboard') }}
-</div>
 
-<div class="container mt-md-3">
-    <div class="row justify-content-center">
+
+<div class="container py-4">
+
+    <div class="row">
+
+    <div class="col">
+        <!-- Left sidebar-->
+        @include('inc.sidebar')
+    </div>
+
         <div class="col-md-8">
             <div class="card card-index">
                 <div class="card-header">
@@ -46,10 +70,14 @@
                     </div>        
                 </div>
             </div>
+        
+
+        <div class="col col-lg-12">
+            <!-- Contacts menu on Right-->
+            @include('inc.contactsidebar')
         </div>
     </div>
 </div>
+</div>
 @endsection
 
-<!-- Contacts menu on Right-->
-@include('inc.contactsidebar')

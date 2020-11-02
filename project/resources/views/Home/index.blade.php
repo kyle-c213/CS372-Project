@@ -1,8 +1,8 @@
 @extends('Layouts.app')
 
-@section('title')
+{{-- @section('title')
     {{$title}}
-@endsection
+@endsection --}}
 
 <!--Left Sidebar-->
 @include('inc.sidebar')
