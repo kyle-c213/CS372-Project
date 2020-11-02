@@ -14,4 +14,9 @@ class Post extends Model
     protected $primaryKey = 'id';
     // indicates that the primary key auto increments
     public $incrementing = true;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

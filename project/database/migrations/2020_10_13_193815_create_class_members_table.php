@@ -30,8 +30,8 @@ class CreateClassMembersTable extends Migration
     {
         Schema::dropIfExists('class_members');
         Schema::table('class_members', function(Blueprint $table){
-            $table->dropForeign('user_id');
-            $table->dropForeign('course_id');
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['course_id']);
         });
     }
 }

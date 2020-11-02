@@ -32,7 +32,7 @@ class CreateNotesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('notes');
-        Schema::table('class_members', function(Blueprint $table){
+        Schema::table('notes', function(Blueprint $table){
             $table->dropForeign('posted_by');
             $table->dropForeign('course_id');
             $table->dropColumn('title');
