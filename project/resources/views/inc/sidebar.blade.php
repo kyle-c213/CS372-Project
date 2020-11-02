@@ -14,6 +14,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link active nav-side-item" href="../Classes/classSearch.blade.php">
+                Class search
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link active nav-side-item" href="#">
                 To Do
                 </a>
