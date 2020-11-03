@@ -27,11 +27,21 @@ Route::post('Home/post_login', [HomeController::class, 'post_login']);
 Route::get('Home/signup', [HomeController::class, 'signup']);
 
 Route::post('Home/post_signup', [HomeController::class, 'post_signup']);
-//Route::resource('Home', 'HomeController');
+
+// Auth
 Auth::routes();
 
+// Home
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// Profile
 Route::get('/profile/{user_id}', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
 Route::get('/profile/{uder_id}/edit', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile/{user_id}', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+
+// ToDo
+Route::get("/todo", [App\Http\Controllers\ToDoController::class, 'index'])->name('todo');
+Route::post("/todo/addTask", [\App\Http\Controllers\ToDoController::class, 'addTask'])->name('addTask');
+Route::post("/todo/completeTask", [\App\Http\Controllers\ToDoController::class, 'completeTask'])->name('completeTask');
+Route::post("/todo/updateBody", [\App\Http\Controllers\ToDoController::class, 'updateBody'])->name('todo.updateBody');
+Route::post("/todo/updateDate", [\App\Http\Controllers\ToDoController::class, 'updateDate'])->name('todo.updateDate');

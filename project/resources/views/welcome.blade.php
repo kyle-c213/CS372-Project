@@ -80,15 +80,6 @@ a.button1:hover{
 @endsection
 
 @section('content')
-<<<<<<< HEAD
-    <div class="text-center middle-page">
-        <h1>Welcome to Student Zone!</h1>
-        <h5 class="text-secondary font-italic"> Connect with classmates, sell textbooks and more!</h5>
-        <p>
-            <a class="btn btn-primary btn-lg" href="{{url('Home/login')}}" role="button">Login</a>
-            <a class="btn btn-primary btn-lg" href="{{url('Home/signup')}}" role="button">Signup</a>
-        </p>
-=======
 <div class="container">
         <div class="split left" style='background-image: url("{{asset('images/welcome-background.jpg')}}"); background-repeat: no-repeat; background-size: cover;'>
             <h3 class="blurb1"><span class="fas fa-angle-double-right"></span> Connect with classmates</h3>
@@ -169,7 +160,6 @@ a.button1:hover{
         @if (Route::has('register'))
             <a class="btn btn-secondary" href="{{ route('register') }}">{{ __('Register') }}</a>
         @endif
->>>>>>> b2f856a629fe6f937e67689f83fdcec9493221e7
     </div>
 </div> 
     </div>   
