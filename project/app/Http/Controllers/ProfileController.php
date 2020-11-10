@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Image;
 use Illuminate\Http\Request;
-use \App\Models\User;
+use \App\Models\Professor;
 
 class ProfileController extends Controller
 {
