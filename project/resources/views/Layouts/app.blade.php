@@ -60,6 +60,8 @@
                                     <a class="dropdown-item" href="{{ route('profile.show', $user) }}"
                                     onclick = "{{ Auth::user()->id }}"> {{ __('Profile')}} </a>
 
+                                    <a class="dropdown-item" href="{{route('chat')}}">Message Center</a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
