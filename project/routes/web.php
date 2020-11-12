@@ -45,3 +45,12 @@ Route::post("/todo/addTask", [\App\Http\Controllers\ToDoController::class, 'addT
 Route::post("/todo/completeTask", [\App\Http\Controllers\ToDoController::class, 'completeTask'])->name('completeTask');
 Route::post("/todo/updateBody", [\App\Http\Controllers\ToDoController::class, 'updateBody'])->name('todo.updateBody');
 Route::post("/todo/updateDate", [\App\Http\Controllers\ToDoController::class, 'updateDate'])->name('todo.updateDate');
+
+// Contact
+Route::post("/contact/addContact", [\App\Http\Controllers\ContactController::class, 'addContact'])->name('contact.addContact');
+Route::post("/contact/removeContact", [\App\Http\Controllers\ContactController::class, 'removeContact'])->name('contact.removeContact');
+
+// // Messages
+// Route::get('/chat', [\App\Http\Controllers\ChatsController::class, 'index']);
+// Route::get('messages', [\App\Http\Controllers\ChatsController::class, 'fetchMessages']);
+// Route::post('messages', [\App\Http\Controllers\ChatsController::class, 'sendMessage']);
