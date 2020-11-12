@@ -2,11 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\project",
+    "\\project\\app",
+    "\\project\\app\\Models",
+    "\\project\\public",
     "\\project\\resources",
     "\\project\\resources\\views",
-    "\\project\\resources\\views\\Home",
-    "\\project\\resources\\views\\profRate"
+    "\\vendor",
+    "\\vendor\\symfony",
+    "\\vendor\\symfony\\translation"
   ],
-  "SelectedNode": "\\project\\resources\\views\\Home\\index.blade.php",
+  "SelectedNode": "\\project\\app\\Models\\Profile.php",
   "PreviewInSolutionExplorer": false
 }
