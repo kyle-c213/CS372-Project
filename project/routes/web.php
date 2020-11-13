@@ -47,7 +47,15 @@ Route::post("/todo/completeTask", [\App\Http\Controllers\ToDoController::class, 
 Route::post("/todo/updateBody", [\App\Http\Controllers\ToDoController::class, 'updateBody'])->name('todo.updateBody');
 Route::post("/todo/updateDate", [\App\Http\Controllers\ToDoController::class, 'updateDate'])->name('todo.updateDate');
 
+// Contact
+Route::post("/contact/addContact", [\App\Http\Controllers\ContactController::class, 'addContact'])->name('contact.addContact');
+Route::post("/contact/removeContact", [\App\Http\Controllers\ContactController::class, 'removeContact'])->name('contact.removeContact');
+
+// // Messages
+// Route::get('/chat', [\App\Http\Controllers\ChatsController::class, 'index']);
+// Route::get('messages', [\App\Http\Controllers\ChatsController::class, 'fetchMessages']);
+// Route::post('messages', [\App\Http\Controllers\ChatsController::class, 'sendMessage']);
 // professor rate
-Route::get('/profRate', [App\Http\Controllers\ProfRateController::class,'search'])->name('profSearch');
-//Route::get('/profRate/{prof_id}/rate', [App\Http\Controllers\Rate\ProfRateController::class, 'rate'])->name('profRate');
+Route::get('/profRate', [App\Http\Controllers\Rate\ProfRateController::class,'search'])->name('profSearch');
+Route::get('/profRate/{prof_id}/rate', [App\Http\Controllers\Rate\ProfRateController::class, 'rate'])->name('profRate');
 //Route::patch('/search/{prof_id}/rate', [App\Http\Controllers\Rate\ProfRateController::class, 'rate'])->name('profRate.update');

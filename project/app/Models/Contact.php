@@ -15,5 +15,8 @@ class Contact extends Model
     // indicates that the primary key auto increments
     public $incrementing = true;
 
-    public $timestamps = false;
+    protected $fillable = [
+        'first_user', 'second_user'
+    ];
+
 }

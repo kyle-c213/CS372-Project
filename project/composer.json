@@ -12,11 +12,12 @@
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "intervention/image": "dev-master",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "laravelcollective/html": "^6.2",
-        "intervention/image": "dev-master"
+        "munafio/chatify": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
