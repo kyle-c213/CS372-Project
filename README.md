@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="project/public/images/szlogo.png" alt="SZ Logo"/>
+</p>
+
 # Student Zone
 Student Zone is a social media platform designed to cater to the needs of students. Serving as a social and educational hub for students, Student Zone aims to provide students with easy means of communication and connectivity with their classmates.
 # Motivation
@@ -15,7 +19,7 @@ The motivation for this project is to give university students an all in one soc
 # Tech/Framework Used
 <b>Built with:</b>
 <ul>
-  <li><a href="https://laravel.com/">Laravel 8.x</a></li>
+  <li><a href="project/README.md">Laravel 8.x</a></li>
 </ul>
 <b>Languages:</b>
 <ul>
@@ -34,7 +38,7 @@ The motivation for this project is to give university students an all in one soc
 </ul>
 <b>Other External Resources</b>
 <ul>
-  <li><a href="https://github.com/munafio/chatify">Chatify</a></li>
+  <li><a href="https://github.com/munafio/chatify/blob/master/README.md">Chatify</a></li>
   <li><a href="https://pusher.com/">Pusher</a></li>
   <li><a href="https://fontawesome.com/">Font Awesome</a></li>
 </ul>
