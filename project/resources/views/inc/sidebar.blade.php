@@ -9,7 +9,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active nav-side-item" href="../profRate/search.blade.php">
+                <a class="nav-link active nav-side-item" href="{{route('profSearch')}}">
                 Ratings
                 </a>
             </li>
