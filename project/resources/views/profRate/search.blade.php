@@ -9,7 +9,7 @@
 
 <!--Main body content-->
 @section('content')
-<div class="container" id="body">
+    <div class="container" id="body">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div name="PSearch" class="container">
@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
 @endsection
 
 <!-- Contacts menu on Right-->

@@ -3,14 +3,17 @@
     "",
     "\\project",
     "\\project\\app",
+    "\\project\\app\\Http",
+    "\\project\\app\\Http\\Controllers",
     "\\project\\app\\Models",
-    "\\project\\public",
     "\\project\\resources",
+    "\\project\\resources\\css",
     "\\project\\resources\\views",
-    "\\vendor",
-    "\\vendor\\symfony",
-    "\\vendor\\symfony\\translation"
+    "\\project\\resources\\views\\inc",
+    "\\project\\resources\\views\\Layouts",
+    "\\project\\resources\\views\\profiles",
+    "\\vendor"
   ],
-  "SelectedNode": "\\project\\app\\Models\\Profile.php",
+  "SelectedNode": "\\project\\resources\\views\\inc\\footer.blade.php",
   "PreviewInSolutionExplorer": false
 }
