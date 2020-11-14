@@ -100,6 +100,7 @@
             </div>
         </nav>
 
+        @auth
         <main class="">
             <div class="container-fluid py-4">
 
@@ -124,11 +125,14 @@
                         <!-- Contacts menu on Right-->
                         @include('inc.contactsidebar')
                     </div>
-
                 </div>
-
             </div>
         </main>
+        @else
+        <main>
+            @yield('content')
+        </main>
+        @endauth
     </div>
 </body>
 </html>
