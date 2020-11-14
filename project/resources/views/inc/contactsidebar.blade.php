@@ -7,6 +7,10 @@
         </div>
             <div class="card-body">
                 <ul class="nav flex-column">
+                    <li>
+                        <button class="btn btn-primary btn-block" onclick="window.location.href='{{ route('chat') }}';">
+                            Message Center</button>
+                    </li>
                     <?php
                         $contacts = \App\Models\Contact::where('first_user', Auth::user()->id)->get();
                         $hasContacts = false;
