@@ -1,6 +1,40 @@
 <!--Sidebar navigation-->
 
-<nav id="sidebarMenu" class="col-md-4 d-md-block bg-light sidebar collapse">
+<style>
+    li{
+        margin:0 0 10px 0;
+    }
+    </style>
+
+<nav id="sidebarMenu" class="">
+    <div class="card">
+            <div class="card-body text-center">
+                <ul class="nav flex-column">
+                    <li class="">
+                        <button class="btn btn-light btn-block" onclick="window.location.href='#';">
+                        Buy & Sell</button>
+                    </li>
+                    <li class="">
+                        <button class="btn btn-light btn-block" onclick="window.location.href='../profRate/search.blade.php';">
+                        Professor Ratings</button>
+                    </li>
+                    <li class="">
+                        <button class="btn btn-light btn-block" onclick="window.location.href='../Classes/classSearch.blade.php';">
+                        Class search
+                        </button>
+                    </li>
+                    <li class="">
+                        <button class="btn btn-light btn-block" onclick="window.location.href='{{route('todo')}}';">
+                        To Do
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+{{-- <nav id="sidebarMenu" class="col-md-4 d-md-block bg-light sidebar collapse">
     <div class="sidebar-sticky">
             <ul class="nav flex-column">
             <li class="nav-item">
@@ -27,4 +61,4 @@
             </ul>
         </div>
     </div>
-</nav>
+</nav> --}}

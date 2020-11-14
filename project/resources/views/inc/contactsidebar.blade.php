@@ -1,6 +1,32 @@
 <!-- Contacts sidebar -->
 
-<nav id="contacts-sidebar" class="card col-md-4 d-md-block bg-light contacts-sidebar collapse">
+<nav id="contacts-sidebar" class="">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="">Contacts</h2>
+        </div>
+            <div class="card-body">
+                <ul class="nav flex-column">
+                    <?php
+                        $contacts = \App\Models\Contact::where('first_user', Auth::user()->id)->get();
+                    ?>
+                    @foreach($contacts as $key=>$val)
+                        <?php
+                            $contactName = \App\Models\User::where('id', $val->second_user)->first()->name;
+                            
+                        ?>
+                        <li>
+                            <a>{{$contactName}}</a>
+                            <span class="fas fa-comment"></span>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+{{-- <nav id="contacts-sidebar" class="card col-md-4 d-md-block bg-light contacts-sidebar collapse">
         <div class="sidebar-sticky pt-3">
             <h2 class="card-header">Contacts</h2>
             <ul class="nav flex-column">
@@ -25,4 +51,4 @@
                 </li>
             </ul>
         </div>
-</nav>
+</nav> --}}

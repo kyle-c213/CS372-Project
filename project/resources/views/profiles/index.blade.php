@@ -80,7 +80,7 @@
 <div class="container">
     <div class="row ">
         <div class="col-3 p-5">
-            <img src="{{ asset('/storage/'.config('chatify.user_avatar.folder').'/'.Auth::user()->avatar) }}" alt="User picture" class="rounded-circle w-100">
+            <img src="{{ asset('/storage/'.config('chatify.user_avatar.folder').'/'. \App\Models\User::where('id', $user->id)->first()->avatar) }}" alt="User picture" class="rounded-circle w-100">
         </div>
         <div class="col-9 pt-5 pl-2">
             <div class="d-flex justify-content-between align-items-baseline">

@@ -1,21 +1,25 @@
 @extends('layouts.app')
 
 <style>
-    .container {
+    .container-fluid {
   display: flex;
 }
 
-.item {
-  height: 100px;
-  width: 100px; /* A fixed width as the default */
+
+
+.fixed-bottom-right {
+    position: absolute;
+    bottom: 0px;
+    right: 0px; 
 }
 
-.item-center { 
-  flex-grow: 1; /* Set the middle element to grow and stretch */
+#showChat{
+
 }
 
-.item + .item { 
-  margin-left: 2%; 
+#chat:hover{
+    color:rgb(189, 189, 189);
+    cursor: pointer;
 }
 
 </style>
@@ -34,16 +38,23 @@
 @section('content')
 
 
-<div class="container py-4">
+<div class="container-fluid py-4">
 
-    <div class="row">
+    <div id="showChat" class="fixed-bottom-right" class="fa-4x">
+        <span class="fa-stack fa-2x">
+            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+            <a id="chat" class="fas fa-comments fa-stack-1x fa-inverse" href="{{route('chat')}}" style="text-decoration: none;"></a>
+          </span>
+    </div>
+
+    <div class="row-fluid">
 
     <div class="col">
-        <!-- Left sidebar-->
         @include('inc.sidebar')
     </div>
 
-        <div class="col-md-8">
+
+        <div class="col col-md-8">
             <div class="card card-index">
                 <div class="card-header">
                     <h4>Make a Post</h4>
@@ -72,7 +83,7 @@
             </div>
         
 
-        <div class="col col-lg-12">
+        <div class="col">
             <!-- Contacts menu on Right-->
             @include('inc.contactsidebar')
         </div>
