@@ -1,29 +1,5 @@
 @extends('layouts.app')
 
-<style>
-    .container-fluid {
-  display: flex;
-}
-
-
-
-.fixed-bottom-right {
-    position: absolute;
-    bottom: 0px;
-    right: 0px; 
-}
-
-#showChat{
-
-}
-
-#chat:hover{
-    color:rgb(189, 189, 189);
-    cursor: pointer;
-}
-
-</style>
-
 
 
 @if (session('status'))
@@ -38,23 +14,23 @@
 @section('content')
 
 
-<div class="container-fluid py-4">
+{{-- <div class="container-fluid py-4">
 
     <div id="showChat" class="fixed-bottom-right" class="fa-4x">
         <span class="fa-stack fa-2x">
             <i class="fas fa-circle fa-stack-2x text-primary"></i>
             <a id="chat" class="fas fa-comments fa-stack-1x fa-inverse" href="{{route('chat')}}" style="text-decoration: none;"></a>
           </span>
-    </div>
+    </div> --}}
 
-    <div class="row-fluid">
+    {{-- <div class="row-fluid"> --}}
 
-    <div class="col">
+    {{-- <div class="col">
         @include('inc.sidebar')
-    </div>
+    </div> --}}
 
 
-        <div class="col col-md-8">
+        {{-- <div class="col col-md-8"> --}}
             <div class="card card-index">
                 <div class="card-header">
                     <h4>Make a Post</h4>
@@ -80,15 +56,15 @@
                         Content...
                     </div>        
                 </div>
-            </div>
+            {{-- </div> --}}
         
 
-        <div class="col">
+        {{-- <div class="col">
             <!-- Contacts menu on Right-->
             @include('inc.contactsidebar')
-        </div>
-    </div>
-</div>
-</div>
+        </div> --}}
+    {{-- </div>
+</div> --}}
+{{-- </div> --}}
 @endsection
 

@@ -9,9 +9,11 @@
                 <ul class="nav flex-column">
                     <?php
                         $contacts = \App\Models\Contact::where('first_user', Auth::user()->id)->get();
+                        $hasContacts = false;
                     ?>
                     @foreach($contacts as $key=>$val)
                         <?php
+                            $hasContacts = true;
                             $contactName = \App\Models\User::where('id', $val->second_user)->first()->name;
                             
                         ?>
@@ -20,6 +22,11 @@
                             <span class="fas fa-comment"></span>
                         </li>
                     @endforeach
+                    @if($hasContacts == false)
+                    <li>
+                        You have no contacts!
+                    </li>
+                    @endif
                 </ul>
             </div>
         </div>
