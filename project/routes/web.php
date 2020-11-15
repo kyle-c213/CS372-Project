@@ -50,6 +50,7 @@ Route::post("/todo/updateDate", [\App\Http\Controllers\ToDoController::class, 'u
 // Contact
 Route::post("/contact/addContact", [\App\Http\Controllers\ContactController::class, 'addContact'])->name('contact.addContact');
 Route::post("/contact/removeContact", [\App\Http\Controllers\ContactController::class, 'removeContact'])->name('contact.removeContact');
+Route::post("/contact/search", [\App\Http\Controllers\ContactController::class, 'search'])->name('contact.search');
 
 // // Messages
 // Route::get('/chat', [\App\Http\Controllers\ChatsController::class, 'index']);

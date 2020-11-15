@@ -79,14 +79,14 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('profile.show', $user) }}"
-                                    onclick = "{{ Auth::user()->id }}"> {{ __('Profile')}} </a>
+                                    onclick = "{{ Auth::user()->id }}"><span class="fas fa-user"></span>  {{ __('Profile')}} </a>
 
-                                    <a class="dropdown-item" href="{{route('chat')}}">Message Center</a>
+                                    <a class="dropdown-item" href="{{route('chat')}}"><span class="fas fa-comments"></span> Message Center</a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        <span class="fas fa-sign-out-alt"></span> {{ __('Logout') }}
                                     </a>
                                     
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

@@ -32,7 +32,24 @@
                 c.classList.remove("fa-user-plus");
                 c.classList.add("fa-user-slash");
                 c.parentElement.classList.add("text-danger");
-                document.getElementById("contact2").innerHTML = " Remove from contacts";
+                document.getElementById("contact2").innerHTML = " Remove contact";
+
+                document.getElementById("contactLink").removeEventListener("click", addContact);
+                document.getElementById("contactLink").addEventListener("click", removeContact);
+
+                var contactsList = document.getElementById("contactsList");
+
+                // if no contacts, remove first list element in contacts
+                // contactsList.removeChild(contactsList.getElementsByTagName('li')[0]);
+
+                var li = document.createElement("li");
+                var a = document.createElement("a");
+
+                a.innerHTML = '{{\App\Models\User::where('id', $user->id)->first()->name}}';
+                a.href='{{route("profile.show", $user->id)}}';
+
+                li.appendChild(a);
+                contactsList.appendChild(li);
             },
             error: function()
             {
@@ -62,11 +79,31 @@
             processData: false,      
             success: function(){
                 alert('Success!');
-                // var c = document.getElementById("contact");
-                // c.classList.remove("fa-user-plus");
-                // c.classList.add("fa-user-slash");
-                // c.parentElement.classList.add("text-danger");
-                // document.getElementById("contact2").innerHTML = " Remove from contacts";
+                var c = document.getElementById("contact");
+                c.classList.remove("fa-user-slash");
+                c.classList.add("fa-user-plus");
+                document.getElementById("contactLink").classList.remove("text-danger");
+
+                document.getElementById("contactLink").removeEventListener("click", removeContact);
+                document.getElementById("contactLink").addEventListener("click", addContact);
+
+                document.getElementById("contact2").innerHTML = " Add to contacts";
+
+
+                // get user name for current page
+                var currUserName = "{{\App\Models\User::where('id', $user->id)->first()->name}}";
+                // get contact list
+                var ul = document.getElementById("contactsList");
+                // list of all li's in ul
+                var listItems = ul.childNodes;
+                for (var i = 0; i < listItems.length; i++)
+                {
+                    if (listItems[i].firstElementChild != null && listItems[i].firstElementChild.innerHTML === currUserName)
+                    {
+                        ul.removeChild(listItems[i]);
+                        break;
+                    }
+                }
             },
             error: function()
             {
@@ -87,12 +124,14 @@
                 <h1><strong>{{ $user->name }}</strong></h1>
 
                 @can('update', $user->profile)
-                    <a href="/profile/{{ $user->id }}/edit">Edit Profile</a>                    
+                    <a href="/profile/{{ $user->id }}/edit"><span class="fas fa-edit"></span> Edit Profile</a>                    
                 @else
-                    @if($isContact)
-                        <a href="#" onclick="removeContact()" class="text-danger"><span id="contact" class="fas fa-user-slash"></span><span id="contact2"> Remove contact</span></a>                
+                    @if($isContact)                       
+                        <a href="#" id="contactLink" class="text-danger"><span id="contact" class="fas fa-user-slash"></span><span id="contact2"> Remove contact</span></a>                
+                        <script>document.getElementById("contactLink").addEventListener("click", removeContact);</script>
                     @else
-                        <a href="#" onclick="addContact()"><span id="contact" class="fas fa-user-plus"></span><span id="contact2"> Add to contacts<span></a>
+                        <a href="#" id="contactLink"><span id="contact" class="fas fa-user-plus"></span><span id="contact2"> Add to contacts<span></a>
+                        <script>document.getElementById("contactLink").addEventListener("click", addContact);</script>
                     @endif
                 @endcan
             </div>               

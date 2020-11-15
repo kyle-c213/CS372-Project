@@ -12,7 +12,7 @@
                 <ul class="nav flex-column">
                     <li>
                         <button class="btn btn-primary btn-block" onclick="window.location.href='{{ url('home') }}';">
-                            Home</button>
+                            <span class="fas fa-home" style="color:white;"></span> Home</button>
                     </li>
                     <li class="">
                         <button class="btn btn-light btn-block" onclick="window.location.href='#';">
