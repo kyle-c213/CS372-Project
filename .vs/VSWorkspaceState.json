@@ -9,11 +9,7 @@
     "\\project\\resources",
     "\\project\\resources\\css",
     "\\project\\resources\\views",
-    "\\project\\resources\\views\\inc",
-    "\\project\\resources\\views\\Layouts",
-    "\\project\\resources\\views\\profiles",
     "\\vendor"
   ],
-  "SelectedNode": "\\project\\resources\\views\\inc\\footer.blade.php",
   "PreviewInSolutionExplorer": false
 }
