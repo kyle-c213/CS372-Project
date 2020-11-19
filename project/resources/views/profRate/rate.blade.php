@@ -4,12 +4,9 @@
     {{$title}}
 @endsection --}}
 
-<!--Left Sidebar-->
-@include('inc.sidebar')
-
 <!-- Main body content-->
 @section('content')
-    <div class="container" id="body">
+    <div class="container " id="body">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div name="PInfo" class="container">
@@ -31,34 +28,31 @@
                     -->
                     <div name="pastRatings">
                         <h3>Professor's current ratings</h3>
-                        if($result == null){
-                            <p name="NoResults"> there are currently no ratings for this professor at this time </p>
-                        } else {
-                        <!--table may need to be reworked todiplay properly-->
-                            <table class="table table-striped">
-                                <tr>
-                                <!--display all classes-->
-                                    <th><strong>Class</th>
-                                    foreach($result as $result => $class){
-                                        <td>$class</td>
+                        <!-- start of php -->
+                        <?php
+                            //need to change $result and $id to work
+                            /*if($result == null){
+                                print('<p name="NoResults"> there are currently no ratings for this professor at this time </p>');
+                            } else {
+                                print('<!--table may need to be reworked todiplay properly-->
+                                <table class="table table-striped">
+                                    <tr>
+                                        <!---display all classes--->
+     	                                <th><strong>Class</th>
+   	                                    <th><strong>Rating</th>
+                                        <th><strong>comments</th>
+                                    </tr>
+                                    <!--display all ratings for a class-->');
+                                    foreach($result as $result => $id){ 
+                                        print('<tr>
+                                            <td>' + $class + '</td>
+                                            <td>' + $Rating + '</td>
+                                            <td>' + $comments + '</td>
+                                        </tr>');
                                     }
-                                </tr>
-                                <tr>
-                                <!--display all ratings for a class-->
-                                    <th><strong>Rating</th>
-                                    foreach($result as $result => $Rating){
-                                        <td>$Rating</td>
-                                    }
-                                </tr>
-                                <tr>
-                                <!--display all comments for the rating-->
-                                    <th><strong>comments</th>
-                                    foreach($result as $result => comments){
-                                        <td>comments</td>
-                                    }
-                                </tr>
-                            </table>
-                        } 
+                                print('</table>');
+                            }*/
+                        ?><!-- end of php -->
                     </div>
                 </div>
 
@@ -81,6 +75,3 @@
         </div>
     </div>
 @endsection
-
-<!-- Contacts menu on Right-->
-@include('inc.contactsidebar')
