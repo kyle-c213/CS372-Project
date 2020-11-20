@@ -7,9 +7,14 @@
     "\\project\\app\\Http\\Controllers",
     "\\project\\app\\Models",
     "\\project\\resources",
-    "\\project\\resources\\css",
     "\\project\\resources\\views",
-    "\\vendor"
+    "\\project\\resources\\views\\inc",
+    "\\project\\resources\\views\\profRate",
+    "\\project\\resources\\views\\ToDo",
+    "\\project\\routes",
+    "\\project\\vendor\\munafio\\chatify",
+    "\\project\\vendor\\munafio\\chatify\\routes"
   ],
+  "SelectedNode": "\\project\\app\\Models\\Rating.php",
   "PreviewInSolutionExplorer": false
 }

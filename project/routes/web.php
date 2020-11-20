@@ -58,7 +58,7 @@ Route::post("/contact/search", [\App\Http\Controllers\ContactController::class, 
 // Route::post('messages', [\App\Http\Controllers\ChatsController::class, 'sendMessage']);
 // professor rate
 Route::get('/profRate', [App\Http\Controllers\ProfRateController::class,'search'])->name('profSearch');
-//Route::get('/profRate/{prof_id}/rate', [App\Http\Controllers\ProfRateController::class, 'rate'])->name('profRate');
+Route::get('/profRate/{prof_id}/rate', [App\Http\Controllers\ProfRateController::class, 'rate'])->name('profRate');
 //Route::patch('/search/{prof_id}/rate', [App\Http\Controllers\ProfRateController::class, 'rate'])->name('profRate.update');
 
 // Posts
