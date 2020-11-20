@@ -55,7 +55,8 @@
                     <h4>Updates from your classes</h4>
                </div> 
                 <div class="card-body">
-                    @foreach($posts as $post)
+                      
+                    @foreach($posts as $p=>$post)
                         <!-- Head of post, includes posters name, date posted, etc... -->
                         <div class="card">
                             <div class="card-header">
@@ -88,7 +89,7 @@
                                 </div>
                             </div>
                         </div>    
-                    @endforeach 
+                    @endforeach
                 </div>        
             </div>
         {{-- </div> --}}
