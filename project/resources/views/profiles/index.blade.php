@@ -154,17 +154,134 @@
 
     <div class="row">
         <div class="col-12 pl-3 pr-3">
-            <div class="card card-index">
-                <div class="card-header d-flex">
-                    <h4 class="d-flex align-items-center">Recent Posts</h4>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-baseline">
+                    @can('update', $user->profile)
+                        <h4>Your Posts</h4>
+                        <a href='#' data-toggle="modal" data-target="#createPost"><span class="fas fa-pen"></span> Create New Post</a>
+                    @else
+                        <h4>{{$user->name}}'s posts</h4>
+                    @endcan        
                 </div>
                 <div class="card-body">
-                    
+                    @foreach($user->posts as $post)
+                        <!-- Head of post, includes poster's name, date posted, etc... -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ asset('/storage/'.config('chatify.user_avatar.folder').'/'. \App\Models\User::where('id', $post->user->id)->first()->avatar) }}"
+                                        alt="pic" class="rounded-circle" style="max-width: 35px;">
+                                    <h5 class="pl-2 pt-1"><strong>{{ $post->user->name }}</strong></h5>
+                                    @can('update', $user->profile)
+                                        <div class="flex-grow-1"></div>
+                                        <a href="">Edit Post</a>
+                                    @endcan
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="small pl-1 pt-1 text-muted">
+                                        Created at: {{ $post->created_at->format('h:ma \\o\\n F d') }}
+                                    </div>
+                                    @can('update', $user->profile)
+                                        <form action="{{ url('post.destroy', ['post_id' => $post->id ]) }}">
+                                            <input type="hidden" name="_method" value="delete" />
+                                            <a href="">Delete Post</a>
+                                        </form>
+                                    @endcan
+                                </div>
+                            </div>
+
+                            <!--  Content of post  -->   
+                            <div class="card-body">
+                                <h3>{{ $post->title }}</h3>
+                                <div>
+                                    <p>
+                                        {{ $post->body }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>    
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
 
+    <!--Create post modal-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="createPost">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Create New Post</h4>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ URL::route('post.store','') }}" enctype="multipart/form-data" method="post">
+                        @csrf
+
+                        <div class="row">
+                            <div class="col-8 offset-2">
+                                <!--Title-->
+                                <div class="form-group row">    
+                                    <label for="title" class="col-md-4 col-form-label">Post title</label>
+                                    <input type="text" name ="title" id="title" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}"
+                                    value="{{ old('title') }}" autocomplete="title" autofocus>
+
+                                    @if ($errors->has('title'))
+                                        <strong>{{ $errors->first('title') }}</strong>
+                                    @endif
+                                </div>
+
+                                <!--Content-->
+                                <div class="form-group row">
+                                    <label for="body" class="col-md-4 col-form-label">Content</label>
+                                    <textarea name="body" id="body" cols="50" rows="4"
+                                    class="form-control{{ $errors->has('body') ? ' is-invalid' : '' }}"
+                                    autocomplete="body" autofocus>{{ old('body') }}</textarea>
+
+                                    @if ($errors->has('body'))
+                                        <strong>{{ $errors->first('body') }}</strong>
+                                    @endif
+                                </div>
+                                
+                                <!-- ***IMPLEMENT CLASS THEN UNCOMMENT*** 
+                                <!--Class selection--
+                                <div class="row">
+                                    <label for="classSelect" class="col-md-4 col-form-label">Select Class</label>
+                                    <select name="classSelect" id="classSelect" class="w-50">
+                                        <!--Need classes to be implemented...--
+                                        <option value="All" selected>All</option>
+                                        foreach()
+
+                                        endforeach                                    
+                                    </select>
+                                </div>
+                                -->
+
+                                <!--Optional file upload-->
+                                <div class="row">
+                                    <label for="file" class="col-md-4 col-form-label">File</label>
+                                    <input type="file" class="form-control-file" id="file" name="file">
+
+                                    @if ($errors->has('file'))
+                                        <strong>{{ $errors->first('file') }}</strong>
+                                    @endif
+                                </div>
+
+                                <!--Submit button-->
+                                <div class="row pt-3 justify-content-center">
+                                    <button class="btn btn-primary">Add New Post</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Contact list modal-->
     <div class="modal fade" tabindex="-1" role="dialog" id="contactList">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -191,6 +308,5 @@
             </div>
         </div>
     </div>
-
 </div>
 @endsection

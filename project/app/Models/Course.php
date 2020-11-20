@@ -14,4 +14,9 @@ class Course extends Model
     protected $primaryKey = 'id';
     // indicates that the primary key auto increments
     public $incrementing = true;
+
+    public function post()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

@@ -36,27 +36,62 @@
                     <h4>Make a Post</h4>
                 </div>
                 <div class="card-body">
-                        <form action="" method="post">
-                            <textarea name="body" cols="40" rows="5" class="form-control"></textarea>
-                            <label for="Classes">Choose a Class</label>
-                            <select id="Classes" name="Classes">
-                                <option value="All">All</option>
-                                <option value="CS372">CS372</option>
-                                <option value="CS340">CS340</option>
-                                <option value="Placeholders...">Placeholders...</option>
-                            </select>
-                            <button type="submit" class="btn btn-primary btn-right">Share</button>
-                        </form>
-                    </div>  
-
-                    <div class="card-header">
-                        <h4>Updates from your classes</h4>
-                   </div> 
-                    <div class="card-body">
-                        Content...
-                    </div>        
+                    <form action="" method="post">
+                        <textarea name="body" cols="40" rows="5" class="form-control"></textarea>
+                        <label for="Classes">Choose a Class</label>
+                        <select id="Classes" name="Classes">
+                            <option value="All">All</option>
+                            <option value="CS372">CS372</option>
+                            <option value="CS340">CS340</option>
+                            <option value="Placeholders...">Placeholders...</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary btn-right">Share</button>
+                    </form>
                 </div>
-            {{-- </div> --}}
+            </div>  
+
+            <div class="card">
+                <div class="card-header">
+                    <h4>Updates from your classes</h4>
+               </div> 
+                <div class="card-body">
+                    @foreach($posts as $post)
+                        <!-- Head of post, includes posters name, date posted, etc... -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ asset('/storage/'.config('chatify.user_avatar.folder').'/'. \App\Models\User::where('id', $post->user->id)->first()->avatar) }}"
+                                        alt="pic" class="rounded-circle" style="max-width: 35px;">
+                                    <h5 class="pl-2 pt-1"><strong>{{ $post->user->name }}</strong></h5>
+                                    @can('update', $post->user->profile)
+                                        <div class="flex-grow-1"></div>
+                                        <a href="">Edit Post</a>
+                                    @endcan
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="small pl-1 pt-1 text-muted">
+                                        Created at: {{ $post->created_at->format('h:ia \\o\\n F d') }}
+                                    </div>
+                                    @can('update', $post->user->profile)
+                                        <a href="">Delete Post</a>
+                                    @endcan
+                                </div>
+                            </div>
+
+                            <!--  Content of post  -->   
+                            <div class="card-body">
+                                <h3>{{ $post->title }}</h3>
+                                <div>
+                                    <p>
+                                        {{ $post->body }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>    
+                    @endforeach 
+                </div>        
+            </div>
+        {{-- </div> --}}
         
 
         {{-- <div class="col">

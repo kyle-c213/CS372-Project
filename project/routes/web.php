@@ -37,7 +37,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Profile
 Route::get('/profile/{user_id}', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
-Route::get('/profile/{uder_id}/edit', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+Route::get('/profile/{user_id}/edit', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile/{user_id}', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 
 // ToDo
@@ -60,3 +60,7 @@ Route::post("/contact/search", [\App\Http\Controllers\ContactController::class, 
 Route::get('/profRate', [App\Http\Controllers\ProfRateController::class,'search'])->name('profSearch');
 //Route::get('/profRate/{prof_id}/rate', [App\Http\Controllers\ProfRateController::class, 'rate'])->name('profRate');
 //Route::patch('/search/{prof_id}/rate', [App\Http\Controllers\ProfRateController::class, 'rate'])->name('profRate.update');
+
+// Posts
+Route::post('', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
+Route::delete('', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.destroy');
