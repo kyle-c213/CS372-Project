@@ -14,6 +14,10 @@
                         <button class="btn btn-primary btn-block" onclick="window.location.href='{{ url('home') }}';">
                             <span class="fas fa-home" style="color:white;"></span> Home</button>
                     </li>
+                    <li>
+                        <button class="btn btn-secondary btn-block" onclick="window.location.href='{{ url('chat') }}';">
+                            <span class="fas fa-comments" style="color:white;"></span> Message Center</button>
+                    </li>
                     <li class="">
                         <button class="btn btn-light btn-block" onclick="window.location.href='#';">
                         Buy & Sell</button>

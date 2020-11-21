@@ -14,4 +14,8 @@ class Listing extends Model
     protected $primaryKey = 'id';
     // indicates that the primary key auto increments
     public $incrementing = true;
+
+    protected $fillable = [
+        'posted_by', 'course_id', 'title', 'description', 'price'
+    ];
 }

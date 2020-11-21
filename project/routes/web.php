@@ -51,11 +51,9 @@ Route::post("/todo/updateDate", [\App\Http\Controllers\ToDoController::class, 'u
 Route::post("/contact/addContact", [\App\Http\Controllers\ContactController::class, 'addContact'])->name('contact.addContact');
 Route::post("/contact/removeContact", [\App\Http\Controllers\ContactController::class, 'removeContact'])->name('contact.removeContact');
 Route::post("/contact/search", [\App\Http\Controllers\ContactController::class, 'search'])->name('contact.search');
+Route::get("/contact/{user_id}/email", [App\Http\Controllers\ContactController::class, 'email'])->name('contact.email');
+Route::post("/contact/{user_id}/email/send", [App\Http\Controllers\ContactController::class, 'send_email'])->name('contact.send_email');
 
-// // Messages
-// Route::get('/chat', [\App\Http\Controllers\ChatsController::class, 'index']);
-// Route::get('messages', [\App\Http\Controllers\ChatsController::class, 'fetchMessages']);
-// Route::post('messages', [\App\Http\Controllers\ChatsController::class, 'sendMessage']);
 // professor rate
 Route::get('/profRate', [App\Http\Controllers\ProfRateController::class,'search'])->name('profSearch');
 Route::get('/profRate/{prof_id}/rate', [App\Http\Controllers\ProfRateController::class, 'rate'])->name('profRate');
@@ -64,3 +62,7 @@ Route::get('/profRate/{prof_id}/rate', [App\Http\Controllers\ProfRateController:
 // Posts
 Route::post('', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
 Route::delete('', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.destroy');
+// Listings
+Route::get("/listings", [App\Http\Controllers\ListingController::class, 'index'])->name('listing.index');
+Route::get("/listings/create", [App\Http\Controllers\ListingController::class, 'create'])->name('listing.create');
+Route::post("/listings/create/new", [App\Http\Controllers\ListingController::class, 'create_post'])->name('listing.create_post');
