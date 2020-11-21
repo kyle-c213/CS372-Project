@@ -166,6 +166,7 @@
                 <div class="card-body">
                     @foreach($user->posts as $post)
                         <!-- Head of post, includes poster's name, date posted, etc... -->
+                        <div class="py-2">
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
@@ -199,7 +200,8 @@
                                     </p>
                                 </div>
                             </div>
-                        </div>    
+                        </div>  
+                        </div>  
                     @endforeach
                 </div>
             </div>
