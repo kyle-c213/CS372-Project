@@ -179,7 +179,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <div class="small pl-1 pt-1 text-muted">
-                                        Created at: {{ $post->created_at->format('h:ma \\o\\n F d') }}
+                                        Created at: {{ $post->created_at->format('h:ia \\o\\n F d') }}
                                     </div>
                                     @can('update', $user->profile)
                                         <form action="{{ url('post.destroy', ['post_id' => $post->id ]) }}">

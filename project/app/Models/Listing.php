@@ -18,4 +18,10 @@ class Listing extends Model
     protected $fillable = [
         'posted_by', 'course_id', 'title', 'description', 'price', 'sold', 'deleted'
     ];
+
+    public function getPicture()
+    {
+        $picPath = $this->picture;
+        return 'storage/' . $picPath;
+    }
 }

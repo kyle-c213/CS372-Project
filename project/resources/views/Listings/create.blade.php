@@ -32,7 +32,7 @@ function formatCurrency()
         </div>
         <div class="card-body">
             <div class="form-group">
-                <form id="sale" action="{{route('listing.create_post')}}" method="POST">
+                <form id="sale" action="{{route('listing.create_post')}}" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
                         <label class="">Ad Title</label>

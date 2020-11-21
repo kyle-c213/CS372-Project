@@ -22,6 +22,7 @@ class CreateListingsTable extends Migration
             $table->float('price');
             $table->boolean('sold');
             $table->boolean('deleted');
+            $table->string('picture')->nullable();
             $table->timestamps();
         });
     }

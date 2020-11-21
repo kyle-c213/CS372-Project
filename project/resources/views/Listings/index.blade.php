@@ -22,8 +22,12 @@
             <span class="text-secondary">${{number_format($val->price, 2)}}</span>
         </div>
         <div class="card-body">
+            <p class="text-center">
+                <img  src='{{$val->getPicture()}}' width="200" height="200" alt="No picture found for this item" class="rounded"/>
+            </p>
+            <hr/>
             <p>{{$val->description}}</p>
-            <small class="text-secondary">Posted by {{\App\Models\User::where('id', $val->posted_by)->first()->name}} at {{$val->created_at->format('h:m a \\o\\n F d')}}</small>
+            <small class="text-secondary">Posted by {{\App\Models\User::where('id', $val->posted_by)->first()->name}} at {{$val->created_at->format('h:i a \\o\\n F d')}}</small>
         </div>
     </div>
 </div>
