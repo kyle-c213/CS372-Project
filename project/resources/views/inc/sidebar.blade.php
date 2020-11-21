@@ -19,7 +19,7 @@
                             <span class="fas fa-comments" style="color:white;"></span> Message Center</button>
                     </li>
                     <li class="">
-                        <button class="btn btn-light btn-block" onclick="window.location.href='#';">
+                        <button class="btn btn-light btn-block" onclick="window.location.href='{{route('listing.index')}}';">
                         Buy & Sell</button>
                     </li>
                     <li class="">

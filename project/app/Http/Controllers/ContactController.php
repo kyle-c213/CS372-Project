@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use \App\Models\Contact;
 use \App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {
@@ -45,5 +46,11 @@ class ContactController extends Controller
         {
             return response()->json(array('users' => $records), 200);
         }
+    }
+
+    public function email($user_id)
+    {
+        $user = User::findOrFail($user_id);
+        return view('Contacts.email', compact('user'));
     }
 }

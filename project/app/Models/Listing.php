@@ -16,6 +16,6 @@ class Listing extends Model
     public $incrementing = true;
 
     protected $fillable = [
-        'posted_by', 'course_id', 'title', 'description', 'price'
+        'posted_by', 'course_id', 'title', 'description', 'price', 'sold', 'deleted'
     ];
 }
