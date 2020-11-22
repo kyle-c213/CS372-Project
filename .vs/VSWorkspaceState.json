@@ -2,15 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\project",
-    "\\project\\app",
-    "\\vendor",
-    "\\vendor\\laravel",
-    "\\vendor\\laravel\\framework",
-    "\\vendor\\laravel\\framework\\src",
-    "\\vendor\\laravel\\framework\\src\\Illuminate",
-    "\\vendor\\laravel\\framework\\src\\Illuminate\\Database",
-    "\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent"
+    "\\project\\resources",
+    "\\project\\resources\\views",
+    "\\project\\resources\\views\\auth"
   ],
-  "SelectedNode": "\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Collection.php",
+  "SelectedNode": "\\project\\resources\\views\\auth\\register.blade.php",
   "PreviewInSolutionExplorer": false
 }

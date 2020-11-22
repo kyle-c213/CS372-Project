@@ -23,7 +23,7 @@
                             <span class="fas fa-store"></span> Buy & Sell</button>
                     </li>
                     <li class="">
-                        <button class="btn btn-light btn-block" onclick="window.location.href='/profRate/';">
+                        <button class="btn btn-light btn-block" onclick="window.location.href='../profRate';">
                         <span class="fas fa-star"></span> Professor Ratings</button>
                     </li>
                     <li class="">

@@ -6,19 +6,16 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
             <!--remove, just put form to get new rating here-->
-                <div class="form-group row">
-                    <label for="name"
-                        class="col-md-4 col-form-label text-md-right">{{ __('Name') }}
-                    </label>
-                    <div class="col-md-6">
-                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                        @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
+                <div name="PRate" class="container">
+                    <h3>Rate Here</h3>
+                    <form name="ratingSub" id="ratingSub" action="store" method="post" enctype="multipart/form-data">
+                        @csrf <!--verification that its from the rating page-->
+                        <p> What class would you like to submit a rating for: <input type="text" name="classRated" id="classRated">
+                        <p> What rating would you like to submit: <input type="text" name="rated" id="rated">
+                        <textarea id="comments" name="comments"rows="10" cols="50" placeholder="Add comments here"></textarea>
+                        <p><input type="submit" value="Add Rating"></p>
+                    </form>
+                <div>
             <!--end of remove-->   
             </div>
         </div>

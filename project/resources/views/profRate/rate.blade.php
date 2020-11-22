@@ -28,8 +28,8 @@
                     -->
                     <div name="pastRatings">
                         <h3>Current Ratings</h3>
+
                         <!-- start of php -->
-                        <p>no current ratings</p>
                         <?php
                             //need to change $result and $id to work
                             /*if($result == null){
@@ -64,7 +64,7 @@
                         rating, class, comments
                     -->
 
-                    <form name="ratingSub" id="ratingSub" action="" method="" enctype="multipart/form-data">
+                    <form name="ratingSub" id="ratingSub" action="store" method="post" enctype="multipart/form-data">
                         <p> What class would you like to submit a rating for: <input type="text" name="classRate" id="classRate"></p><p class="error" name="classError" id="classError"></p>
                         <p> What rating would you like to submit: <input type="text" name="ratedRate" id="ratedRate"></p><p class="error" name="ratedError" id="ratedError"></p>
                         <P class="error" id="textError"></P>

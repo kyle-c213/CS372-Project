@@ -11,9 +11,6 @@ class Professor extends Model
 
     protected $table = "professors";
 
-    protected $info = [
-        'faculty', 'name',
-    ];
 
     public function ratings(){
         return $this->hasMany(Ratings::class);

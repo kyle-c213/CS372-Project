@@ -15,7 +15,7 @@ class ProfRateController extends Controller
         return view('profRate/search');
     }
     
-     public function rate($prof)
+    public function rate($prof)
     {
        /*
         $prof = Professor::findOrFail($prof);
@@ -24,5 +24,27 @@ class ProfRateController extends Controller
         */
 
         return view('profRate/rate');
+    }
+/*
+     public function create($prof)
+    {
+       
+       $prof = Professor::findOrFail($prof);
+       'name' => $prof,
+       'faculty' => $prof,
+       
+
+       return view('profRate/create');
+    }
+*/
+     public function store($prof)
+    {
+       /*
+        $prof = Professor::findOrFail($prof);
+        'name' => $prof,
+        'faculty' => $prof,
+        */
+
+        return view('profRate/store');
     }
 }
