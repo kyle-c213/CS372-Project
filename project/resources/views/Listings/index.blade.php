@@ -2,7 +2,11 @@
 
 @section('content')
 
-<button class="btn btn-primary p-2" onclick="window.location.href='{{route('listing.create')}}';">Create listing</button>
+
+<button class="btn btn-primary p-2 btn-block" onclick="window.location.href='{{route('listing.create')}}';">Create Listing</button>
+<button class="btn btn-dark p-2 btn-block" onclick="window.location.href='{{route('listing.show', auth()->user()->id)}}';">View Your Listings</button>
+<button class="btn btn-secondary p-2 btn-block" onclick="window.location.href='{{route('mail.index')}}';">View Your Inbox ({{$messages}})</button>
+
 <br/>
 <h1>Recent Listings</h1>
 <hr/>
@@ -16,7 +20,7 @@
                     <h3>{{$val->title}}</h3>
                 </div>
                 <div class="col">
-                    <a href="{{route("contact.email", $val->posted_by)}}" style="float: right;">Contact Seller</a>
+                    <a href="{{route("mail.send", ['to_id' => $val->posted_by, 'listing_id' => $val->id])}}" style="float: right;">Contact Seller</a>
                 </div>
             </div>
             <span class="text-secondary">${{number_format($val->price, 2)}}</span>

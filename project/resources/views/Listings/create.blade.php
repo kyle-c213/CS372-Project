@@ -26,6 +26,10 @@ function formatCurrency()
 
 @section('content')
 
+    <button class="btn btn-dark p-2 btn-block" onclick="window.location.href='{{route('listing.index')}}';">View All Listings</button>
+    <button class="btn btn-secondary p-2 btn-block" onclick="window.location.href='{{route('mail.index')}}';">View Your Inbox ({{$messages}})</button>
+    <br/>
+
     <div class="card">
         <div class="card-header">
             <h2>What are you selling?</h2>
