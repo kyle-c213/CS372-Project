@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+// use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,3 +68,14 @@ Route::delete('', [App\Http\Controllers\PostController::class, 'destroy'])->name
 Route::get("/listings", [App\Http\Controllers\ListingController::class, 'index'])->name('listing.index');
 Route::get("/listings/create", [App\Http\Controllers\ListingController::class, 'create'])->name('listing.create');
 Route::post("/listings/create/new", [App\Http\Controllers\ListingController::class, 'create_post'])->name('listing.create_post');
+Route::get("/listings/{user_id}", [App\Http\Controllers\ListingController::class, 'show'])->name('listing.show');
+// these probably should be posted for security reasons, for now just checking user auth
+Route::get("/listing/delete/{id}", [App\Http\Controllers\ListingController::class, 'delete'])->name("listing.delete");
+Route::get("/listing/sold/{id}", [App\Http\Controllers\ListingController::class, 'sold'])->name("listing.sold");
+
+// Mail
+Route::get("/inbox", [\App\Http\Controllers\MailController::class, 'index'])->name('mail.index');
+Route::get("/send/{to_id}/{listing_id}", [\App\Http\Controllers\MailController::class, 'send'])->name('mail.send');
+Route::post("/send/sending", [\App\Http\Controllers\MailController::class, 'send_post'])->name('mail.send_post');
+Route::get("/show/{mail_id}", [\App\Http\Controllers\MailController::class, 'show'])->name('mail.show');
+Route::post("/mail/delete", [\App\Http\Controllers\MailController::class, 'delete'])->name('mail.delete');

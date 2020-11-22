@@ -139,10 +139,15 @@
                 <h5> {{ $user->profile->major ?? 'No major' }}</h5>
                 @can('update', $user->profile)
                     <a href="#" data-toggle="modal" data-target="#contactList"><span class="fas fa-user-friends"></span> View contacts</a>
+                @else
+                    <a href="{{route('listing.show', $user->id)}}"><span class="fas fa-store"></span> View listings</a>
                 @endcan
             </div>
-            <div>
+            <div class="d-flex justify-content-between align-items-baseline">
                 <h5> {{ $user->profile->school ?? 'N/A' }} </h5>
+                @can('update', $user->profile)
+                    <a href="{{route('listing.show', $user->id)}}"><span class="fas fa-store"></span> View listings</a>
+                @endcan
             </div>
             <div>
                 <aside> {{ $user->profile->bio }} </aside>     
@@ -166,6 +171,7 @@
                 <div class="card-body">
                     @foreach($user->posts as $post)
                         <!-- Head of post, includes poster's name, date posted, etc... -->
+                        <div class="py-2">
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
@@ -199,7 +205,8 @@
                                     </p>
                                 </div>
                             </div>
-                        </div>    
+                        </div>  
+                        </div>  
                     @endforeach
                 </div>
             </div>

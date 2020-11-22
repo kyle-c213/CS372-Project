@@ -20,20 +20,20 @@
                     </li>
                     <li class="">
                         <button class="btn btn-light btn-block" onclick="window.location.href='{{route('listing.index')}}';">
-                        Buy & Sell</button>
+                            <span class="fas fa-store"></span> Buy & Sell</button>
                     </li>
                     <li class="">
                         <button class="btn btn-light btn-block" onclick="window.location.href='/profRate/';">
-                        Professor Ratings</button>
+                        <span class="fas fa-star"></span> Professor Ratings</button>
                     </li>
                     <li class="">
                         <button class="btn btn-light btn-block" onclick="window.location.href='../Classes/classSearch.blade.php';">
-                        Class search
+                        <span class="fas fa-graduation-cap"></span> Class search
                         </button>
                     </li>
                     <li class="">
                         <button class="btn btn-light btn-block" onclick="window.location.href='{{route('todo')}}';">
-                        To Do
+                        <span class="fas fa-clipboard-list"></span> To Do
                         </button>
                     </li>
                 </ul>
