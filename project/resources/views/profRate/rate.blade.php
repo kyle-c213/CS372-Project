@@ -16,8 +16,8 @@
                     -->
                     <div name="information">
                         <h3>Professor Information</h3>
-                        <p name="name"> print prof name here</p>
-                        <p name="faculty"> print faculty here </p>
+                        <p name="name"> Professors name here<!--{{ $prof->name ?? '' }}--> </p>
+                        <p name="faculty"> professors faculty here<!--{{ $prof->faculty  ?? '' }}--> </p>
                         <p name="avgRating"> print prof avg rating here</p> 
                     </div>
 
@@ -27,8 +27,9 @@
                         as table with column order -> class rating comment
                     -->
                     <div name="pastRatings">
-                        <h3>Professor's current ratings</h3>
+                        <h3>Current Ratings</h3>
                         <!-- start of php -->
+                        <p>no current ratings</p>
                         <?php
                             //need to change $result and $id to work
                             /*if($result == null){
@@ -57,7 +58,7 @@
                 </div>
 
                 <div name="PRate" class="container">
-                    <h5>Rate here</h5>
+                    <h3>Rate Here</h3>
                     <!--
                         to be gathered:
                         rating, class, comments

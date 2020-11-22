@@ -10,8 +10,18 @@ class Professor extends Model
     use HasFactory;
 
     protected $table = "professors";
+
+    protected $info = [
+        'faculty', 'name',
+    ];
+
+    public function ratings(){
+        return $this->hasMany(Ratings::class);
+    }
+
     // primary key of the table
     protected $primaryKey = 'id';
+
     // indicates that the primary key auto increments
     public $incrementing = true;
 

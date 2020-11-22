@@ -16,7 +16,9 @@
         if(hidden == 0 || PSearch.value == null || PSearch.value == ""){
             //display all the professors, default option
             hidden = 0; //resets the hidden value when the search bar is cleared
-        } else {
+        } /*else if (prof return = null){ //displays if the database has no profs to display
+        }*/
+        else{
             //display the profs related to the search
             hidden = 1; //updates the hidden value when something is entered in to the search bar
 
@@ -43,7 +45,7 @@
                     <h5>Current Results</h5>
                     <!--list of all profs to start, once searched list is reduced, says not profs found-->
                     <p id="profDisplay"> go to
-                        <buton class="btn btn-primary btn-block" style="width: 150px;" onclick="window.location.href='/profRate/1/rate';">
+                        <buton class="btn btn-primary btn-block" style="width: 150px;" onclick="window.location.href='/profRate/rate/1';">
                         <span class="fas" style="color:white;"></span>Rate Professor</button>
                     </p>
                 </div>

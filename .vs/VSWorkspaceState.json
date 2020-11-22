@@ -3,18 +3,14 @@
     "",
     "\\project",
     "\\project\\app",
-    "\\project\\app\\Http",
-    "\\project\\app\\Http\\Controllers",
-    "\\project\\app\\Models",
-    "\\project\\resources",
-    "\\project\\resources\\views",
-    "\\project\\resources\\views\\inc",
-    "\\project\\resources\\views\\profRate",
-    "\\project\\resources\\views\\ToDo",
-    "\\project\\routes",
-    "\\project\\vendor\\munafio\\chatify",
-    "\\project\\vendor\\munafio\\chatify\\routes"
+    "\\vendor",
+    "\\vendor\\laravel",
+    "\\vendor\\laravel\\framework",
+    "\\vendor\\laravel\\framework\\src",
+    "\\vendor\\laravel\\framework\\src\\Illuminate",
+    "\\vendor\\laravel\\framework\\src\\Illuminate\\Database",
+    "\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent"
   ],
-  "SelectedNode": "\\project\\app\\Models\\Rating.php",
+  "SelectedNode": "\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Collection.php",
   "PreviewInSolutionExplorer": false
 }

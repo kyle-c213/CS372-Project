@@ -10,6 +10,12 @@ class Rating extends Model
     use HasFactory;
 
     protected $table = "ratings";
+
+    public function professor(){
+
+        return $this->belongsTo(Professor::class);
+    }
+
     // primary key of the table
     protected $primaryKey = 'id';
     // indicates that the primary key auto increments
