@@ -29,7 +29,12 @@ class ListingController extends Controller
         // create new listing and save details from form
         $listing = new Listing();
         $listing->title = $request->title;
-        $listing->price = str_replace("$", "", $request->price);
+
+        // format pricing
+        $price = str_replace("$", "", $request->price);
+        $price = str_replace(",", "", $price);
+        $listing->price = $price;
+        
         $listing->description = $request->description;
         $listing->posted_by = auth()->user()->id;
         $listing->course_id = null;
@@ -40,7 +45,7 @@ class ListingController extends Controller
         if (request('picture'))
         {
             $picpath = request('picture')->store('listings', 'public');
-            $pic = Image::make(public_path("storage/{$picpath}"))->fit(1000, 1000);
+            $pic = Image::make(public_path("storage/{$picpath}"));
             $pic->save();
 
             $listing->picture = $picpath;
