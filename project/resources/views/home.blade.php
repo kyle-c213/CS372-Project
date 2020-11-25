@@ -36,7 +36,7 @@
         {{-- <div class="col col-md-8"> --}}
             <div class="card card-index">
                 <div class="card-header">
-                    <h4>Make a Post</h4>
+                    <h2>Make a Post</h2>
                 </div>
                 <form action="{{ route('post.store','') }}" enctype="multipart/form-data" method="post">
                     @csrf

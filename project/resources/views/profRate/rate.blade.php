@@ -16,8 +16,8 @@
                     -->
                     <div name="information">
                         <h3>Professor Information</h3>
-                        <p name="name"> print prof name here</p>
-                        <p name="faculty"> print faculty here </p>
+                        <p name="name"> Professors name here<!--{{ $prof->name ?? '' }}--> </p>
+                        <p name="faculty"> professors faculty here<!--{{ $prof->faculty  ?? '' }}--> </p>
                         <p name="avgRating"> print prof avg rating here</p> 
                     </div>
 
@@ -27,7 +27,8 @@
                         as table with column order -> class rating comment
                     -->
                     <div name="pastRatings">
-                        <h3>Professor's current ratings</h3>
+                        <h3>Current Ratings</h3>
+
                         <!-- start of php -->
                         <?php
                             //need to change $result and $id to work
@@ -57,13 +58,13 @@
                 </div>
 
                 <div name="PRate" class="container">
-                    <h5>Rate here</h5>
+                    <h3>Rate Here</h3>
                     <!--
                         to be gathered:
                         rating, class, comments
                     -->
 
-                    <form name="ratingSub" id="ratingSub" action="" method="" enctype="multipart/form-data">
+                    <form name="ratingSub" id="ratingSub" action="store" method="post" enctype="multipart/form-data">
                         <p> What class would you like to submit a rating for: <input type="text" name="classRate" id="classRate"></p><p class="error" name="classError" id="classError"></p>
                         <p> What rating would you like to submit: <input type="text" name="ratedRate" id="ratedRate"></p><p class="error" name="ratedError" id="ratedError"></p>
                         <P class="error" id="textError"></P>

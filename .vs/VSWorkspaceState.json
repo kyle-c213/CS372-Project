@@ -8,13 +8,8 @@
     "\\project\\app\\Models",
     "\\project\\resources",
     "\\project\\resources\\views",
-    "\\project\\resources\\views\\inc",
-    "\\project\\resources\\views\\profRate",
-    "\\project\\resources\\views\\ToDo",
-    "\\project\\routes",
-    "\\project\\vendor\\munafio\\chatify",
-    "\\project\\vendor\\munafio\\chatify\\routes"
+    "\\project\\resources\\views\\inc"
   ],
-  "SelectedNode": "\\project\\app\\Models\\Rating.php",
+  "SelectedNode": "\\project\\resources\\views\\inc\\sidebar.blade.php",
   "PreviewInSolutionExplorer": false
 }

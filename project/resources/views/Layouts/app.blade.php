@@ -109,12 +109,12 @@
 
                 <div class="row-fluid">
 
-                    <div id="showChat" class="fixed-bottom-right" class="fa-4x">
+                    {{-- <div id="showChat" class="fixed-bottom-right" class="fa-4x">
                         <span class="fa-stack fa-2x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
                             <a id="chat" class="fas fa-comments fa-stack-1x fa-inverse" href="{{route('chat')}}" style="text-decoration: none;"></a>
                         </span>
-                    </div>
+                    </div> --}}
 
                     <div class="col">
                         @include('inc.sidebar')

@@ -16,10 +16,13 @@ class CreateListingsTable extends Migration
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('posted_by')->constrained('users');
-            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
+            $table->foreignId('course_id')->nullable()->constrained('courses')->onDelete('cascade');
             $table->string('title');
             $table->string('description');
             $table->float('price');
+            $table->boolean('sold');
+            $table->boolean('deleted');
+            $table->string('picture')->nullable();
             $table->timestamps();
         });
     }

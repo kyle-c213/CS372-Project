@@ -14,4 +14,8 @@ class ListingTag extends Model
     protected $primaryKey = 'id';
     // indicates that the primary key auto increments
     public $incrementing = true;
+
+    protected $fillable = [
+        'tag', 'listing_id'
+    ];
 }
