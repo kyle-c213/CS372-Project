@@ -47,7 +47,7 @@
                     <div>
                         <p id="profDisplay"> go to
                             <buton class="btn btn-primary btn-block" style="width: 150px;" onclick="window.location.href='/profRate/rate/1';">
-                            <span class="fas" style="color:white;"></span>Rate Professor</button>
+                            <span class="fas" style="color:white;"></span>Rate Professor {{ $prof->name ?? ' '}}</button>
                         </p>
                     </div>
                 </div>

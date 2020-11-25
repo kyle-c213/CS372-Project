@@ -58,7 +58,7 @@ Route::post("/contact/{user_id}/email/send", [App\Http\Controllers\ContactContro
 // professor rate
 Route::get('/profRate', [App\Http\Controllers\ProfRateController::class,'search'])->name('profSearch');
 Route::get('/profRate/profRate', [App\Http\Controllers\ProfRateController::class,'search'])->name('profSearch');
-Route::get('/profRate/rate/{prof_id}', [App\Http\Controllers\ProfRateController::class, 'rate'])->name('profRate');
+Route::get('/profRate/rate/{prof_id}', [App\Http\Controllers\ProfRateController::class, 'rate'])->name('profRate.show');
 Route::post('/profRate/rate/{prof_id}/save', [App\Http\Controllers\RatingController::class, 'store']);
 //Route::post('/search/rate/{prof_id}', [App\Http\Controllers\ProfRateController::class, 'rate'])->name('profRate.update');
 

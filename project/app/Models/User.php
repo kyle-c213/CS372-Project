@@ -61,7 +61,7 @@ class User extends Authenticatable
         return $this->hasMany(Post::class)->orderBy('created_at', 'DESC');
     }
 
-    public function ratings()
+    public function rating()
     {
         return $this->hasMany(Rating::class);
     }

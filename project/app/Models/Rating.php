@@ -21,16 +21,9 @@ class Rating extends Model
         return $this->belongsTo(User::class);
     }
 
-
-    protected $guarded = [];
-
+    //only varialbes in DB that are allowed to have data entered
     protected $fillable = [
-        $table->id();
-        $table->foreignId('rated_by')->constrained('users')->onDelete('cascade');
-        $table->foreignId('professor_rated')->constrained('professors')->onDelete('cascade');
-        $table->foreignId('course_taken')->constrained('courses')->onDelete('cascade');
-        $table->float('rating');
-        $table->string('body');
+        'rating','rated_by','professor_rated','comments','class_taken'
     ];
 
     // primary key of the table

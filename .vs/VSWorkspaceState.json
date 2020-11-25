@@ -2,10 +2,14 @@
   "ExpandedNodes": [
     "",
     "\\project",
+    "\\project\\app",
+    "\\project\\app\\Http",
+    "\\project\\app\\Http\\Controllers",
+    "\\project\\app\\Models",
     "\\project\\resources",
     "\\project\\resources\\views",
-    "\\project\\resources\\views\\auth"
+    "\\project\\resources\\views\\inc"
   ],
-  "SelectedNode": "\\project\\resources\\views\\auth\\register.blade.php",
+  "SelectedNode": "\\project\\resources\\views\\inc\\sidebar.blade.php",
   "PreviewInSolutionExplorer": false
 }

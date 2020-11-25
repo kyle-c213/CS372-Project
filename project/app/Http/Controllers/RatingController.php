@@ -16,7 +16,20 @@ class RatingController extends Controller
     public function create()
     {
 
+
+
         return view('profRate/create');
+    }
+
+    public function create(array $data)
+    {
+        return Rating::create([
+            'rating' => $data['rating'],
+            'rated_by' => $data['rated_by'],
+            'professor_rated' => $data['professor_rated'],
+            'comments' => $data['comments'],
+            'class_taken' => $data['class_taken'],
+        ]);
     }
 
     public function store(){
@@ -24,19 +37,19 @@ class RatingController extends Controller
         //data validation from form for ratings
         $data = request()->validate([
             'comments' => ['required', 'string'],
-            'rating' => ['required', 'between:1,5', 'numeric'],
-            'classRated' => ['required', 'string'],
-            //user id still needed
-            //professor id still needed
+            'rating' => ['required', 'between:1,5', 'integer'],
+            'class_taken' => ['required', 'string'],
+            'rated_by' => ['required', 'integer'],
+            'professor_rated' => ['required', 'integer'],
         ]);
 
 
         auth()->user()->ratings()->create([
             'comments' => $data['comments'],
             'rating' => $data['rating'],
-            'classRated' => $data['classRated'],
-            //user id still needed
-            //professor id still needed
+            'class_taken' => $data['class_taken'],
+            'rated_by' => $data['rated_by'],
+            'professor_rated' => $data['professor_rated'],
         ]);
 
         \App\Models\Rating::create($data)
