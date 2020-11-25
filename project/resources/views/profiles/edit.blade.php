@@ -50,9 +50,8 @@
 
                     <textarea id="bio" type="text" name="bio"
                     class="form-control{{$errors->has('bio') ? ' is_invalid' : '' }}"
-                    value="{{ old('bio') ?? $user->profile->bio }}" autocomplete="bio" autofoucs
-                    rows="4" cols="50">
-                    </textarea>
+                    autocomplete="bio" autofoucs
+                    rows="4" cols="50">{{ old('bio') ?? $user->profile->bio }}</textarea>
 
                     @if ($errors->has('bio'))
                         <span class="invalid-feedback" role="alert">

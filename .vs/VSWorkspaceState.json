@@ -7,13 +7,9 @@
     "\\project\\app\\Http\\Controllers",
     "\\project\\app\\Models",
     "\\project\\resources",
-    "\\project\\resources\\css",
     "\\project\\resources\\views",
-    "\\project\\resources\\views\\inc",
-    "\\project\\resources\\views\\Layouts",
-    "\\project\\resources\\views\\profiles",
-    "\\vendor"
+    "\\project\\resources\\views\\inc"
   ],
-  "SelectedNode": "\\project\\resources\\views\\inc\\footer.blade.php",
+  "SelectedNode": "\\project\\resources\\views\\inc\\sidebar.blade.php",
   "PreviewInSolutionExplorer": false
 }

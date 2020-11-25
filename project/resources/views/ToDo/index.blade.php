@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
+
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -240,10 +240,13 @@
     }
 </script>
 
-<div class="container py-4">
-
-    <h2>Your To-Do List <span class="refresh fas fa-sync" onclick="refresh()"></span></h2>
-    
+{{-- <div class="container py-4"> --}}
+@section('content')
+<div class="card">
+    <div class="card-header">
+        <h2>Your To-Do List <span class="refresh fas fa-sync" onclick="refresh()"></span></h2>
+    </div>
+    <div class="card-body">
     <table class="table table-sm">
         <tr>
             <td style="width: 60%;"><input id="body" type="text" class="form-control" placeholder="Enter a new task" /></td>
@@ -252,7 +255,6 @@
         </tr>
     </table>
 
-    <div class="card">
     <table id="tasklist" class="table table-borderless">            
         @foreach($todo as $key=>$val)
             <?php
@@ -270,6 +272,7 @@
     </table>
     </div>
 </div>
+{{-- </div> --}}
 
 <script src="/js/moment.min.js"></script>
 <script src="/js/bootstrap-datetimepicker.min.js"></script>

@@ -1,6 +1,48 @@
 <!--Sidebar navigation-->
 
-<nav id="sidebarMenu" class="col-md-4 d-md-block bg-light sidebar collapse">
+<style>
+    li{
+        margin:0 0 10px 0;
+    }
+    </style>
+
+<nav id="sidebarMenu" class="">
+    <div class="card">
+            <div class="card-body text-center">
+                <ul class="nav flex-column">
+                    <li>
+                        <button class="btn btn-primary btn-block" onclick="window.location.href='{{ url('home') }}';">
+                            <span class="fas fa-home" style="color:white;"></span> Home</button>
+                    </li>
+                    <li>
+                        <button class="btn btn-secondary btn-block" onclick="window.location.href='{{ url('chat') }}';">
+                            <span class="fas fa-comments" style="color:white;"></span> Message Center</button>
+                    </li>
+                    <li class="">
+                        <button class="btn btn-light btn-block" onclick="window.location.href='{{route('listing.index')}}';">
+                            <span class="fas fa-store"></span> Buy & Sell</button>
+                    </li>
+                    <li class="">
+                        <button class="btn btn-light btn-block" onclick="window.location.href='../profRate';">
+                        <span class="fas fa-star"></span> Professor Ratings</button>
+                    </li>
+                    <li class="">
+                        <button class="btn btn-light btn-block" onclick="window.location.href='../Classes/classSearch.blade.php';">
+                        <span class="fas fa-graduation-cap"></span> Class search
+                        </button>
+                    </li>
+                    <li class="">
+                        <button class="btn btn-light btn-block" onclick="window.location.href='{{route('todo')}}';">
+                        <span class="fas fa-clipboard-list"></span> To Do
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+{{-- <nav id="sidebarMenu" class="col-md-4 d-md-block bg-light sidebar collapse">
     <div class="sidebar-sticky">
             <ul class="nav flex-column">
             <li class="nav-item">
@@ -27,4 +69,4 @@
             </ul>
         </div>
     </div>
-</nav>
+</nav> --}}

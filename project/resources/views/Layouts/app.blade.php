@@ -18,6 +18,27 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+         .container-fluid {
+            display: flex;
+            }
+
+        .fixed-bottom-right {
+            position: absolute;
+            bottom: 0px;
+            right: 0px; 
+        }
+
+        #showChat{
+
+        }
+
+        #chat:hover{
+            color:rgb(189, 189, 189);
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -58,14 +79,14 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('profile.show', $user) }}"
-                                    onclick = "{{ Auth::user()->id }}"> {{ __('Profile')}} </a>
+                                    onclick = "{{ Auth::user()->id }}"><span class="fas fa-user"></span>  {{ __('Profile')}} </a>
 
-                                    <a class="dropdown-item" href="{{route('chat')}}">Message Center</a>
+                                    <a class="dropdown-item" href="{{route('chat')}}"><span class="fas fa-comments"></span> Message Center</a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        <span class="fas fa-sign-out-alt"></span> {{ __('Logout') }}
                                     </a>
                                     
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -79,9 +100,39 @@
             </div>
         </nav>
 
+        @auth
         <main class="">
+            <div class="container-fluid py-4">
+
+                <div class="row-fluid">
+
+                    {{-- <div id="showChat" class="fixed-bottom-right" class="fa-4x">
+                        <span class="fa-stack fa-2x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <a id="chat" class="fas fa-comments fa-stack-1x fa-inverse" href="{{route('chat')}}" style="text-decoration: none;"></a>
+                        </span>
+                    </div> --}}
+
+                    <div class="col">
+                        @include('inc.sidebar')
+                    </div>
+
+                    <div class="col col-md-8">
+                        @yield('content')
+                    </div>
+
+                    <div class="col">
+                        <!-- Contacts menu on Right-->
+                        @include('inc.contactsidebar')
+                    </div>
+                </div>
+            </div>
+        </main>
+        @else
+        <main>
             @yield('content')
         </main>
+        @endauth
     </div>
 </body>
 </html>

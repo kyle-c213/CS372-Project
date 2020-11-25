@@ -49,16 +49,6 @@ class ProfileController extends Controller
             'picture' => '',
         ]);
 
-        //if request has a picture, update path
-        // if(request('picture'))
-        // {
-        //     $picpath = request('picture')->store('profile', 'public');
-        //     $pic = Image::make(public_path("storage/{$picpath}"))->fit(1000, 1000);
-        //     $pic->save();
-
-        //     $picArr = ['picture' => $picpath ];
-        // }
-
         if ($request->hasFile('picture')) {
             // allowed extensions
             $allowed_images = Chatify::getAllowedImages();
