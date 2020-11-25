@@ -27,7 +27,7 @@
                         <span class="fas fa-star"></span> Professor Ratings</button>
                     </li>
                     <li class="">
-                        <button class="btn btn-light btn-block" onclick="window.location.href='../Classes/classSearch.blade.php';">
+                        <button class="btn btn-light btn-block" onclick="window.location.href='{{route('class.class')}}';">
                         <span class="fas fa-graduation-cap"></span> Class search
                         </button>
                     </li>
