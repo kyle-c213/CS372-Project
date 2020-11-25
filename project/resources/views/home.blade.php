@@ -7,9 +7,12 @@
        {{ session('status') }}                        
     </div>
 @endif
-<!--{{ __('You are logged in!') }}-->
 
-
+<script>
+    var token = '{{ Session::token() }}';
+    var urlEdit = '{{ route('post.edit') }}';
+    var urlDestroy = '{{ route('post.destroy') }}';
+</script>
 
 @section('content')
 
@@ -35,60 +38,94 @@
                 <div class="card-header">
                     <h4>Make a Post</h4>
                 </div>
-                <div class="card-body">
-                    <form action="" method="post">
-                        <textarea name="body" cols="40" rows="5" class="form-control"></textarea>
-                        <label for="Classes">Choose a Class</label>
-                        <select id="Classes" name="Classes">
-                            <option value="All">All</option>
-                            <option value="CS372">CS372</option>
-                            <option value="CS340">CS340</option>
-                            <option value="Placeholders...">Placeholders...</option>
-                        </select>
-                        <button type="submit" class="btn btn-primary btn-right">Share</button>
-                    </form>
-                </div>
-            </div>  
+                <form action="{{ route('post.store','') }}" enctype="multipart/form-data" method="post">
+                    @csrf
+
+                    <div class="card-body">
+                        <div class="form-group row pl-3">
+                            <label for="title" class="pr-3">Post Title</label>
+                            <input type="text" name="title" id="title">
+                        </div>
+
+                        <div class="form-group row pl-3">
+                            <label for="body">Content</label>
+                            <textarea name="body" cols="40" rows="5" class="form-control"></textarea>
+                        </div>
+
+                        <div class="form-group row pl-3">
+                            <label for="Classes" class="pr-3">Choose a Class</label>
+                            <select id="Classes" name="Classes">
+                                <option value="All">All</option>
+                                <option value="CS372">CS372</option>
+                                <option value="CS340">CS340</option>
+                                <option value="Placeholders...">Placeholders...</option>
+                            </select>
+
+                            <div class="flex-grow-1"></div>
+                            <button type="submit" class="btn btn-primary btn-right">Share</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="pt-3 pb-3"></div>
 
             <div class="card">
                 <div class="card-header">
                     <h4>Updates from your classes</h4>
                </div> 
                 <div class="card-body">
-                      
+                    <!-- No Posts to show -->
+                    @if($posts->count() == 0)
+                        <div class="d-flex justify-content-center">
+                            <h3><strong>No posts to show</strong></h3>
+                        </div>
+                    @endif 
+
                     @foreach($posts as $p=>$post)
                         <!-- Head of post, includes posters name, date posted, etc... -->
                         <div class="card">
                             <div class="card-header">
-                                <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center edit">
                                     <img src="{{ asset('/storage/'.config('chatify.user_avatar.folder').'/'. \App\Models\User::where('id', $post->user->id)->first()->avatar) }}"
                                         alt="pic" class="rounded-circle" style="max-width: 35px;">
-                                    <h5 class="pl-2 pt-1"><strong>{{ $post->user->name }}</strong></h5>
+                                    <h5 class="pl-2 pt-1"><a href="{{ route('profile.show', $post->user->id) }}" style="color:black;"><strong>{{ $post->user->name }}</strong></a></h5>
                                     @can('update', $post->user->profile)
                                         <div class="flex-grow-1"></div>
-                                        <a href="">Edit Post</a>
+                                        <a href="#" class="editPost">Edit Post</a>
                                     @endcan
                                 </div>
-                                <div class="d-flex justify-content-between">
-                                    <div class="small pl-1 pt-1 text-muted">
-                                        Created at: {{ $post->created_at->format('h:ia \\o\\n F d') }}
+                                <div class="d-flex justify-content-between delete"  data-postid="{{ $post->id }}">
+                                    <div>
+                                        <table class="small pl-1 pt-1 text-muted">
+                                            <tr>
+                                                <td class="pr-2">Created at: {{ $post->created_at->format('h:ia \\o\\n F d') }}</td>
+                                                @if($post->created_at != $post->updated_at)
+                                                    <td style="border-left:1px solid #ccc;" class="pl-2">Updated at: {{ $post->updated_at->format('h:ia \\o\\n F d') }}</td>
+                                                @endif
+                                            </tr>
+                                        </table>
                                     </div>
                                     @can('update', $post->user->profile)
-                                        <a href="">Delete Post</a>
+                                        <a href="#" class="dltPost">Delete Post</a>
                                     @endcan
                                 </div>
                             </div>
 
                             <!--  Content of post  -->   
-                            <div class="card-body">
-                                <h3>{{ $post->title }}</h3>
+                            <div class="card-body" data-postid="{{ $post->id }}">
+                                <h2>{{ $post->title }}</h2>
                                 <div>
-                                    <p>
+                                    @if($post->file)
+                                        <img src="/storage/{{ $post->file }}" class="w-50">
+                                    @endif
+                                    <p class="pt-2" style="font-size: 18px;">
                                         {{ $post->body }}
                                     </p>
                                 </div>
                             </div>
-                        </div>    
+                        </div>
+                        <div class="pt-2"></div>    
                     @endforeach
                 </div>        
             </div>
@@ -101,6 +138,76 @@
         </div> --}}
     {{-- </div>
 </div> --}}
+
+    <!-- Delete Post modal-->
+    <div class="modal fade" tabindex="-1" role=dialog id="deletePost"> 
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Post</h4>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <strong>This will erase the post and will not be reversable!</strong>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-primary" id="modal-delete">Confirm</a>
+                    <a href="#" data-dismiss="modal" class="btn btn-secondary">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Edit Post Modal-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="editPost">
+        <div class="modal-dialog modal-dialog-centered" role="document">            
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Post</h4>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-8 offset-2">
+                                <!--Title-->
+                                <div class="form-group row">    
+                                    <label for="editTitle" class="col-md-4 col-form-label">Post title</label>
+                                    <input type="text" name ="editTitle" id="editTitle">
+                                </div>
+
+                                <!--Content-->
+                                <div class="form-group row">
+                                    <label for="editBody" class="col-md-4 col-form-label">Content</label>
+                                    <textarea name="editBody" id="editBody" cols="50" rows="4"></textarea>
+                                </div>
+
+                                <!--file upload-->
+                                <div class="form-group row">
+                                    <label for="editFile" class="col-md-4 col-form-label">File</label>
+                                    <input type="file" class="form-control-file" id="editFile" name="editFile">
+                                </div>
+
+                                <!--Submit button-->
+                                <div class="row pt-3 justify-content-center">
+                                    <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <div class="pr-3"></div>
+                                    <button class="btn btn-primary" id="modal-save">Update Post</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {{-- </div> --}}
 @endsection
 

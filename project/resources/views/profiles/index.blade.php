@@ -7,6 +7,10 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <script>
+    var token = '{{ Session::token() }}';
+    var urlEdit = '{{ route('post.edit') }}';
+    var urlDestroy = '{{ route('post.destroy') }}';
+
     function addContact()
     {
         var first_user = "{{auth()->user()->id}}";
@@ -111,6 +115,7 @@
             }
         });
     }
+
 </script>
 
 @section('content')
@@ -124,7 +129,7 @@
                 <h1><strong>{{ $user->name }}</strong></h1>
 
                 @can('update', $user->profile)
-                    <a href="/profile/{{ $user->id }}/edit"><span class="fas fa-edit"></span> Edit Profile</a>                    
+                    <a href="{{ route('profile.edit', $user->id) }}"><span class="fas fa-edit"></span> Edit Profile</a>                    
                 @else
                     @if($isContact)                       
                         <a href="#" id="contactLink" class="text-danger"><span id="contact" class="fas fa-user-slash"></span><span id="contact2"> Remove contact</span></a>                
@@ -164,43 +169,80 @@
                     @endcan        
                 </div>
                 <div class="card-body">
+                @if(!$user->posts->isEmpty())
                     @foreach($user->posts as $post)
                         <!-- Head of post, includes poster's name, date posted, etc... -->
                         <div class="card">
                             <div class="card-header">
-                                <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center edit">
                                     <img src="{{ asset('/storage/'.config('chatify.user_avatar.folder').'/'. \App\Models\User::where('id', $post->user->id)->first()->avatar) }}"
                                         alt="pic" class="rounded-circle" style="max-width: 35px;">
-                                    <h5 class="pl-2 pt-1"><strong>{{ $post->user->name }}</strong></h5>
+                                    <h5 class="pl-2 pt-1"><a href="{{ route('profile.show', $post->user->id) }}" style="color:black;"><strong>{{ $post->user->name }}</strong></a></h5>
                                     @can('update', $user->profile)
                                         <div class="flex-grow-1"></div>
-                                        <a href="">Edit Post</a>
+                                        <a href="#" class="editPost">Edit Post</a>
                                     @endcan
                                 </div>
-                                <div class="d-flex justify-content-between">
-                                    <div class="small pl-1 pt-1 text-muted">
-                                        Created at: {{ $post->created_at->format('h:ma \\o\\n F d') }}
+                                <div class="d-flex justify-content-between delete" data-postid="{{ $post->id }}">
+                                    <div>
+                                        <table class="small pl-1 pt-1 text-muted">
+                                            <tr>
+                                                <td class="pr-2">Created at: {{ $post->created_at->format('h:ia \\o\\n F d') }}</td>
+                                                @if($post->created_at != $post->updated_at)
+                                                    <td style="border-left:1px solid #ccc;" class="pl-2">Updated at: {{ $post->updated_at->format('h:ia \\o\\n F d') }}</td>
+                                                @endif
+                                            </tr>
+                                        </table>
                                     </div>
                                     @can('update', $user->profile)
-                                        <form action="{{ url('post.destroy', ['post_id' => $post->id ]) }}">
-                                            <input type="hidden" name="_method" value="delete" />
-                                            <a href="">Delete Post</a>
-                                        </form>
+                                        <a href='#' class="dltPost">Delete Post</a>
                                     @endcan
                                 </div>
                             </div>
 
                             <!--  Content of post  -->   
-                            <div class="card-body">
+                            <div class="card-body" data-postid="{{ $post->id }}">
                                 <h3>{{ $post->title }}</h3>
                                 <div>
-                                    <p>
+                                    @if($post->file)
+                                        <img src="/storage/{{ $post->file }}" class="w-50" id="img">
+                                    @endif
+                                    <p class="pt-2">
                                         {{ $post->body }}
                                     </p>
                                 </div>
                             </div>
-                        </div>    
+                        </div>
+                        <div class="pt-2"></div>    
                     @endforeach
+                @else
+                    <div class="d-flex justify-content-center">
+                        <h3><strong>No posts to show</strong></h3>
+                    </div>    
+                @endif    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Post modal -->
+    <div class="modal fade" tabindex="-1" role=dialog id="deletePost"> 
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Post</h4>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <strong>This will erase the post and will not be reversable!</strong>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-primary" id="modal-delete">Confirm</a>
+                    <a href="#" data-dismiss="modal" class="btn btn-secondary">Cancel</a>
                 </div>
             </div>
         </div>
@@ -250,7 +292,7 @@
                                 <div class="row">
                                     <label for="classSelect" class="col-md-4 col-form-label">Select Class</label>
                                     <select name="classSelect" id="classSelect" class="w-50">
-                                        <!--Need classes to be implemented...--
+                                        <!--Need classes to be implemented--
                                         <option value="All" selected>All</option>
                                         foreach()
 
@@ -271,7 +313,55 @@
 
                                 <!--Submit button-->
                                 <div class="row pt-3 justify-content-center">
+                                    <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <div class="pr-3"></div>
                                     <button class="btn btn-primary">Add New Post</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Edit Post Modal-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="editPost">
+        <div class="modal-dialog modal-dialog-centered" role="document">            
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Post</h4>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-8 offset-2">
+                                <!--Title-->
+                                <div class="form-group row">    
+                                    <label for="editTitle" class="col-md-4 col-form-label">Post title</label>
+                                    <input type="text" name ="editTitle" id="editTitle">
+                                </div>
+
+                                <!--Content-->
+                                <div class="form-group row">
+                                    <label for="editBody" class="col-md-4 col-form-label">Content</label>
+                                    <textarea name="editBody" id="editBody" cols="50" rows="4"></textarea>
+                                </div>
+
+                                <!--file upload-->
+                                <div class="form-group row">
+                                    <label for="editFile" class="col-md-4 col-form-label">File</label>
+                                    <input type="file" class="form-control-file" id="editFile" name="editFile">
+                                </div>
+
+                                <!--Submit button-->
+                                <div class="row pt-3 justify-content-center">
+                                    <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <div class="pr-3"></div>
+                                    <button class="btn btn-primary" id="modal-save">Update Post</button>
                                 </div>
                             </div>
                         </div>
@@ -309,4 +399,5 @@
         </div>
     </div>
 </div>
+
 @endsection

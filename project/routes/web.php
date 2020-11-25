@@ -63,4 +63,5 @@ Route::get('/profRate/{prof_id}/rate', [App\Http\Controllers\ProfRateController:
 
 // Posts
 Route::post('', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
-Route::delete('', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.destroy');
+Route::delete('/delete', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.destroy');
+Route::post('/edit', [App\Http\Controllers\PostController::class, 'editPost'])->name('post.edit');

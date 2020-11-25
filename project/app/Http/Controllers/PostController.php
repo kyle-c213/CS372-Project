@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Post;
+use Image;
 
 class PostController extends Controller
 {
@@ -28,9 +30,13 @@ class PostController extends Controller
             'file' => 'image',
         ]);
         
-        if(request()->hasFile('file'))
+        if(request('file'))
         {
             $filePath = request('file')->store('uploads', 'public');
+            $file = Image::make(public_path("storage/{$filePath}"))->fit(1000, 1000);
+            $file->save();
+
+            $fileArray = ['file' => $filePath];
         }
 
         //***IMPLEMENT CLASS THEN UNCOMMENT***
@@ -68,14 +74,32 @@ class PostController extends Controller
         }
         */
 
-        auth()->user()->posts()->create(array_merge($data, $filePath ?? []));
-        return redirect('profile/' . auth()->user()->id);
+        auth()->user()->posts()->create(array_merge($data, $fileArray ?? []));
+        return redirect()->back();
     }
 
-    public function destroy($post_id)
+    public function destroy(Request $request)
     {
-        $post = Post::find($post_id);
-        $post->delete();
-        return redirect('profile/' . auth()->user()->id);
+        if(isset($request->postID))
+        {
+            $post = Post::findOrFail($request->postID);
+            $post->delete();
+        }
+    }
+
+    public function editPost(Request $request)
+    {
+        //validate data passed in request
+        $this->validate($request, [
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+
+        $post = Post::find($request['postID']);
+        $post->title = $request['title'];
+        $post->body = $request['body'];
+        $post->update();
+
+        return response()->json(['new_body' => $post->body, 'new_title' => $post->title], 200);
     }
 }
