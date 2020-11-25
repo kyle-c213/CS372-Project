@@ -47,6 +47,10 @@ Route::post("/todo/completeTask", [\App\Http\Controllers\ToDoController::class, 
 Route::post("/todo/updateBody", [\App\Http\Controllers\ToDoController::class, 'updateBody'])->name('todo.updateBody');
 Route::post("/todo/updateDate", [\App\Http\Controllers\ToDoController::class, 'updateDate'])->name('todo.updateDate');
 
+// Classes
+Route::get("/Classes", [App\Http\Controllers\ClassController::class, 'show'])->name('class.class');
+Route::get("/ClassSearch", [App\Http\Controllers\ClassController::class, 'search'])->name('Classes.search');
+
 // Contact
 Route::post("/contact/addContact", [\App\Http\Controllers\ContactController::class, 'addContact'])->name('contact.addContact');
 Route::post("/contact/removeContact", [\App\Http\Controllers\ContactController::class, 'removeContact'])->name('contact.removeContact');
