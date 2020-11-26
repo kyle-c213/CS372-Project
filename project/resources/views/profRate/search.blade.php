@@ -128,24 +128,22 @@
 
 <!--Main body content-->
 @section('content')
-    <div class="container " id="body">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
+    <div id="body">
                 <div name="PSearch" class="container">
-                    <h5>Search a Professor to Rate</h5>
-                    <input type="text" name="Psearchbar" id="Psearchbar" style="display:inline-block; width: 200px;" placeholder="Search for a professor here" style=" width: 200px;" class="form-control" onkeyup="searchProf()">
-                    <div style="display:inline-block;"><buton class="btn btn-primary btn-block" style="display:inline-block; width: 150px; color: white;" onclick="window.location.href='{{route('profSearch.create')}}';">Add a Professor</button></div>
+                    <h1>Search a Professor</h1>
+                    <hr/>
+                    <input type="text" name="Psearchbar" id="Psearchbar" style="display:inline-block;" placeholder="Search for a professor" class="form-control col-md-8" onkeyup="searchProf()">
+                    <span>OR</span>
+                    <div style="display:inline-block;"> <button class="btn btn-primary btn-block" style="display:inline-block;" onclick="window.location.href='{{route('profSearch.create')}}';">Add a Professor</button></div>
                     <br><br>
                 </div>
                 <div name="PResult" class="container">
-                    <h5>Current Results</h5>
+                    <h4>Search Results</h4>
                     <!--list of all profs to start, once searched list is reduced, says not profs found-->
                     <div id="profDisplay">
-                        <lu id="resultsList" class="nav flex-column">
-                        </lu>
+                        <div id="resultsList" class="nav flex-column">
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
     </div>
 @endsection

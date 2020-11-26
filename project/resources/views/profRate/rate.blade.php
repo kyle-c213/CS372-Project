@@ -1,4 +1,4 @@
-@extends('Layouts.app')
+@extends('layouts.app')
 
 {{-- @section('title')
     {{$title}}
@@ -46,52 +46,51 @@
 <!-- Main body content-->
 @section('content')
     <div class="container " id="body">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
                 <div name="PInfo" class="container">
                     <!--
                         to be displayed:
                         profile pic (if we have them), name, faculty, avg rating
                     -->
-                    <div name="information">
-                        <h3>Professor Information</h3>
-                        <p name="name"style="display:inline-block;"><b> Name:</b> {{ $prof->name ?? 'Missing' }} </p>
-                        <p name="spacing" style="display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                        <p name="faculty"style="display:inline-block;"><b>Faculty:</b> {{ $prof->faculty  ?? 'Unkown/Error' }} </p>
-                        <p name="avgRating"> <b>Average Rating: </b><p id='avgRating'></p></p> 
-                    </div>
-                    <br>
-                    <div name="CurrentRatingsList">
-                        <h3>Current Ratings</h3>
+                    <h1 name="name">{{ $prof->name ?? 'Missing' }}</h1>
+                    <h5 name="faculty" class="text-secondary">{{ $prof->faculty  ?? 'Unkown/Error' }} </h5>
+                    <p name="avgRating"> <b>Average Rating: </b><p id='avgRating'></p></p> 
+                    <hr/>
+                    <div name="CurrentRatingsList" class="card">
+                        <div class="card-header">
+                            <h3>Ratings</h3>
+                        </div>
 
-                        <div class="searchResults">
+                        {{-- <div class="searchResults">
                             <ul id="resultsList" class="nav flex-column">
                             </ul>
-                        </div>
-                        <ul class="nav flex-column" id="RatingsList">
-                            <?php
-                                $ratings = \App\Models\Rating::where('professor_rated', $prof->id)->get();
-                                $hasRatings = false;
-                            ?>
-                            @foreach($ratings as $key=>$val)
+                        </div> --}}
+
+                        <div class="card-body">
+                            <ul class="nav flex-column" id="RatingsList">
                                 <?php
-                                    $hasRatings = true;
-                                    $rating = \App\Models\Rating::where('id', $val->second_user)->first()->name;
+                                    $ratings = \App\Models\Rating::where('professor_rated', $prof->id)->get();
+                                    $hasRatings = false;
                                 ?>
-                                <!--<li class="p-1">
-                                        who rating comment
-                                    </li>-->
-                            @endforeach
-                            @if($hasRatings == false)
-                                <li id="noRatingsMessage">
-                                    <b>This professor has no ratings yet!</b>
-                                </li>
-                            @endif
-                        </ul>
+                                @foreach($ratings as $key=>$val)
+                                    <?php
+                                        $hasRatings = true;
+                                        $rating = \App\Models\Rating::where('id', $val->second_user)->first()->name;
+                                    ?>
+                                    <!--<li class="p-1">
+                                            who rating comment
+                                        </li>-->
+                                @endforeach
+                                @if($hasRatings == false)
+                                    <li id="noRatingsMessage">
+                                        <b>This professor has no ratings yet!</b>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <br>
-                <div name="PRate" class="container">
+                <div name="PRate" class="card py-4 px-4">
                     <h3>Rate Here</h3>
                     <!--
                         to be gathered in the form:
@@ -101,14 +100,13 @@
                     -->
                     <form name="ratingSub" id="ratingSub" action="store" method="post" enctype="multipart/form-data">
                         <!--<input type='hidden' id='rated_by' name='rated_by' value='{{$user->id ?? ''}}'>-->
-                        <input type='hidden' id='professor_rated' name='professor_rated' value='{{$prof->id}}'>
-                        <p> What class would you like to submit a rating for: <input type="text" name="class_taken" id="class_taken"></p>
-                        <p> What rating would you like to submit: <input type="text" name="rating" id="rating"></p>
-                        <textarea id="comments" rows="10" cols="50" placeholder="Add comments here"></textarea>
-                        <p><input type="submit" value="Add Rating"></p>
+                        <input type='hidden' id='professor_rated' name='professor_rated' value='{{$prof->id}}' class="form-control" />
+                        <p> What class would you like to submit a rating for: <input type="text" name="class_taken" id="class_taken" class="form-control"></p>
+                        <p> What rating would you like to submit: <input type="text" name="rating" id="rating" class="form-control"></p>
+                        <textarea id="comments" style="height:150;" placeholder="Add comments here" class="form-control"></textarea>
+                        <br/>
+                        <p><input type="submit" value="Add Rating" class="btn btn-primary"></p>
                     </form>
                 </div>
-            </div>
-        </div>
     </div>
 @endsection
