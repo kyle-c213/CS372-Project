@@ -7,6 +7,11 @@ use \App\Models\Course;
 
 class ClassController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function search()
     {
         return view('Classes/classSearch');
@@ -14,7 +19,7 @@ class ClassController extends Controller
     
      public function show()
     {
-        return view('Classes/class');
+        return view('Classes.class');
     }
 
     public function addClass(Request $request)

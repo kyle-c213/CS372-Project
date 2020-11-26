@@ -10,7 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {
-    //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
 
     public function addContact(Request $request)
