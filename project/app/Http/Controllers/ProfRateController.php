@@ -15,27 +15,30 @@ class ProfRateController extends Controller
         $this->middleware('auth');
     }
 
-    public function search(request $request)
+    //searchs for professor names to link to their rating page
+    public function search2(request $request)
     {
-        //START OF BROKEN
-/*        if ($request['profSearch'] == null || $request['profSearch'] == "")
+        if ($request['profSearch'] == null || $request['searchString'] == "")
         {
             return response()->json(array('emptyList' => true), 200);
         }
         $searchString = trim(filter_var($request['profSearch'], FILTER_SANITIZE_STRING));
-        $records = Professor::select('name', 'id')->where('name', 'LIKE', "%{$searchString}%")->where('id', '!=', Null)->where()->take(5)->get();
+        $records = Professor::select('name', 'id')->where('name', 'LIKE', "%{$searchString}%")->get();
 
         // if there are results
         if ($records->count() > 0)
         {
-            return view('profRate.rate', compact($professors))'professors';
-        }
-*/        //END OF BROKEN
+            return response()->json(array('professors' => $records), 200);
+        } 
+    }
 
+    //displays the search page
+    public function search(request $request)
+    {
         return view('profRate.search');
     }
 
-    //testing purposes only
+    //link to prof rating page
     public function rate($prof){
 
         $prof = Professor::findorfail($prof);

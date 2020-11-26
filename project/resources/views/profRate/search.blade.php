@@ -19,7 +19,7 @@
         // $("#resultsList").empty();
 
         var searchString = $("#Psearchbar").val();
-        var url = "{{route('profSearch.search')}}";
+        var url = "{{route('profSearch.search2')}}";
 
         jQuery.ajax({
             headers: {
