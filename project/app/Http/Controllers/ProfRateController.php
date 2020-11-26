@@ -36,9 +36,13 @@ class ProfRateController extends Controller
     }
 
     //testing purposes only
-    public function rate(){
+    public function rate($prof){
+
+        $prof = Professor::findorfail($prof);
      
-        return view('profRate.rate');
+        return view('profRate.rate', [
+            'prof' => $prof
+        ]);
     }
 
     //toadd a new professor to db

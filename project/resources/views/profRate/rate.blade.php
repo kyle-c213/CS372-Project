@@ -16,9 +16,10 @@
                     -->
                     <div name="information">
                         <h3>Professor Information</h3>
-                        <p name="name"> Professors name here<!--{{ $prof->name ?? '' }}--> </p>
-                        <p name="faculty"> professors faculty here<!--{{ $prof->faculty  ?? '' }}--> </p>
-                        <p name="avgRating"> print prof avg rating here</p> 
+                        <p name="name"style="display:inline-block;"><b> Name:</b> {{ $prof->name ?? 'Missing' }} </p>
+                        <p name="spacing" style="display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p name="faculty"style="display:inline-block;"><b>Faculty:</b> {{ $prof->faculty  ?? 'Unkown/Error' }} </p>
+                        <p name="avgRating"> <b>Average Rating: </b></p> 
                     </div>
 
                     <!--

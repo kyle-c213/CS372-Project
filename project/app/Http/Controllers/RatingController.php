@@ -15,7 +15,7 @@ class RatingController extends Controller
 
     public function create()
     {
-        return view('profRate/create');
+        return view('profRate.create');
     }
 
     public function create(array $data)
@@ -51,6 +51,6 @@ class RatingController extends Controller
 
         \App\Models\Rating::create($data)
 
-        return redirect(view('profRate/rate'));
+        return redirect(view('profRate..rate'));
     }
 }
