@@ -18,11 +18,11 @@ class ProfRateController extends Controller
     //searchs for professor names to link to their rating page
     public function search2(request $request)
     {
-        if ($request['profSearch'] == null || $request['searchString'] == "")
+        if ($request['searchString'] == null || $request['searchString'] == "")
         {
             return response()->json(array('emptyList' => true), 200);
         }
-        $searchString = trim(filter_var($request['profSearch'], FILTER_SANITIZE_STRING));
+        $searchString = trim(filter_var($request['searchString'], FILTER_SANITIZE_STRING));
         $records = Professor::select('name', 'id')->where('name', 'LIKE', "%{$searchString}%")->get();
 
         // if there are results

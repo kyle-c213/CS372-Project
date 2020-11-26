@@ -143,8 +143,6 @@
                     <div id="profDisplay">
                         <lu id="resultsList" class="nav flex-column">
                         </lu>
-                        <buton class="btn btn-primary btn-block" style="width: 150px;" onclick="window.location.href='(route('profRate.show',$prof->id)}}">
-                        <span class="fas" style="color:white;"></span>Rate Professor {{ $prof->name ?? ' '}}</button>
                     </div>
                 </div>
             </div>
