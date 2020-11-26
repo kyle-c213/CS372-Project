@@ -42,6 +42,20 @@ class ProfRateController extends Controller
     public function rate($prof){
 
         $prof = Professor::findorfail($prof);
+        /*
+        if ($request['searchString'] == null || $request['searchString'] == "")
+        {
+            return response()->json(array('emptyList' => true), 200);
+        }
+        $searchString = trim(filter_var($request['searchString'], FILTER_SANITIZE_STRING));
+        $records = Professor::select('name', 'id')->where('name', 'LIKE', "%{$searchString}%")->get();
+
+        // if there are results
+        if ($records->count() > 0)
+        {
+            return response()->json(array('professors' => $records), 200);
+        }
+        */
      
         return view('profRate.rate', [
             'prof' => $prof
@@ -57,6 +71,12 @@ class ProfRateController extends Controller
     //when adding a new rating to a professor
     public function store(request $request)
     {
+        //data validation from form for ratings
+        $data = request()->validate([
+            'name' => ['required', 'string'],
+            'faculty' => ['required', 'string'],
+        ]);
+
         $prof = new Professor();//new Professor variable
         $prof->name = $request->name; //gets professor's name from name field in form
         $prof->faculty = $request->faculty; //gets professor's faculty from faculty field in form

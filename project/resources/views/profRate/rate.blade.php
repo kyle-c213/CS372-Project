@@ -4,6 +4,45 @@
     {{$title}}
 @endsection --}}
 
+<script>
+    function searchProf()
+    {
+        // $("#resultsList").empty();
+
+        var searchString = $prof->id;
+        var url = "{{route('profSearch.search2')}}";
+
+        jQuery.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: url,
+            type: 'POST',
+            data: jQuery.param({
+                searchString: searchString
+            }),
+            dataType: 'JSON',
+            cache: false,
+            processData: false,      
+            success: function(data){
+                if (data.emptyList == true)
+                {
+                   // the list that holds results
+                    var ul = document.getElementById("avgRating").innerHTML = 'No ratings yet';
+                }
+                else
+                {
+                    // the list that holds results
+                    var ul = document.getElementById("avgRating")innerHTML = 'avg rating here';
+                }
+            },
+            error: function()
+            {
+            }
+        });
+    }
+</script>
+
 <!-- Main body content-->
 @section('content')
     <div class="container " id="body">
@@ -19,57 +58,53 @@
                         <p name="name"style="display:inline-block;"><b> Name:</b> {{ $prof->name ?? 'Missing' }} </p>
                         <p name="spacing" style="display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                         <p name="faculty"style="display:inline-block;"><b>Faculty:</b> {{ $prof->faculty  ?? 'Unkown/Error' }} </p>
-                        <p name="avgRating"> <b>Average Rating: </b></p> 
+                        <p name="avgRating"> <b>Average Rating: </b><p id='avgRating'></p></p> 
                     </div>
-
-                    <!--
-                        to be displayed:
-                        other user's ratings (name/username, rating & comments)
-                        as table with column order -> class rating comment
-                    -->
-                    <div name="pastRatings">
+                    <br>
+                    <div name="CurrentRatingsList">
                         <h3>Current Ratings</h3>
 
-                        <!-- start of php -->
-                        <?php
-                            //need to change $result and $id to work
-                            /*if($result == null){
-                                print('<p name="NoResults"> there are currently no ratings for this professor at this time </p>');
-                            } else {
-                                print('<!--table may need to be reworked todiplay properly-->
-                                <table class="table table-striped">
-                                    <tr>
-                                        <!---display all classes--->
-     	                                <th><strong>Class</th>
-   	                                    <th><strong>Rating</th>
-                                        <th><strong>comments</th>
-                                    </tr>
-                                    <!--display all ratings for a class-->');
-                                    foreach($result as $result => $id){ 
-                                        print('<tr>
-                                            <td>' + $class + '</td>
-                                            <td>' + $Rating + '</td>
-                                            <td>' + $comments + '</td>
-                                        </tr>');
-                                    }
-                                print('</table>');
-                            }*/
-                        ?><!-- end of php -->
+                        <div class="searchResults">
+                            <ul id="resultsList" class="nav flex-column">
+                            </ul>
+                        </div>
+                        <ul class="nav flex-column" id="RatingsList">
+                            <?php
+                                $ratings = \App\Models\Rating::where('professor_rated', $prof->id)->get();
+                                $hasRatings = false;
+                            ?>
+                            @foreach($ratings as $key=>$val)
+                                <?php
+                                    $hasRatings = true;
+                                    $rating = \App\Models\Rating::where('id', $val->second_user)->first()->name;
+                                ?>
+                                <!--<li class="p-1">
+                                        who rating comment
+                                    </li>-->
+                            @endforeach
+                            @if($hasRatings == false)
+                                <li id="noRatingsMessage">
+                                    <b>This professor has no ratings yet!</b>
+                                </li>
+                            @endif
+                        </ul>
                     </div>
                 </div>
-
+                <br>
                 <div name="PRate" class="container">
                     <h3>Rate Here</h3>
                     <!--
-                        to be gathered:
-                        rating, class, comments
+                        to be gathered in the form:
+                            rating, class, comments
+                        gathered but not entered:
+                            prof id, user id
                     -->
-
                     <form name="ratingSub" id="ratingSub" action="store" method="post" enctype="multipart/form-data">
-                        <p> What class would you like to submit a rating for: <input type="text" name="classRate" id="classRate"></p><p class="error" name="classError" id="classError"></p>
-                        <p> What rating would you like to submit: <input type="text" name="ratedRate" id="ratedRate"></p><p class="error" name="ratedError" id="ratedError"></p>
-                        <P class="error" id="textError"></P>
-                        <textarea id="txtBox" rows="10" cols="50" placeholder="Add comments here"></textarea>
+                        <!--<input type='hidden' id='rated_by' name='rated_by' value='{{$user->id ?? ''}}'>-->
+                        <input type='hidden' id='professor_rated' name='professor_rated' value='{{$prof->id}}'>
+                        <p> What class would you like to submit a rating for: <input type="text" name="class_taken" id="class_taken"></p>
+                        <p> What rating would you like to submit: <input type="text" name="rating" id="rating"></p>
+                        <textarea id="comments" rows="10" cols="50" placeholder="Add comments here"></textarea>
                         <p><input type="submit" value="Add Rating"></p>
                     </form>
                 </div>

@@ -67,8 +67,8 @@ Route::post("/profRate/search", [\App\Http\Controllers\ProfRateController::class
 
 //rating a professor
 Route::get('/profRate/rate/{prof_id}', [App\Http\Controllers\ProfRateController::class,'rate'])->name('profRate.show');
-Route::post('/profRate/rate/{prof_id}/save', [App\Http\Controllers\RatingController::class, 'store']);
-//Route::post('/search/rate/{prof_id}', [App\Http\Controllers\ProfRateController::class, 'rate'])->name('profRate.update');
+Route::post('/profRate/rate/store', [App\Http\Controllers\RatingController::class, 'store'])->name('Ratings.store');
+Route::post("/profRate/rate/{prof_id}/search", [\App\Http\Controllers\RatingController::class, 'search'])->name('Ratings.search');
 
 // Posts
 Route::post('', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
