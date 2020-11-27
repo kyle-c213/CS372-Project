@@ -20,7 +20,7 @@ class ClassController extends Controller
     public function addClass(Request $request)
     {
         $class = new Course();
-        $class->class_namae = $request->class_name;
+        $class->class_name = $request->class_name;
         $class->save();
     }
 

@@ -7,7 +7,7 @@
 
 @section('content')
 <div class="container">
-    <form action="/profile/{{ $user->id }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('profile.show', $user->id) }}" method="post" enctype="multipart/form-data">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         @method('PATCH')
         

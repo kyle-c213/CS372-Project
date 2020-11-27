@@ -52,7 +52,7 @@ class RatingController extends Controller
             'professor_rated' => $data['professor_rated'],
         ]);
 
-        \App\Models\Rating::create($data)
+        \App\Models\Rating::create($data);
 
         return redirect(view('profRate/rate'));
     }

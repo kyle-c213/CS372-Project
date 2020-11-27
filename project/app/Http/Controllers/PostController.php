@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Post;
@@ -27,16 +28,16 @@ class PostController extends Controller
             'body' => 'required',
             //***IMPLEMENT CLASS THEN UNCOMMENT***
             // 'classSelect' => '',
-            'file' => 'image',
+            'pic' => 'image',
         ]);
         
-        if(request('file'))
+        if(request('pic'))
         {
-            $filePath = request('file')->store('uploads', 'public');
-            $file = Image::make(public_path("storage/{$filePath}"))->fit(1000, 1000);
-            $file->save();
+            $picPath = request('pic')->store('uploads', 'public');
+            $pic = Image::make(public_path("storage/{$picPath}"))->fit(1000, 1000);
+            $pic->save();
 
-            $fileArray = ['file' => $filePath];
+            $picArray = ['pic' => $picPath];
         }
 
         //***IMPLEMENT CLASS THEN UNCOMMENT***
@@ -51,7 +52,7 @@ class PostController extends Controller
             {
                 $data['course_id'] = $i;
                 //create post in the class
-                auth()->user()->posts()->create(array_merge($data, $filePath ?? []));
+                auth()->user()->posts()->create(array_merge($data, $picPath ?? []));
             }   
         }
         //find the certain class' id
@@ -64,7 +65,7 @@ class PostController extends Controller
                     $found = true;
                     $data['course_id'] = $i;
                     //create post in the class
-                    auth()->user()->posts()->create(array_merge($data, $filePath ?? []));
+                    auth()->user()->posts()->create(array_merge($data, $picPath ?? []));
                     break;
                 }
             }
@@ -74,7 +75,7 @@ class PostController extends Controller
         }
         */
 
-        auth()->user()->posts()->create(array_merge($data, $fileArray ?? []));
+        auth()->user()->posts()->create(array_merge($data, $picArray ?? []));
         return redirect()->back();
     }
 
@@ -87,19 +88,37 @@ class PostController extends Controller
         }
     }
 
-    public function editPost(Request $request)
+    public function editPost()
     {
-        //validate data passed in request
-        $this->validate($request, [
-            'title' => 'required',
-            'body' => 'required',
-        ]);
+        $post = Post::findOrFail(request('editPID'));
+        
+        if($post->user->id == auth()->user()->id)
+        {
+            //validate data passed in request
+            $data = request()->validate([
+                'editTitle' => 'required',
+                'editBody' => 'required',
+                //***IMPLEMENT CLASS THEN UNCOMMENT***
+                // 'classSelect' => '',
+                'editPic' => 'image',
+            ]);
 
-        $post = Post::find($request['postID']);
-        $post->title = $request['title'];
-        $post->body = $request['body'];
-        $post->update();
+            //check for file
+            if(request('editPic'))
+            {
+                $picPath = request('editPic')->store('uploads', 'public');
+                $pic = Image::make(public_path("storage/{$picPath}"))->fit(1000, 1000);
+                $pic->save();
 
-        return response()->json(['new_body' => $post->body, 'new_title' => $post->title], 200);
+                $post->pic = $picPath;
+            }
+
+            //update post
+            $post->title = request('editTitle');
+            $post->body = request('editBody');
+            $post->update();
+        }
+
+        return redirect()->back();
     }
 }

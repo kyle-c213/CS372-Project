@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
            // $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
             $table->string('title');
             $table->string('body');
-            $table->string('file')->nullable();
+            $table->string('pic')->nullable();
             $table->timestamps();
         });
     }
@@ -39,7 +39,7 @@ class CreatePostsTable extends Migration
            // $table->dropForeign('group_id');
             $table->dropColumn('title');
             $table->dropColumn('body');
-            $table->dropColumn('file');
+            $table->dropColumn('pic');
         });
     }
 }

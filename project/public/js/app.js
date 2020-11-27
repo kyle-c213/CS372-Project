@@ -37376,38 +37376,20 @@ $('#modal-delete').on('click', function() {
 
 var postBodyElement = null;
 var postTitleElement = null;
-var postFileElement = null;
 
 $('.edit').find('a.editPost').on('click', function(event) {
     event.preventDefault();
 
     postId = event.target.parentNode.parentNode.parentNode.childNodes[5].dataset['postid'];
-    postBodyElement = event.target.parentNode.parentNode.parentNode.childNodes[5].childNodes[3];
+    postBodyElement = event.target.parentNode.parentNode.parentNode.childNodes[5].childNodes[5];
     postTitleElement = event.target.parentNode.parentNode.parentNode.childNodes[5].childNodes[1];
+
     var postTitle = postTitleElement.textContent;
     var postBody = postBodyElement.textContent.trim();
+
+    $('#editPID').val(postId);
     $('#editBody').val(postBody);
     $('#editTitle').val(postTitle);
 
     $('#editPost').modal();
-});
-
-$('#modal-save').on('click', function(){
-    $.ajax({
-      method: 'POST',
-      url: urlEdit,
-      data: {body: $('#editBody').val(),
-            title: $('#editTitle').val(),
-            postID: postId,
-            _token: token
-          },
-      error: function(){
-        alert("Something went wrong");
-      }
-    })
-    .done(function(msg){
-      $(postTitleElement).text(msg['new_title']);
-      $(postBodyElement).text(msg['new_body']);
-      $('#editPost').modal('hide');
-    });
 });

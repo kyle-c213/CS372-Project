@@ -10,9 +10,25 @@
 
 <script>
     var token = '{{ Session::token() }}';
-    var urlEdit = '{{ route('post.edit') }}';
     var urlDestroy = '{{ route('post.destroy') }}';
+
+    // image is placed in modal for enlargement
+    function enlargeImage(event, count)
+    {
+        $('#imagepreview').attr('src', $('#image' + count).attr('src')); // here asign the image to the modal when the user click the enlarge link
+        $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+    }
 </script>
+
+<style>
+    /*Dim image on hover*/
+    .dim:hover {
+        filter: brightness(50%);
+        -moz-transition: all 0.5s;
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+    }
+</style>
 
 @section('content')
 
@@ -53,7 +69,12 @@
                         </div>
 
                         <div class="form-group row pl-3">
-                            <label for="Classes" class="pr-3">Choose a Class</label>
+                            <label for="pic" class="pr-3">Picture</label>
+                            <input type="file" class="pl-2 pb-2" id="pic" name="pic">
+                        </div>
+
+                        <div class="form-group row pl-3">
+                            <label for="Classes" class="pr-3">Class</label>
                             <select id="Classes" name="Classes">
                                 <option value="All">All</option>
                                 <option value="CS372">CS372</option>
@@ -82,7 +103,9 @@
                         </div>
                     @endif 
 
+                    <?php $count=0; ?>
                     @foreach($posts as $p=>$post)
+                        <?php $count++; ?>
                         <!-- Head of post, includes posters name, date posted, etc... -->
                         <div class="card">
                             <div class="card-header">
@@ -92,7 +115,7 @@
                                     <h5 class="pl-2 pt-1"><a href="{{ route('profile.show', $post->user->id) }}" style="color:black;"><strong>{{ $post->user->name }}</strong></a></h5>
                                     @can('update', $post->user->profile)
                                         <div class="flex-grow-1"></div>
-                                        <a href="#" class="editPost">Edit Post</a>
+                                        <a href="#" data-postid="{{ $post->id }}"data-toggle="modal" data-target="#editPost" class="editPost">Edit Post</a>
                                     @endcan
                                 </div>
                                 <div class="d-flex justify-content-between delete"  data-postid="{{ $post->id }}">
@@ -113,15 +136,18 @@
                             </div>
 
                             <!--  Content of post  -->   
-                            <div class="card-body" data-postid="{{ $post->id }}">
-                                <h2>{{ $post->title }}</h2>
-                                <div>
-                                    @if($post->file)
-                                        <img src="/storage/{{ $post->file }}" class="w-50">
-                                    @endif
-                                    <p class="pt-2" style="font-size: 18px;">
+                            <div class="card-body" data-postid="{{ $post->id }}" data-count="{{ $count }}">
+                                <h3><strong>{{ $post->title }}</strong></h3>
+                                <hr style="border-top: 1px solid #D3D3D3; margin-top: -5px;" >
+                                <div class="d-flex justify-content-between">
+                                    <p class="pt-1">
                                         {{ $post->body }}
                                     </p>
+                                    @if($post->pic)
+                                        <a href="#responsive" class="pr-3" id="enlarge" onclick="enlargeImage(event, '{{$count}}')">
+                                            <img src="/storage/{{ $post->pic }}" width="200" height="200" id="image{{$count}}" class="rounded dim">
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -173,9 +199,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form action="{{ route('post.edit') }}" enctype="multipart/form-data" method="post">
+                        @csrf
                         <div class="row">
                             <div class="col-8 offset-2">
+                                <!-- post id - hidden  -->
+                                <input type="hidden" name="editPID" id="editPID">
                                 <!--Title-->
                                 <div class="form-group row">    
                                     <label for="editTitle" class="col-md-4 col-form-label">Post title</label>
@@ -188,10 +217,10 @@
                                     <textarea name="editBody" id="editBody" cols="50" rows="4"></textarea>
                                 </div>
 
-                                <!--file upload-->
+                                <!--pic upload-->
                                 <div class="form-group row">
-                                    <label for="editFile" class="col-md-4 col-form-label">File</label>
-                                    <input type="file" class="form-control-file" id="editFile" name="editFile">
+                                    <label for="editPic" class="col-md-4 col-form-label">Picture</label>
+                                    <input type="file" class="form-control-file" id="editPic" name="editPic">
                                 </div>
 
                                 <!--Submit button-->
@@ -203,6 +232,23 @@
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal to show enlarged image -->
+    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Image preview</h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">
+                        <img src="" id="imagepreview" style="max-width: 400px; max-height: 300px;" >
+                    </p>
                 </div>
             </div>
         </div>
