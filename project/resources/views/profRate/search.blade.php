@@ -1,57 +1,149 @@
 @extends('Layouts.app')
-<?php
-  
-?>
-<script>
-    //listens for when there has been a change in the professor seach bar
-    var pSearch = document.getElementById("Psearchbar").addEventListener("keyup", profResult, false);
-    //listens for a selected professor
-    //var pFound = document.getElementById().addEventListener();
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
-    function profResult(pSearch){
-        var display = document.getElementById(profDisplay);
-        var hidden = document.getElementById(submitted).value;
+<style>
 
-        //checks to see what is inthe search bar and displays the appropriate list of professors
-        if(hidden == 0 || PSearch.value == null || PSearch.value == ""){
-            //display all the professors, default option
-            hidden = 0; //resets the hidden value when the search bar is cleared
-        } /*else if (prof return = null){ //displays if the database has no profs to display
-        }*/
-        else{
-            //display the profs related to the search
-            hidden = 1; //updates the hidden value when something is entered in to the search bar
+    .addContact{
 
-        }
     }
 
-    /*blank to display profs OR show all then narrow(onchnage clear and re-display)*/
+    .addContact:hover{
+        color: limegreen !important;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    function searchProf()
+    {
+        // $("#resultsList").empty();
+
+        var searchString = $("#Psearchbar").val();
+        var url = "{{route('profSearch.search2')}}";
+
+        jQuery.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: url,
+            type: 'POST',
+            data: jQuery.param({
+                searchString: searchString
+            }),
+            dataType: 'JSON',
+            cache: false,
+            processData: false,      
+            success: function(data){
+                if (data.emptyList == true)
+                {
+                    $("#resultsList").empty();
+                }
+                else
+                {
+                    // the list that holds results
+                    var ul = document.getElementById("resultsList");
+
+                    // list of all li's in ul
+                    var listItems = ul.childNodes;
+
+                    // a list of all names listed
+                    var listedProfs = new Array();
+                        
+                    // a list of indexes in listedProfs that need to be removed
+                    var removeAtIndexes = new Array();
+
+                    // go through listed Profs
+                    for (var j = 0; j < listItems.length; j++)
+                    {
+                        // if names is not present continue the loop
+                        if (listItems[j].firstChild == null)
+                        {
+                            continue;
+                        }
+                        // if listed name is in return data
+                        if (data.professors.filter(x => x.name === listItems[j].firstChild.innerHTML).length > 0)
+                        {
+                            // do not remove from list, user is present in return data
+                            // add to listed Profs array
+                            listedProfs.push(listItems[j].firstChild.innerHTML); 
+                        }
+                        else
+                        {
+                            // user needs to be removed
+                            removeAtIndexes.push(j);
+                        }                                               
+                    }
+
+                    // remove Profs from list
+                    for (var j = 0; j < removeAtIndexes.length; j++)
+                    {
+                        listItems[j].parentNode.removeChild(listItems[j]);
+                    }
+
+                    // go through returned data
+                    for (var i = 0; i < data.professors.length; i++)
+                    {                       
+                        var addToList;
+                        
+                        // if returned user is listed, do not add new element
+                        // otherwise add to display
+                        if (listedProfs.includes(data.professors[i].name) == true)
+                        {
+                            addToList = false;
+                        }
+                        else{
+                            addToList = true;
+                        }
+
+                        // the span element can be added later to add Profs as contacts from this list
+                        if (addToList == true){
+                            var li = document.createElement("li");
+                            var a = document.createElement("a");
+                            // var span = document.createElement("span");
+
+                            a.innerHTML = data.professors[i].name;
+                            
+                            a.href = "{{route('profRate.show', ':id')}}";
+                            a.href = a.href.replace(':id', data.professors[i].id);
+                            // span.classList.add("fas");
+                            // span.classList.add("fa-user-plus");
+                            // span.classList.add("float-right");
+                            // span.classList.add("text-primary");
+                            // span.classList.add("addContact");
+                            li.appendChild(a);                     
+                            // li.appendChild(span);
+                            li.classList.add("bg-light");
+                            li.classList.add("p-2");
+                            ul.appendChild(li);
+                        }                    
+                    }
+                }
+            },
+            error: function()
+            {
+            }
+        });
+    }
 </script>
 
 <!--Main body content-->
 @section('content')
-    <div class="container " id="body">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
+    <div id="body">
                 <div name="PSearch" class="container">
-                    <form name="profSearch" id="profSearch" action="search.blade.php" method="POST">
-                        <h5>Search a Professor to Rate</h5><br>
-                        <input type="hidden" name="submitted" id="submitted" value="0">
-                        <input type="text" name="Psearchbar" id="Psearchbar" placeholder="Search for a professor here" style=" width: 200px;" onkeyup="profResult">
-                        <input type="submit" value="Search" style="width: 70px;">
-                    </form>
+                    <h1>Search a Professor</h1>
+                    <hr/>
+                    <input type="text" name="Psearchbar" id="Psearchbar" style="display:inline-block;" placeholder="Search for a professor" class="form-control col-md-8" onkeyup="searchProf()">
+                    <span>OR</span>
+                    <div style="display:inline-block;"> <button class="btn btn-primary btn-block" style="display:inline-block;" onclick="window.location.href='{{route('profSearch.create')}}';">Add a Professor</button></div>
+                    <br><br>
                 </div>
                 <div name="PResult" class="container">
-                    <h5>Current Results</h5>
+                    <h4>Search Results</h4>
                     <!--list of all profs to start, once searched list is reduced, says not profs found-->
-                    <div>
-                        <p id="profDisplay"> go to
-                            <buton class="btn btn-primary btn-block" style="width: 150px;" onclick="window.location.href='/profRate/rate/1';">
-                            <span class="fas" style="color:white;"></span>Rate Professor {{ $prof->name ?? ' '}}</button>
-                        </p>
+                    <div id="profDisplay">
+                        <div id="resultsList" class="nav flex-column">
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
     </div>
 @endsection

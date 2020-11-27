@@ -10,7 +10,12 @@ use Image;
 
 class ListingController extends Controller
 {
-    //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function index()
     {
         $listings = Listing::where('sold', false)->where('deleted', false)->orderBy("created_at", "desc")->get();

@@ -9,6 +9,11 @@ use App\Models\Listing;
 
 class MailController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     // Mail will be used for communication between buyers and sellers
     public function index()
     {

@@ -3,11 +3,11 @@
 
 <style>
 
-    .addContact{
+    .addProf{
 
     }
 
-    .addContact:hover{
+    .addProf:hover{
         color: limegreen !important;
         cursor: pointer;
     }
@@ -109,7 +109,7 @@
                             // span.classList.add("fa-user-plus");
                             // span.classList.add("float-right");
                             // span.classList.add("text-primary");
-                            // span.classList.add("addContact");
+                            // span.classList.add("addProf");
                             li.appendChild(a);                     
                             // li.appendChild(span);
                             li.classList.add("bg-light");

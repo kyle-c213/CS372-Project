@@ -1,23 +1,21 @@
-@extends('Layouts.app')
+@extends('layouts.app')
 
 <!-- Main body content-->
 @section('content')
-    <div class="container " id="body">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-            <!--remove, just put form to get new rating here-->
-                <div name="PRate" class="container">
-                    <h3>Rate Here</h3>
-                    <form name="ratingSub" id="ratingSub" action="store" method="post" enctype="multipart/form-data">
-                        @csrf <!--verification that its from the rating page-->
-                        <p> What class would you like to submit a rating for: <input type="text" name="classRated" id="classRated">
-                        <p> What rating would you like to submit: <input type="text" name="rated" id="rated">
-                        <textarea id="comments" name="comments"rows="10" cols="50" placeholder="Add comments here"></textarea>
-                        <p><input type="submit" value="Add Rating"></p>
-                    </form>
-                <div>
-            <!--end of remove-->   
-            </div>
-        </div>
-    </div>
+            <!--form to add new Professor-->
+                <div name="PRate" class="card">
+                    <div class="card-header">
+                        <h3>Add A New Professor</h3>
+                    </div>
+                    <div class="card-body">
+                        <form name="ratingSub" id="ratingSub" action="store" method="post" enctype="multipart/form-data">
+                            @csrf <!--verification that its from the rating page-->
+                            <h5>You will be sent to the new professor's rating page once filled out</h5>
+                            <p> Professor Name: <input type="text" name="name" id="name" class="form-control col-md-6"/>
+                            <p> Professor Faculty: <input type="text" name="faculty" id="faculty" class="form-control col-md-6">
+                            <p><input type="submit" value="Add Professor" class="btn btn-primary"></p>
+                        </form>
+                    </div>
+                </div>
+            <!--end of form--> 
 @endsection

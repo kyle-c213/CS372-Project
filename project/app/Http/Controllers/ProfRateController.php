@@ -10,56 +10,78 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfRateController extends Controller
 {
-
-    public function search(request $request)
+    public function __construct()
     {
-        /*
-        //might works need professors to test with
-        if ($request['profSearch'] == null || $request['profSearch'] == "")
+        $this->middleware('auth');
+    }
+
+    //searchs for professor names to link to their rating page
+    public function search2(request $request)
+    {
+        if ($request['searchString'] == null || $request['searchString'] == "")
         {
             return response()->json(array('emptyList' => true), 200);
         }
-        $searchString = trim(filter_var($request['profSearch'], FILTER_SANITIZE_STRING));
-        $records = Proseesor::select('name', 'id')->where('name', 'LIKE', "%{$searchString}%")
-                ->where('id', '!=', Null);
+        $searchString = trim(filter_var($request['searchString'], FILTER_SANITIZE_STRING));
+        $records = Professor::select('name', 'id')->where('name', 'LIKE', "%{$searchString}%")->get();
 
         // if there are results
         if ($records->count() > 0)
         {
-            return response()->json(array('users' => $records), 200);
-        }
-        */
-        return view('profRate/search');
+            return response()->json(array('professors' => $records), 200);
+        } 
     }
 
-    /* works as intended commented out for testing
-    public function rate($Prof)
+    //displays the search page
+    public function search(request $request)
     {
-        $prof = Professor::findOrFail($Prof);
+        return view('profRate.search');
+    }
 
-        return view('profRate/rate', [
-            'name' => $prof, 
-            'faculty' => $prof,
-        ]);
-    } */
+    //link to prof rating page
+    public function rate($prof){
 
-    //testing purposes only
-    public function rate(){
+        $prof = Professor::findorfail($prof);
+        /*
+        if ($request['searchString'] == null || $request['searchString'] == "")
+        {
+            return response()->json(array('emptyList' => true), 200);
+        }
+        $searchString = trim(filter_var($request['searchString'], FILTER_SANITIZE_STRING));
+        $records = Professor::select('name', 'id')->where('name', 'LIKE', "%{$searchString}%")->get();
+
+        // if there are results
+        if ($records->count() > 0)
+        {
+            return response()->json(array('professors' => $records), 200);
+        }
+        */
      
-        return view('profRate/rate');
+        return view('profRate.rate', [
+            'prof' => $prof
+        ]);
+    }
+
+    //toadd a new professor to db
+    public function create()
+    {
+        return view('profRate.create');
     }
 
     //when adding a new rating to a professor
     public function store(request $request)
     {
-        $rate = new Rating();
-        $rate->rating = $request->rating;
-        $rate->rated_by = $request->rated_by;
-        $rate->professor_rated = $request->professor_rated;
-        $rate->comments = $request->comments;
-        $rate->class_taken = $request->class_taken;
-        $rate->save();
+        //data validation from form for ratings
+        $data = request()->validate([
+            'name' => ['required', 'string'],
+            'faculty' => ['required', 'string'],
+        ]);
 
-        return view('profRate/rate');
+        $prof = new Professor();//new Professor variable
+        $prof->name = $request->name; //gets professor's name from name field in form
+        $prof->faculty = $request->faculty; //gets professor's faculty from faculty field in form
+        $prof->save(); //saves professor information to database
+
+        return redirect(route('profRate.show',$prof->id)); //redirect to rate Professor
     }
 }

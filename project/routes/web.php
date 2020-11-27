@@ -59,12 +59,16 @@ Route::post("/contact/search", [\App\Http\Controllers\ContactController::class, 
 Route::get("/contact/{user_id}/email", [App\Http\Controllers\ContactController::class, 'email'])->name('contact.email');
 Route::post("/contact/{user_id}/email/send", [App\Http\Controllers\ContactController::class, 'send_email'])->name('contact.send_email');
 
-// professor rate
-Route::get('/profRate', [App\Http\Controllers\ProfRateController::class,'search'])->name('profSearch');
-Route::get('/profRate/profRate', [App\Http\Controllers\ProfRateController::class,'search'])->name('profSearch');
-Route::get('/profRate/rate/{prof_id}', [App\Http\Controllers\ProfRateController::class, 'rate'])->name('profRate.show');
-Route::post('/profRate/rate/{prof_id}/save', [App\Http\Controllers\RatingController::class, 'store']);
-//Route::post('/search/rate/{prof_id}', [App\Http\Controllers\ProfRateController::class, 'rate'])->name('profRate.update');
+// professor search and add
+Route::get('/profRate', [App\Http\Controllers\ProfRateController::class,'search'])->name('profSearch.search');
+Route::get('/profRate/create', [App\Http\Controllers\ProfRateController::class,'create'])->name('profSearch.create');
+Route::post('/profRate/store', [App\Http\Controllers\ProfRateController::class,'store'])->name('profSearch.store');
+Route::post("/profRate/search", [\App\Http\Controllers\ProfRateController::class, 'search2'])->name('profSearch.search2');
+
+//rating a professor
+Route::get('/profRate/rate/{prof_id}', [App\Http\Controllers\ProfRateController::class,'rate'])->name('profRate.show');
+Route::post('/profRate/rate/store', [App\Http\Controllers\RatingController::class, 'store'])->name('Ratings.store');
+Route::post("/profRate/rate/{prof_id}/search", [\App\Http\Controllers\RatingController::class, 'search'])->name('Ratings.search');
 
 // Posts
 Route::post('', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
