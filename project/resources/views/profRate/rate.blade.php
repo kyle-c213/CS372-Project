@@ -83,7 +83,7 @@
                     <form name="ratingSub" id="ratingSub" action="store" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type='hidden' id='professor_rated' name='professor_rated' value='{{$prof->id}}' class="form-control" />
-                        <p> Enter class ID for rated class for: <input type="text" name="class_taken" id="class_taken" class="form-control"></p>
+                        <p> Enter class ID for rated class: <input type="text" name="class_taken" id="class_taken" class="form-control"></p>
                         <p> Enter professor rating (1-5): <input type="text" name="rating" id="rating" class="form-control"></p>
                         <textarea id="comments" style="height:150;" placeholder="Add comments here" class="form-control"></textarea>
                         <br/>
