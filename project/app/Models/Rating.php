@@ -23,7 +23,7 @@ class Rating extends Model
 
     //only varialbes in DB that are allowed to have data entered
     protected $fillable = [
-        'rating','rated_by','professor_rated','comments','class_taken'
+        'rating','rated_by','professor_rated','body','Course_taken'
     ];
 
     // primary key of the table

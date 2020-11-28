@@ -94,7 +94,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Updates from your classes</h4>
-               </div> 
+                </div> 
                 <div class="card-body">
                     <!-- No Posts to show -->
                     @if($posts->count() == 0)

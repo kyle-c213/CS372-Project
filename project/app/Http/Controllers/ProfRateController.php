@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Image;
 use \App\Models\Professor;
+use \App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -42,23 +43,26 @@ class ProfRateController extends Controller
     public function rate($prof){
 
         $prof = Professor::findorfail($prof);
-        /*
-        if ($request['searchString'] == null || $request['searchString'] == "")
-        {
-            return response()->json(array('emptyList' => true), 200);
-        }
-        $searchString = trim(filter_var($request['searchString'], FILTER_SANITIZE_STRING));
-        $records = Professor::select('name', 'id')->where('name', 'LIKE', "%{$searchString}%")->get();
+
+        $records = Rating::where('professor_rated', $prof)->get();
 
         // if there are results
         if ($records->count() > 0)
         {
-            return response()->json(array('professors' => $records), 200);
+            $count=0;
+            $total=0;
+            foreach($records as $rating){
+                $count+=1;
+                $total += $rating->rating;
+            }
+            $avg=$total/$count;
+        } else {
+            $avg=-1;
         }
-        */
      
-        return view('profRate.rate', [
-            'prof' => $prof
+        return view('profRate.rate', compact('records'),[
+            'prof' => $prof,
+            'avgRate' => $avg
         ]);
     }
 
