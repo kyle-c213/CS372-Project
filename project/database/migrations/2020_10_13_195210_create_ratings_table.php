@@ -17,7 +17,7 @@ class CreateRatingsTable extends Migration
             $table->id();
             $table->foreignId('rated_by')->constrained('users')->onDelete('cascade');
             $table->foreignId('professor_rated')->constrained('professors')->onDelete('cascade');
-            $table->foreignId('course_taken')->nullable()->onDelete('cascade');
+            $table->foreignId('course_taken')->nullable()->onDelete('cascade')->constrained('courses');
             //$table->foreignId('course_taken')->constrained('courses')->onDelete('cascade');
             $table->float('rating');
             $table->string('body')->nullable();
