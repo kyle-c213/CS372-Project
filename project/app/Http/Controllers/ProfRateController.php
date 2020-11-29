@@ -40,30 +40,26 @@ class ProfRateController extends Controller
     }
 
     //link to prof rating page
-    public function rate($prof){
+    public function rate($prof_id){
 
-        $prof = Professor::findorfail($prof);
+        $prof = Professor::findorfail($prof_id);
 
-        $records = Rating::where('professor_rated', $prof)->get();
+        $records = Rating::where('professor_rated', $prof_id)->get();
 
         // if there are results
         if ($records->count() > 0)
         {
-            $count=0;
             $total=0;
-            foreach($records as $rating){
-                $count+=1;
+            foreach($records as $rating)
+            {
                 $total += $rating->rating;
             }
-            $avg=$total/$count;
+            $avg=$total/$records->count();
         } else {
             $avg=-1;
         }
      
-        return view('profRate.rate', compact('records'),[
-            'prof' => $prof,
-            'avgRate' => $avg
-        ]);
+        return view('profRate.rate', compact('records', 'prof'))->with('avgRate', $avg);
     }
 
     //toadd a new professor to db

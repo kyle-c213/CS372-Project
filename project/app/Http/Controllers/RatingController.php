@@ -13,23 +13,22 @@ class RatingController extends Controller
         $this->midddleware('auth');
     }
 
-    public function store(request $request){
+    public function store(Request $request){
 
         //data validation from form for ratings
-        /*
         $data = request()->validate([
             'comments' => ['required', 'string'],
-            'rating' => ['required', 'integer'],
-            'course_taken' => ['required', 'string'],
+            'rating' => ['required','between:1,5', 'integer'],
+            'course_taken' => ['required', 'integer'],
             'rated_by' => ['required', 'integer'],
             'professor_rated' => ['required', 'integer'],
         ]);
-        */
+        
 
         $rating = new Rating(); //makes new rating element
-        $rating->body = $request->comments;//adds comments from the rating
+        $rating->body = $request->body;//adds comments from the rating
         $rating->rating = $request->rating; //adds the rating
-        $rating->course_taken = $request->class_taken; //adds the class being rated
+        // $rating->course_taken = $request->class_taken; //adds the class being rated
         $rating->rated_by = auth()->user()->id;//adds the users id
         $rating->professor_rated = $request->professor_rated;//adds the profs id
         $rating->save(); //saves the rating to the database
