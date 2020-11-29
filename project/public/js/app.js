@@ -37394,3 +37394,40 @@ $('.edit').find('a.editPost').on('click', function(event) {
 
     $('#editPost').modal();
 });
+
+var commentId = 0;
+
+$('.comments').find('a.dltComment').on('click', function(event) {
+  event.preventDefault();
+  commentId = event.target.parentNode.dataset['commentid'];
+
+  $.ajax({
+      method: "DELETE",
+      url: urlCom,
+      data: {commentID: commentId,
+          _token: token},
+      error: function(){
+          alert("something went wrong");
+      }
+  })
+  .done(function(){
+    location.reload();
+  });
+});
+
+/*$('#dltComment').on('click', function(){
+
+  var urlCom = "{{ route('comment.destroy') }}";
+  $.ajax({
+      method: "DELETE",
+      url: urlCom,
+      data: {commentID: commentId,
+          _token: token},
+      error: function(){
+          alert("something went wrong");
+  }
+})
+.done(function(){
+  location.reload();
+  });
+});*/

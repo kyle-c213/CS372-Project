@@ -9,6 +9,7 @@
 <script>
     var token = '{{ Session::token() }}';
     var urlDestroy = '{{ route('post.destroy') }}';
+    var urlCom = '{{ route('comment.destroy') }}';
 
     function addContact()
     {
@@ -121,6 +122,44 @@
         $('#imagepreview').attr('src', $('#image' + count).attr('src')); // here asign the image to the modal when the user click the enlarge link
         $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
     }
+
+    var observe;
+    if (window.attachEvent) {
+        observe = function (element, event, handler) {
+            element.attachEvent('on'+event, handler);
+        };
+    }
+    else {
+        observe = function (element, event, handler) {
+            element.addEventListener(event, handler, false);
+        };
+    }
+    function init (count) {
+        var text = document.getElementById('bodyComment' + count);
+        function resize () {
+            text.style.height = 'auto';
+            text.style.height = text.scrollHeight+'px';
+        }
+        /* 0-timeout to get the already changed text */
+        function delayedResize () {
+            window.setTimeout(resize, 0);
+        }
+        observe(text, 'change',  resize);
+        observe(text, 'cut',     delayedResize);
+        observe(text, 'paste',   delayedResize);
+        observe(text, 'drop',    delayedResize);
+        observe(text, 'keydown', delayedResize);
+
+        //text.focus();
+        text.select();
+        resize();
+    };
+
+   function handleClick()
+    {
+        this.value = (this.value == 'Show Comments' ? 'Hide comments' : 'Show Comments');
+    }
+    document.getElementById('comment-collapse').onclick=handleClick;
 
 </script>
 
@@ -237,8 +276,43 @@
                                         </a>
                                     @endif
                                 </div>
+                                <hr style="border-top: 1px solid #D3D3D3;" >
+                            
+                                <a href="#" onlcick="handleClick()" id ="comment-collapse" data-toggle="collapse" data-target="#showComments{{$count}}">Show Comments<span class="fas fa-caret-down"></span></a>
+                                <div class="collapse" id="showComments{{$count}}">
+                                    @forelse($post->comments as $comment)
+                                        <div class="d-flex align-items-center comments" data-commentid="{{$comment->id}}">
+                                            <img src="{{ asset('/storage/'.config('chatify.user_avatar.folder').'/'. \App\Models\User::where('id', $comment->user->id)->first()->avatar) }}"
+                                                alt="pic" class="rounded-circle" style="max-width: 25px;">
+                                            <p class="pl-2 pt-3"><a href="{{ route('profile.show', $comment->user->id) }}" style="color:black;"><strong>{{ $comment->user->name }}</strong></a></p>
+                                            <span class="pl-3 small text-muted">Created at: {{ $comment->created_at->format('h:ia \\o\\n F d') }}</span>
+                                            @if($comment->user->id == Auth::id())
+                                                <div class="flex-grow-1"></div>
+                                                <a href='#' class="dltComment">Delete Comment</a>
+                                            @endif
+                                        </div>
+                                        <hr style="border-top: 1px solid #D3D3D3; margin-top:-5px;">
+                                        <p>{{ $comment->body }}</p>  
+                                    @empty
+                                        <p>No comments to show</p>
+                                    @endforelse
+                                </div>
+                                <div class="pt-3">
+                                    <form action="{{ route('comments.store') }}" enctype="multipart/form-data" method="post">
+                                        @csrf
+                                        <input type="hidden" id="post_id" name="post_id" value="{{ $post->id }}">
+                                        <div class="d-flex align-items-baseline">
+                                            <body onload="init('{{$count}}')"> 
+                                                <textarea name="bodyComment" id="bodyComment{{$count}}" rows="1" cols="50" placeholder="Write a Comment"></textarea>
+                                            </body>
+                                                <div class="pr-1"></div>
+                                                <button name="saveComment" id="saveComment" class="btn btn-primary"><span class ="far fa-arrow-alt-circle-up" style="height: 12px;"></span></button>
+                                        </div>
+                                    </form>
+                                </div>    
                             </div>
                         </div>
+                        <!-- Padding between Posts-->
                         <div class="pt-2"></div>    
                     @endforeach
                 @else
@@ -285,7 +359,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ URL::route('post.store','') }}" enctype="multipart/form-data" method="post">
+                    <form action="{{ route('post.store') }}" enctype="multipart/form-data" method="post">
                         @csrf
 
                         <div class="row">
@@ -312,20 +386,6 @@
                                         <strong>{{ $errors->first('body') }}</strong>
                                     @endif
                                 </div>
-                                
-                                <!-- ***IMPLEMENT CLASS THEN UNCOMMENT*** 
-                                <!--Class selection--
-                                <div class="row">
-                                    <label for="classSelect" class="col-md-4 col-form-label">Select Class</label>
-                                    <select name="classSelect" id="classSelect" class="w-50">
-                                        <!--Need classes to be implemented--
-                                        <option value="All" selected>All</option>
-                                        foreach()
-
-                                        endforeach                                    
-                                    </select>
-                                </div>
-                                -->
 
                                 <!--Optional file upload-->
                                 <div class="row">

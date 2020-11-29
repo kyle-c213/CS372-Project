@@ -90,3 +90,8 @@ Route::get("/send/{to_id}/{listing_id}", [\App\Http\Controllers\MailController::
 Route::post("/send/sending", [\App\Http\Controllers\MailController::class, 'send_post'])->name('mail.send_post');
 Route::get("/show/{mail_id}", [\App\Http\Controllers\MailController::class, 'show'])->name('mail.show');
 Route::post("/mail/delete", [\App\Http\Controllers\MailController::class, 'delete'])->name('mail.delete');
+
+//comments
+Route::post('/comment', [App\Http\Controllers\CommentsController::class, 'store'])->name('comments.store');
+Route::delete('/comment/delete', [App\Http\Controllers\CommentsController::class, 'destroy'])->name('comment.destroy');
+
