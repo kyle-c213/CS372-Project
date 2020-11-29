@@ -16,15 +16,14 @@ class RatingController extends Controller
     public function store(Request $request){
 
         //data validation from form for ratings
-        /*
         $data = request()->validate([
             'comments' => ['required', 'string'],
-            'rating' => ['required', 'integer'],
-            'course_taken' => ['required', 'string'],
+            'rating' => ['required','between:1,5', 'integer'],
+            'course_taken' => ['required', 'integer'],
             'rated_by' => ['required', 'integer'],
             'professor_rated' => ['required', 'integer'],
         ]);
-        */
+        
 
         $rating = new Rating(); //makes new rating element
         $rating->body = $request->body;//adds comments from the rating
