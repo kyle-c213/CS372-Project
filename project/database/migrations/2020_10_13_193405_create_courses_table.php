@@ -17,6 +17,8 @@ class CreateCoursesTable extends Migration
             $table->id();
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->string('class_name');
+            $table->integer('year');
+            $table->string('semester');
             $table->foreignId('taught_by')->constrained('professors')->onDelete('cascade');
             $table->timestamps();
         });
@@ -34,6 +36,8 @@ class CreateCoursesTable extends Migration
             $table->dropForeign('created_by');
             $table->dropForeign('taught_by');
             $table->dropColumn('class_name');
+            $table->dropColumn('year');
+            $table->dropColumn('semester');
         });
     }
 }

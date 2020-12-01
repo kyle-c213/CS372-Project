@@ -125,9 +125,15 @@
                     </div>
 
                     <div class="col">
+                        <div class="row">
                         <!-- Contacts menu on Right-->
-                        @include('inc.contactsidebar')
+                            <div class="col">
+                                @include('inc.contactsidebar')  
+                            </div>
+                        </div>
+                        @yield('class_members')                     
                     </div>
+                    
                 </div>
             </div>
         </main>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 // use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
@@ -16,7 +17,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // will only show welcome page for unauthorized users
+    // otherwise go to home page
+    if (Auth::guest())
+    {
+        return view('welcome');
+    }
+    else
+    {
+        $posts = \App\Models\Post::orderBy('updated_at', 'desc')->get();
+        return view('home', ['posts' => $posts]);
+    }
 });
 
 
@@ -49,8 +60,10 @@ Route::post("/todo/updateBody", [\App\Http\Controllers\ToDoController::class, 'u
 Route::post("/todo/updateDate", [\App\Http\Controllers\ToDoController::class, 'updateDate'])->name('todo.updateDate');
 
 // Classes
-Route::get("/Classes", [App\Http\Controllers\ClassController::class, 'show'])->name('class.show');
+Route::get("/Classes", [\App\Http\Controllers\ClassController::class, 'index'])->name('class.index');
+Route::get("/Classes/{id}", [App\Http\Controllers\ClassController::class, 'show'])->name('class.show');
 Route::get("/ClassSearch", [App\Http\Controllers\ClassController::class, 'search'])->name('class.search');
+Route::post("/Class/Create", [App\Http\Controllers\ClassController::class, 'addClass'])->name('class.add');
 
 // Contact
 Route::post("/contact/addContact", [\App\Http\Controllers\ContactController::class, 'addContact'])->name('contact.addContact');
