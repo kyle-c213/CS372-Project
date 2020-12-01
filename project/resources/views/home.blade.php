@@ -89,15 +89,8 @@
         <h4>Updates from your classes</h4>
     </div> 
     <div class="card-body">
-        <!-- No Posts to show -->
-        @if($posts->count() == 0)
-            <div class="d-flex justify-content-center">
-                <h3><strong>No posts to show</strong></h3>
-            </div>
-        @endif 
-
         <?php $count=0; ?>
-        @foreach($posts as $p=>$post)
+        @forelse($posts as $p=>$post)
             <?php $count++; ?>
             <!-- Head of post, includes posters name, date posted, etc... -->
             <div class="card">
@@ -184,8 +177,13 @@
                         </div>    
                     </div>
                 </div>
-                <div class="pt-2"></div>    
-        @endforeach
+                <div class="pt-2"></div>
+        @empty
+        <!-- No Posts to show-->        
+            <div class="d-flex justify-content-center">
+                <h3><strong>No posts to show</strong></h3>
+            </div>
+        @endforelse
     </div>        
 </div>
 

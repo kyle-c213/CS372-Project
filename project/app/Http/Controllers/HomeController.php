@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use \App\Models\Course;
+use App\Models\ClassMember;
 
 class HomeController extends Controller
 {
@@ -25,8 +26,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $classes = Course::all();
-        $posts = Post::orderBy('updated_at', 'desc')->get();
+        // get classes user has joined
+        $user_joined_classes = ClassMember::select('course_id')->where('user_id', auth()->user()->id)->get();
+        $classes = array();
+        $posts = array();
+        $class_posts = array();
+        foreach($user_joined_classes as $u=>$val)
+        {
+            $class_posts = Post::where('course_id', $val->course_id)->get();
+            foreach($class_posts as $c=>$post)
+            {
+                array_push($posts, $class_posts->first());
+            }
+            array_push($classes, Course::where('id', $val->course_id)->first());
+        }
+        //$posts = Post::orderBy('updated_at', 'desc')->get();
+
         return view('home', compact('classes', 'posts'));
     }
 }

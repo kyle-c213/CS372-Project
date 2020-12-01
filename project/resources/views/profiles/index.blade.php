@@ -362,7 +362,14 @@
                                 </div>
 
                                 <?php
-                                    $classes = \App\Models\Course::all();
+                                    use \App\Models\ClassMember;
+                                    use \App\Models\Course;
+                                    $user_joined_classes = ClassMember::select('course_id')->where('user_id', auth()->user()->id)->get();
+                                    $classes = array();
+                                    foreach($user_joined_classes as $u=>$val)
+                                    {
+                                        array_push($classes, Course::where('id', $val->course_id)->first());
+                                    }
                                 ?>
                                 <!-- Class Selection -->
                                 <div class="row pt-3">
