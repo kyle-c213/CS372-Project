@@ -31,7 +31,6 @@
             cache: false,
             processData: false,      
             success: function(){
-                alert('Success!');
                 var c = document.getElementById("contact");
                 c.classList.remove("fa-user-plus");
                 c.classList.add("fa-user-slash");
@@ -44,8 +43,7 @@
                 var contactsList = document.getElementById("contactsList");
 
                 // if no contacts, remove first list element in contacts
-                // contactsList.removeChild(contactsList.getElementsByTagName('li')[0]);
-
+                
                 var li = document.createElement("li");
                 var a = document.createElement("a");
 
@@ -82,7 +80,6 @@
             cache: false,
             processData: false,      
             success: function(){
-                alert('Success!');
                 var c = document.getElementById("contact");
                 c.classList.remove("fa-user-slash");
                 c.classList.add("fa-user-plus");

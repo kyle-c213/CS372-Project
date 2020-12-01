@@ -42,7 +42,7 @@ class ContactController extends Controller
         }
         $searchString = trim(filter_var($request['searchString'], FILTER_SANITIZE_STRING));
         $records = User::select('name', 'id')->where('name', 'LIKE', "%{$searchString}%")
-                ->where('id', '!=', auth()->user()->id)->take(5)->get();
+                ->where('id', '!=', auth()->user()->id)->take(10)->get();
 
         // if there are results
         if ($records->count() > 0)

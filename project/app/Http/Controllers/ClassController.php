@@ -90,7 +90,7 @@ class ClassController extends Controller
         $class = Course::findOrFail($id);
         $prof = Professor::findOrFail($class->taught_by);
         $posts = Post::where('course_id', $class->id)->get();
-        $members = ClassMember::where('course_id', $class->id)->get();
+        $members = ClassMember::where('course_id', $class->id)->take(10)->get();
         $listings = Listing::where('course_id', $class->id)->where('deleted', false)->where('sold', false)->get();
         $events = ImportantDates::where('course_id', $class->id)->where('due_date', '>=', strtotime('now'))->orderBy('due_date', "ASC")->get();
         return view('Classes.class', compact('class', 'prof', 'posts', 'members', 'listings', 'events'));
