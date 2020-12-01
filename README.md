@@ -14,7 +14,7 @@ The motivation for this project is to give university students an all in one soc
 <h3>Message Center</h3>
   Making use of Chatify and Pusher in conjunction with Laravel's broadcasting and event features, the message center allows for users to send and receive messages in real time.
 <h3>Professor Rating System</h3>
-  Students can rate and comment on professors depending on their experiences and if they recommend them or not. A rating out of 5 can be given to a professor and an average rating based on all of the reviews will be calculated.
+  To start students can search and select a professor to rate or view. If a professor is not found then the student can enter the professors information (name and faculty) to be added to the database. Once added, the student will be redirected to the professor's ratings page. Students can rate and comment on professors depending on their experiences and if they recommend them or not. A rating out of 5 can be given to a professor and an average rating based on all of the reviews will be calculated. Students can also view current ratings with the associated comments for that professor. 
 <h3>Buy & Sell</h3>
   Students can posts anything from textbooks to a tutoring service they provide for sale. Other students can look at the listings and contact the seller through a built in messaging system. All messaging is done through the site itself.
 
