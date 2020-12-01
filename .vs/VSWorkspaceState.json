@@ -5,11 +5,12 @@
     "\\project\\app",
     "\\project\\app\\Http",
     "\\project\\app\\Http\\Controllers",
-    "\\project\\app\\Models",
+    "\\project\\database",
+    "\\project\\database\\migrations",
     "\\project\\resources",
     "\\project\\resources\\views",
-    "\\project\\resources\\views\\inc"
+    "\\project\\resources\\views\\profRate"
   ],
-  "SelectedNode": "\\project\\resources\\views\\inc\\sidebar.blade.php",
+  "SelectedNode": "\\project\\app\\Http\\Controllers\\ProfRateController.php",
   "PreviewInSolutionExplorer": false
 }

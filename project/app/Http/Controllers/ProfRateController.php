@@ -58,7 +58,11 @@ class ProfRateController extends Controller
         } else {
             $avg=-1;
         }
-     
+
+        //dd($records); //for testing
+
+        $avg = number_format((float)$avg, 2, '.', '');
+
         return view('profRate.rate', compact('records', 'prof'))->with('avgRate', $avg);
     }
 
@@ -69,10 +73,16 @@ class ProfRateController extends Controller
     }
 
     //when adding a new rating to a professor
-    public function store(request $request)
+    public function store(Request $request)
     {
         //data validation from form for ratings
-        $data = request()->validate([
+        /*
+        *note: the validation works as intended but if
+        *using XAMPP when working locally the validation
+        *does not appear on the site.
+        *PROOF:https://laravel.io/forum/why-laravel-validation-dont-displaying-errors
+        */
+        $data = $request->validate([
             'name' => ['required', 'string'],
             'faculty' => ['required', 'string'],
         ]);
