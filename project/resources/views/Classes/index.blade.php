@@ -6,7 +6,10 @@
 
 @section('content')
 
-<h1>Your Classes</h1> <a href='#' data-toggle="modal" data-target="#createClass"><span class="fas fa-pen"></span> Create Class</a>
+<h1>Your Classes</h1> 
+<a href='#' data-toggle="modal" data-target="#createClass"><span class="fas fa-pen"></span> Create Class</a>
+<br>
+<a href="{{route('class.search')}}"><span class="fas fa-search"></span> Search for a class</a>
 <hr/>
 
 @if (count($user_classes) <= 0)

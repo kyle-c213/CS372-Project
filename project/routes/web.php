@@ -63,6 +63,7 @@ Route::post("/todo/updateDate", [\App\Http\Controllers\ToDoController::class, 'u
 Route::get("/Classes", [\App\Http\Controllers\ClassController::class, 'index'])->name('class.index');
 Route::get("/Classes/{id}", [App\Http\Controllers\ClassController::class, 'show'])->name('class.show');
 Route::get("/ClassSearch", [App\Http\Controllers\ClassController::class, 'search'])->name('class.search');
+Route::post("/ClassSearch/searching", [App\Http\Controllers\ClassController::class, 'search_post'])->name('class.search_post');
 Route::post("/Class/Create", [App\Http\Controllers\ClassController::class, 'addClass'])->name('class.add');
 Route::get("/Class/Join/{class_id}", [\App\Http\Controllers\ClassController::class, 'joinClass'])->name('class.join');
 Route::get("/Class/Leave/{class_id}", [\App\Http\Controllers\ClassController::class, 'leaveClass'])->name('class.leave');
