@@ -77,16 +77,26 @@ class ProfRateController extends Controller
     {
         //data validation from form for ratings
         /*
-        *note: the validation works as intended but if
-        *using XAMPP when working locally the validation
-        *does not appear on the site.
-        *PROOF:https://laravel.io/forum/why-laravel-validation-dont-displaying-errors
+        * note: the validation works as intended but if
+        * using XAMPP when working locally the validation
+        * does not appear on the site.
+        * PROOF:https://laravel.io/forum/why-laravel-validation-dont-displaying-errors
         */
         $data = $request->validate([
             'name' => ['required', 'string'],
             'faculty' => ['required', 'string'],
         ]);
 
+        /* //another up validation method
+        $request->validate([
+            'name' => ['required', 'string'],
+            'faculty' => ['required', 'string'],
+        ]);
+
+        if($data->fails()) {
+            return Redirect::back()->withErrors($data);
+        }
+        */
         $prof = new Professor();//new Professor variable
         $prof->name = $request->name; //gets professor's name from name field in form
         $prof->faculty = $request->faculty; //gets professor's faculty from faculty field in form

@@ -67,7 +67,6 @@
                 break;
         }
     }
-
 </script>
 
 <!-- Main body content-->
@@ -171,7 +170,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ URL::route('Ratings.store','') }}" enctype="multipart/form-data" method="post">
+                    <form action="{{ URL::route('Ratings.store','') }}" enctype="multipart/form-data" method="post" onsubmit='check()'>
                         @csrf
 
                         <div class="row">
