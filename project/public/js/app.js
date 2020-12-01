@@ -37383,7 +37383,7 @@ $('.edit').find('a.editPost').on('click', function(event) {
 
     postId = event.target.parentNode.parentNode.parentNode.childNodes[5].dataset['postid'];
     postBodyElement = event.target.parentNode.parentNode.parentNode.childNodes[5].childNodes[5];
-    postTitleElement = event.target.parentNode.parentNode.parentNode.childNodes[5].childNodes[1];
+    postTitleElement = event.target.parentNode.parentNode.parentNode.childNodes[5].childNodes[1].childNodes[1];
 
     var postTitle = postTitleElement.textContent;
     var postBody = postBodyElement.textContent.trim();
@@ -37415,19 +37415,3 @@ $('.comments').find('a.dltComment').on('click', function(event) {
   });
 });
 
-/*$('#dltComment').on('click', function(){
-
-  var urlCom = "{{ route('comment.destroy') }}";
-  $.ajax({
-      method: "DELETE",
-      url: urlCom,
-      data: {commentID: commentId,
-          _token: token},
-      error: function(){
-          alert("something went wrong");
-  }
-})
-.done(function(){
-  location.reload();
-  });
-});*/

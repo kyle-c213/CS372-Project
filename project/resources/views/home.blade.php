@@ -20,37 +20,6 @@
         $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
     }
 
-    var observe;
-    if (window.attachEvent) {
-        observe = function (element, event, handler) {
-            element.attachEvent('on'+event, handler);
-        };
-    }
-    else {
-        observe = function (element, event, handler) {
-            element.addEventListener(event, handler, false);
-        };
-    }
-    function init (count) {
-        var text = document.getElementById('bodyComment' + count);
-        function resize () {
-            text.style.height = 'auto';
-            text.style.height = text.scrollHeight+'px';
-        }
-        /* 0-timeout to get the already changed text */
-        function delayedResize () {
-            window.setTimeout(resize, 0);
-        }
-        observe(text, 'change',  resize);
-        observe(text, 'cut',     delayedResize);
-        observe(text, 'paste',   delayedResize);
-        observe(text, 'drop',    delayedResize);
-        observe(text, 'keydown', delayedResize);
-
-        //text.focus();
-        text.select();
-        resize();
-    };
 
    function handleClick()
     {
@@ -113,12 +82,13 @@
                         </div>
 
                         <div class="form-group row pl-3">
-                            <label for="Classes" class="pr-3">Class</label>
-                            <select id="Classes" name="Classes">
-                                <option value="All">All</option>
-                                <option value="CS372">CS372</option>
-                                <option value="CS340">CS340</option>
-                                <option value="Placeholders...">Placeholders...</option>
+                            <label for="course_id" class="pr-3">Class</label>
+                            <select id="course_id" name="course_id">
+                                    <option value="">Your Profile</option>  
+                                @forelse($classes as $class)
+                                    <option value="{{$class->id}}">{{$class->class_name}}</option>
+                                @empty  
+                                @endforelse
                             </select>
 
                             <div class="flex-grow-1"></div>
@@ -176,7 +146,12 @@
 
                             <!--  Content of post  -->   
                             <div class="card-body" data-postid="{{ $post->id }}" data-count="{{ $count }}">
-                                <h3><strong>{{ $post->title }}</strong></h3>
+                                <div class="d-flex justify-content-between">
+                                    <h3 id="postTitle"><strong>{{ $post->title }}</strong></h3>
+                                    @if($post->course_id)
+                                        <h5>{{$post->course->class_name}}</h5>
+                                    @endif
+                                </div> 
                                 <hr style="border-top: 1px solid #D3D3D3; margin-top: -5px;" >
                                 <div class="d-flex justify-content-between">
                                     <p class="pt-1">
@@ -215,7 +190,7 @@
                                         @csrf
                                         <input type="hidden" id="post_id" name="post_id" value="{{ $post->id }}">
                                         <div class="d-flex align-items-baseline">
-                                            <body onload="init('{{$count}}')"> 
+                                            <body> 
                                                 <textarea name="bodyComment" id="bodyComment{{$count}}" rows="1" cols="50" placeholder="Write a Comment"></textarea>
                                             </body>
                                             <div class="pr-1"></div>

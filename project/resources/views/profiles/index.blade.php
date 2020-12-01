@@ -123,38 +123,6 @@
         $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
     }
 
-    var observe;
-    if (window.attachEvent) {
-        observe = function (element, event, handler) {
-            element.attachEvent('on'+event, handler);
-        };
-    }
-    else {
-        observe = function (element, event, handler) {
-            element.addEventListener(event, handler, false);
-        };
-    }
-    function init (count) {
-        var text = document.getElementById('bodyComment' + count);
-        function resize () {
-            text.style.height = 'auto';
-            text.style.height = text.scrollHeight+'px';
-        }
-        /* 0-timeout to get the already changed text */
-        function delayedResize () {
-            window.setTimeout(resize, 0);
-        }
-        observe(text, 'change',  resize);
-        observe(text, 'cut',     delayedResize);
-        observe(text, 'paste',   delayedResize);
-        observe(text, 'drop',    delayedResize);
-        observe(text, 'keydown', delayedResize);
-
-        //text.focus();
-        text.select();
-        resize();
-    };
-
    function handleClick()
     {
         this.value = (this.value == 'Show Comments' ? 'Hide comments' : 'Show Comments');
@@ -257,7 +225,13 @@
 
                             <!--  Content of post  -->   
                             <div class="card-body" data-postid="{{ $post->id }}" data-count="{{ $count }}">
-                                <h3><strong>{{ $post->title }}</strong></h3>
+                                <div class="d-flex justify-content-between">
+                                    <h3><strong>{{ $post->title }}</strong></h3>
+                                    @if($post->course_id)
+                                        <h5>{{$post->course->class_name}}</h5>
+                                    @endif
+                                </div> 
+                                
                                 <hr style="border-top: 1px solid #D3D3D3; margin-top: -5px;" >
                                 <div class="d-flex justify-content-between">
                                     <p class="pt-1">
@@ -295,7 +269,7 @@
                                         @csrf
                                         <input type="hidden" id="post_id" name="post_id" value="{{ $post->id }}">
                                         <div class="d-flex align-items-baseline">
-                                            <body onload="init('{{$count}}')"> 
+                                            <body> 
                                                 <textarea name="bodyComment" id="bodyComment{{$count}}" rows="1" cols="50" placeholder="Write a Comment"></textarea>
                                             </body>
                                                 <div class="pr-1"></div>
@@ -388,6 +362,21 @@
                                     @if ($errors->has('pic'))
                                         <strong>{{ $errors->first('pic') }}</strong>
                                     @endif
+                                </div>
+
+                                <?php
+                                    $classes = \App\Models\Course::all();
+                                ?>
+                                <!-- Class Selection -->
+                                <div class="row pt-3">
+                                    <label for="course_id" class="col-md-4 col-form-label">Class</label>
+                                    <select id="course_id" name="course_id">
+                                            <option value="">Your profile</option>
+                                        @forelse($classes as $class)
+                                            <option value="{{$class->id}}">{{$class->class_name}}</option>
+                                        @empty
+                                        @endforelse
+                                    </select>
                                 </div>
 
                                 <!--Submit button-->

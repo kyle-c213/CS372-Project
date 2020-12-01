@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use \App\Models\Course;
 
 class HomeController extends Controller
 {
@@ -24,7 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $classes = Course::all();
         $posts = Post::orderBy('updated_at', 'desc')->get();
-        return view('home', ['posts' => $posts]);
+        return view('home', compact('classes', 'posts'));
     }
 }
