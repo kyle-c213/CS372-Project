@@ -22,14 +22,6 @@
 .right {
   right: 0;
 }
-    /* main{
-        background-image: url("{{asset('images/uofr3.jpg')}}");
-        background-position: center center; 
-        background-attachment: fixed; 
-        background-repeat: no-repeat; background-size: cover; 
-        height:100%;
-        overflow: hidden;
-    } */
 
     .mainBox{
         background-color: rgba(255,255,255,0.6);
@@ -55,7 +47,7 @@
         left:350;
     }
 
-    a.button1{
+a.button1{
  display:inline-block;
  padding:0.35em 1.2em;
  border:0.1em solid #FFFFFF;
@@ -81,14 +73,14 @@ a.button1:hover{
 
 @section('content')
 <div class="container">
-        <div class="split left" style='background-image: url("{{asset('images/welcome-background.jpg')}}"); background-repeat: no-repeat; background-size: cover;'>
-            <h3 class="blurb1"><span class="fas fa-angle-double-right"></span> Connect with classmates</h3>
-            <h3 class="blurb2"><span class="fas fa-angle-double-right"></span> Keep track of your classes</h3>
-            <h3 class="blurb3"><span class="fas fa-angle-double-right"></span> Form study groups</h3>
-        </div>
+    <div class="split left" style='background-image: url("{{asset('images/welcome-background.jpg')}}"); background-repeat: no-repeat; background-size: cover;'>
+        <h3 class="blurb1"><span class="fas fa-angle-double-right"></span> Connect with classmates</h3>
+        <h3 class="blurb2"><span class="fas fa-angle-double-right"></span> Keep track of your classes</h3>
+        <h3 class="blurb3"><span class="fas fa-angle-double-right"></span> Rate your professors</h3>
+    </div>
 
 
-        <div class="split right">
+    <div class="split right">
     <div class="jumbotron m-t-3" style="background-color: rgba(255,255,255,0.9);">
         <h1 class="display-2 text-center">Student Zone</h1>    
         <p class="lead text-center">The social hub dedicated to students.</p>
@@ -101,7 +93,6 @@ a.button1:hover{
         @csrf
 
         <div class="form-group row">
-            {{-- <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label> --}}
 
             <div class="col-md-4">
                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email Address">
@@ -115,7 +106,6 @@ a.button1:hover{
         </div>
 
         <div class="form-group row">
-            {{-- <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label> --}}
 
             <div class="col-md-4">
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
@@ -128,30 +118,11 @@ a.button1:hover{
             </div>
         </div>
 
-        <div class="form-group row">
-            <div class="col-md-6">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                    <label class="form-check-label" for="remember">
-                        {{ __('Remember Me') }}
-                    </label>
-                </div>
-            </div>
-        </div>
-
         <div class="form-group row mb-0">
             <div class="col-md-4">
                 <button type="submit" class="btn btn-primary">
                     {{ __('Login') }}
                 </button>
-                
-                {{-- @if (Route::has('password.request'))
-                    <br />
-                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                        {{ __('Forgot Your Password?') }}
-                    </a>
-                @endif --}}
             </div>
         </div>
     </form> 
@@ -162,6 +133,6 @@ a.button1:hover{
         @endif
     </div>
 </div> 
-    </div>   
+</div>   
 </div>
 @endsection
