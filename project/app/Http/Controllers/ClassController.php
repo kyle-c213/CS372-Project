@@ -44,7 +44,25 @@ class ClassController extends Controller
 
     public function search()
     {
-        return view('Classes/classSearch');
+        // empty records as there are no search results yet
+        $records = array();
+        return view('Classes/classSearch', compact('records'));
+    }
+
+    public function search_post(Request $request)
+    {
+        if ($request->search == null || $request->search == "")
+        {
+            return redirect(route('class.search'));
+        }
+        $searchString = trim(filter_var($request->search, FILTER_SANITIZE_STRING));
+        $records = Course::where('class_name', 'LIKE', "%{$searchString}%")->get();
+
+        // if there are results
+        if ($records->count() > 0)
+        {
+            return view('Classes/classSearch', compact('records'));
+        }
     }
     
     public function show($id)
