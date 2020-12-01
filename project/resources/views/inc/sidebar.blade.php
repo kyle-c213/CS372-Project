@@ -28,7 +28,7 @@
                     </li>
                     <li class="">
                         <button class="btn btn-light btn-block" onclick="window.location.href='{{route('class.index')}}';">
-                        <span class="fas fa-graduation-cap"></span> Class search
+                        <span class="fas fa-graduation-cap"></span> Classes
                         </button>
                     </li>
                     <li class="">
@@ -38,6 +38,8 @@
                     </li>
                 </ul>
             </div>
+            @yield('importantdates')
+            @yield('classlistings')
         </div>
     </div>
 </nav>

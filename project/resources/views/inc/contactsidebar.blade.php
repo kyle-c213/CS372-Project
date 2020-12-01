@@ -126,7 +126,7 @@
     }
 </script>
 
-<nav id="contacts-sidebar" class="">
+<nav id="contacts-sidebar" class="col-md-12">
     <div class="card">
         <div class="card-header">
             <h2 class="">Contacts</h2>
@@ -167,10 +167,12 @@
                     </li>
                     @endif
                 </ul>
-            </div>
+            </div>       
+            @yield('class_members') 
         </div>
     </div>
 </nav>
+
 
 {{-- <nav id="contacts-sidebar" class="card col-md-4 d-md-block bg-light contacts-sidebar collapse">
         <div class="sidebar-sticky pt-3">

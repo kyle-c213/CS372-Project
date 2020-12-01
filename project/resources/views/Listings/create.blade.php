@@ -51,7 +51,18 @@ function formatCurrency()
                         <textarea class="form-control" placeholder="Enter an item description..." name="description"></textarea>
                     </div>
                     <div class="form-group">
-                        <input type="file" class="form-control" id="picture" name="picture" onchange="readURL(this)">
+                        <select name="course" class="form-control col-md-6">
+                            <option value="">Select a class (optional)</option>
+                            @foreach($member_of as $m)
+                                <?php 
+                                    $class = \App\Models\Course::where('id', $m->course_id)->first();
+                                ?>
+                                <option value="{{$class->id}}">{{$class->class_name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" class="form-control col-md-6" id="picture" name="picture" onchange="readURL(this)">
                         <img id="uploadedImage" src="#" alt=""/>
                     </div>
                     <input type="submit" class="btn btn-primary" value="Post"/>

@@ -64,6 +64,10 @@ Route::get("/Classes", [\App\Http\Controllers\ClassController::class, 'index'])-
 Route::get("/Classes/{id}", [App\Http\Controllers\ClassController::class, 'show'])->name('class.show');
 Route::get("/ClassSearch", [App\Http\Controllers\ClassController::class, 'search'])->name('class.search');
 Route::post("/Class/Create", [App\Http\Controllers\ClassController::class, 'addClass'])->name('class.add');
+Route::get("/Class/Join/{class_id}", [\App\Http\Controllers\ClassController::class, 'joinClass'])->name('class.join');
+Route::get("/Class/Leave/{class_id}", [\App\Http\Controllers\ClassController::class, 'leaveClass'])->name('class.leave');
+Route::get("/Class/Members/{class_id}", [\App\Http\Controllers\ClassController::class, 'showMembers'])->name('class.members');
+Route::get("/Class/All", [\App\Http\Controllers\ClassController::class, 'allClasses'])->name('class.all');
 
 // Contact
 Route::post("/contact/addContact", [\App\Http\Controllers\ContactController::class, 'addContact'])->name('contact.addContact');
@@ -92,6 +96,7 @@ Route::get("/listings", [App\Http\Controllers\ListingController::class, 'index']
 Route::get("/listings/create", [App\Http\Controllers\ListingController::class, 'create'])->name('listing.create');
 Route::post("/listings/create/new", [App\Http\Controllers\ListingController::class, 'create_post'])->name('listing.create_post');
 Route::get("/listings/{user_id}", [App\Http\Controllers\ListingController::class, 'show'])->name('listing.show');
+Route::get("/listings/details/{listing_id}", [App\Http\Controllers\ListingController::class, 'details'])->name('listing.details');
 
 // these probably should be posted for security reasons, for now just checking user auth
 Route::get("/listing/delete/{id}", [App\Http\Controllers\ListingController::class, 'delete'])->name("listing.delete");
@@ -107,4 +112,8 @@ Route::post("/mail/delete", [\App\Http\Controllers\MailController::class, 'delet
 //comments
 Route::post('/comment', [App\Http\Controllers\CommentsController::class, 'store'])->name('comments.store');
 Route::delete('/comment/delete', [App\Http\Controllers\CommentsController::class, 'destroy'])->name('comment.destroy');
+
+// Important Dates
+Route::post('/event/add', [\App\Http\Controllers\ImportantDateController::class, 'add'])->name('event.add');
+Route::get('/event/{id}', [\App\Http\Controllers\ImportantDateController::class, 'show'])->name('event.show');
 

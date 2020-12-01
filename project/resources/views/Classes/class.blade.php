@@ -1,11 +1,34 @@
 @extends('layouts.app')
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+
+<style>
+    a.unlink {
+    color: inherit;
+    }
+    a.unlink:hover {
+    color: inherit;
+    }
+
+    button.limit{
+        display: block;
+        width: 170px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+</style>
+
 
 @section('content')
     <div class="text-center top-page">
         <h1>{{ $class->class_name }}</h1>  <!--Placeholder for class name -->
-        <h5 class="text-secondary font-italic">{{$prof->name}}</h5> <!-- place holder for profs name-->
+        <h5 class="text-secondary font-italic"><a class="unlink" href="{{route('profRate.show', $prof->id)}}">{{$prof->name}}</a></h5> <!-- place holder for profs name-->
         <h6 class="text-secondary">{{$class->semester}} {{$class->year}}</h6>
+        <button class="btn btn-outline-primary" onclick="window.location.href='{{route('class.join', ['class_id' => $class->id])}}';">Join</button>
+        <button class="btn btn-outline-danger" onclick="window.location.href='{{route('class.leave', ['class_id' => $class->id])}}';">Leave</button>
     </div>
 
     <hr/>
@@ -242,104 +265,119 @@
 </div>
 </div>
 
+<!-- Modal to add new important date -->
+<div class="modal fade" id="addDate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Add An Event</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">
+                    <form action="{{route('event.add')}}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label><b>Adding event for {{$class->class_name}}</b></label>
+                            <input type="hidden" value="{{$class->id}}" name="course_id"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="title" placeholder="Event name"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="body" placeholder="Describe the event"/>
+                        </div>
+                        <div class="form-group">
+                            <input id="datetime" class="date form-control" name="due_date" type="text" placeholder="Date" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="Add"/>
+                        </div>
+                    </form>
+                </p>
+            </div>
+        </div>
+    </div>
+    </div>
+
 
 
 
 <br><br>
-
-{{-- <div class="">  
-    <div class="row justify-content-center">
-            <div class="card" style="width:400px">
-                <div class="card-header">{{ __('UserName  Time /date') }}</div> <!--  name and time of the post -->
-                <div class="card-body">
-                        <p> Post Content</p>
-                    </div>
-            </div>
-        </div>
-    </div> --}}
-
-
-        
-
-
-
-{{-- <div class="fixed-bottom">  <!-- Submit a Post -->
-    <div class="row justify-content-center">
-        <form>
-        <textarea id="Mpost" name ="Mpost" rows="4" cols="50">
-            Create Post
-            </textarea> 
-            <br>
-            <a class="btn btn-primary btn-lg" role="button">Post</a> 
-            </form>
-    </div>
-</div> --}}
-
-
-{{-- <div class="container" style="position:fixed;bottom:25px">  <!-- Show Users who are in the class -->
-    <div class="row justify-content-left">
-        <div class="text-center">
-            <div class="card"style="width:300px;height:100px">
-                <div class="card-header">{{__('Users in the Class')}}</div>
-                    <div class="card-body">
-                        <p>User1  User2  User3...</p>
-                    </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
 
 
 @endsection
 
 
 @section('class_members')
-        <nav id="members-sidebar" class="">
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="">Classmates</h2>
-                </div>
-                    <div class="card-body">
-                        <ul class="nav flex-column">                 
-                            {{-- <li>
-                                <button class="btn btn-primary btn-block" onclick="window.location.href='{{ route('chat') }}';">
-                                    Visit Message Center</button>
-                            </li> --}}
-                            <li>
-                                <input id="contactSearch" onkeyup="searchUsers()" type="text" class="form-control" placeholder="Search for your friends" />
-                            </li>
-                        </ul>
-                        <div class="searchResults">
-                            <ul id="resultsList" class="nav flex-column">
-                            </ul>
-                        </div>
-                        <ul class="nav flex-column" id="contactsList">
-                            <?php
-                                $contacts = \App\Models\Contact::where('first_user', Auth::user()->id)->get();
-                                $hasContacts = false;
-                            ?>
-                            @foreach($contacts as $key=>$val)
-                                <?php
-                                    $hasContacts = true;
-                                    $contactName = \App\Models\User::where('id', $val->second_user)->first()->name;
-                                ?>
-                                <li class="p-1">                           
-                                    <a href="{{route('profile.show', $val->second_user)}}">{{$contactName}}</a>
-                                    {{-- if we want to include images on contacts panel <img src="{{ asset('/storage/'.config('chatify.user_avatar.folder').'/'. \App\Models\User::where('id', $val->second_user)->first()->avatar) }}" class="rounded-circle float-right" style="width:25px;max-width:25px;"> --}}
-                                    {{-- <span class="fas fa-comment"></span> can be added later for quick messaging --}}
-                                </li>
-                            @endforeach
-                            @if($hasContacts == false)
-                            <li id="noContactsMessage">
-                                No contacts yet!
-                            </li>
-                            @endif
-                        </ul>
-                    </div>
-                </div>
-        </nav>
+<div class="card-header">
+    <h2 class="">Members</h2>
+</div>
+<div class="card-body">
+    <button class="btn btn-block btn-outline-secondary" onclick="window.location.href='{{route('class.members', ['class_id' => $class->id])}}';">View All Members</button>
+    <hr/>
+    <ul class="nav flex-column" id="membersList">
+        <?php
+            $hasMembers = false;
+        ?>
+        @foreach($members as $key=>$val)
+            <?php
+                $hasMembers = true;
+                $memberName = \App\Models\User::where('id', $val->user_id)->first()->name;
+            ?>
+            <li class="p-1">                           
+                <a href="{{route('profile.show', $val->user_id)}}">{{$memberName}}</a>
+                {{-- if we want to include images on contacts panel <img src="{{ asset('/storage/'.config('chatify.user_avatar.folder').'/'. \App\Models\User::where('id', $val->second_user)->first()->avatar) }}" class="rounded-circle float-right" style="width:25px;max-width:25px;"> --}}
+                {{-- <span class="fas fa-comment"></span> can be added later for quick messaging --}}
+            </li>
+        @endforeach
+        @if($hasMembers == false)
+        <li id="noMembersMessage">
+            This class has no members!
+        </li>
+        @endif
+    </ul>
+</div>
+<script src="/js/moment.min.js"></script>
+<script src="/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript">
+
+    $('.date').datepicker({  
+
+       format: 'dd-mm-yyyy'
+
+     });  
+
+</script> 
+
 @endsection
 
+@section('importantdates')
+    <div class="card-header">
+        <h2 class="">Events</h2>
+    </div>
+    <div class="card-body">
+        <button class="btn btn-block btn-outline-secondary" data-toggle="modal" data-target="#addDate">Add An Event</button>
+        <hr/>
+        @forelse($events as $e)
+    <button onclick="window.location.href='{{route('event.show', ['id' => $e->id])}}';" class="btn btn-block btn-light limit">{{$e->due_date->format('M j')}}: {{$e->title}}</button>
+        @empty
+        @endforelse
+    </div>
+@endsection
+
+@section('classlistings')
+    <div class="card-header">
+        <h2 class="">Listings</h2>
+    </div>
+    <div class="card-body">
+        @forelse($listings as $l=>$val)
+            <button class="btn btn-block btn-light limit" onclick="window.location.href='{{route('listing.details', ['listing_id' => $val->id])}}';">{{$val->title}} - ${{$val->price}}</button>
+        @empty
+            <span>No class listings yet!</span>
+        @endforelse
+    </div>
+@endsection
 
 
 

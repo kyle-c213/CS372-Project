@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClassMember;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Models\Listing;
 use App\Models\ListingTag;
@@ -26,7 +28,8 @@ class ListingController extends Controller
     public function create()
     {
         $numOfMessages = Mail::where('to', auth()->user()->id)->where('opened', false)->get()->count();
-        return View("Listings\create")->with('messages', $numOfMessages);
+        $member_of = ClassMember::where('user_id', auth()->user()->id)->get();
+        return View("Listings\create", compact('member_of'))->with('messages', $numOfMessages);
     }
 
     public function create_post(Request $request)
@@ -42,7 +45,10 @@ class ListingController extends Controller
         
         $listing->description = $request->description;
         $listing->posted_by = auth()->user()->id;
-        $listing->course_id = null;
+        if ($request->course != null)
+        {
+            $listing->course_id = $request->course;
+        }
         $listing->sold = false;
         $listing->deleted = false;
 
@@ -90,5 +96,12 @@ class ListingController extends Controller
             $listing->save();
         }
         return redirect(route("listing.show", $listing->posted_by));
+    }
+
+    public function details($listing_id)
+    {
+        $listing = Listing::findOrFail($listing_id);
+        $numOfMessages = Mail::where('to', auth()->user()->id)->where('opened', false)->get()->count();
+        return view('Listings.details', compact('listing'))->with('messages', $numOfMessages);
     }
 }

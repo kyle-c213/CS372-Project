@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use \App\Models\Course;
 use App\Models\Post;
 use \App\Models\Professor;
+use \App\Models\ClassMember;
+use App\Models\ImportantDates;
+use App\Models\Listing;
 
 class ClassController extends Controller
 {
@@ -16,9 +19,27 @@ class ClassController extends Controller
 
     public function index()
     {
-        $classes = Course::all();
+        // get classes user has joined
+        $user_joined_classes = ClassMember::select('course_id')->where('user_id', auth()->user()->id)->get();
+        $user_classes = array();
+        foreach($user_joined_classes as $u=>$val)
+        {
+            array_push($user_classes, Course::where('id', $val->course_id)->first());
+        }
+
+        if (count($user_classes) <= 0)
+        {
+            return redirect(route('class.all'));
+        }
+
         $professors = Professor::all();
-        return view('Classes.index', compact('classes', 'professors'));
+        return view('Classes.index', compact('professors', 'user_classes'));
+    }
+
+    public function allClasses()
+    {
+        $classes = Course::orderBy('created_at')->get();
+        return view('Classes.all', compact('classes'));
     }
 
     public function search()
@@ -30,8 +51,11 @@ class ClassController extends Controller
     {
         $class = Course::findOrFail($id);
         $prof = Professor::findOrFail($class->taught_by);
-        $posts = Post::where('course_id', $class->id);
-        return view('Classes.class', compact('class', 'prof', 'posts'));
+        $posts = Post::where('course_id', $class->id)->get();
+        $members = ClassMember::where('course_id', $class->id)->get();
+        $listings = Listing::where('course_id', $class->id)->where('deleted', false)->where('sold', false)->get();
+        $events = ImportantDates::where('course_id', $class->id)->where('due_date', '>=', strtotime('now'))->orderBy('due_date', "ASC")->get();
+        return view('Classes.class', compact('class', 'prof', 'posts', 'members', 'listings', 'events'));
     }
 
     public function addClass(Request $request)
@@ -46,7 +70,13 @@ class ClassController extends Controller
         $class->created_by = auth()->user()->id;
         $class->save();
 
-        redirect(route('class.index'));
+        // add creator as a class member
+        $member = new ClassMember();
+        $member->user_id = $class->created_by;
+        $member->course_id = $class->id;
+        $member->save();
+
+        return redirect(route('class.index'));
     }
 
     public function removeClass(Request $request)
@@ -55,4 +85,40 @@ class ClassController extends Controller
                             ->delete();
     }
 
+    public function joinClass($class_id)
+    {
+        // check if user has already joined class
+        if (ClassMember::where('user_id', auth()->user()->id)
+                        ->where('course_id', $class_id)->get()->Count() <= 0)
+        {
+            // create new class member for passed class
+            $classMember = new ClassMember();
+            $classMember->user_id = auth()->user()->id;
+            $classMember->course_id = $class_id;
+
+            $classMember->save();
+        }
+        return redirect(route('class.show', $class_id));
+    }
+
+    public function leaveClass($class_id)
+    {
+        // check if user can leave the class
+        if (ClassMember::where('user_id', auth()->user()->id)
+                        ->where('course_id', $class_id)->get()->Count() > 0)
+        {
+            $member = ClassMember::where('user_id', auth()->user()->id)->where('course_id', $class_id)->first();
+            $member->delete();
+        }
+
+        return redirect(route('class.show', $class_id));
+    }
+
+    public function showMembers($class_id)
+    {
+        $users = ClassMember::where('course_id', $class_id)->get();
+        $class = Course::findOrFail($class_id);
+        $prof = Professor::findOrFail($class->taught_by);
+        return view('Classes.members', compact('users', 'class', 'prof'));
+    }
 }

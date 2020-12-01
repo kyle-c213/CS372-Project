@@ -6,20 +6,32 @@
 
 @section('content')
 
-<h1>Classes</h1> <a href='#' data-toggle="modal" data-target="#createClass"><span class="fas fa-pen"></span> Create Class</a>
+<h1>Your Classes</h1> <a href='#' data-toggle="modal" data-target="#createClass"><span class="fas fa-pen"></span> Create Class</a>
 <hr/>
 
-@if ($classes->count() <= 0)
+@if (count($user_classes) <= 0)
     <h4>No classes exist yet. <a href='#' data-toggle="modal" data-target="#createClass">Create a new one!</a></h4>
 @endif
 
-@foreach($classes as $c=>$val)
-<div class="card">
-    <div class="card-header">
-        <a href="{{route('class.show', $val->id)}}"><h3>{{$val->class_name}}</h3></a>
+@foreach($user_classes as $c=>$val)
+    <div class="card">
+        <div class="card-body">
+            <a href="{{route('class.show', $val->id)}}"><h3>{{$val->class_name}}</h3></a>
+            <span>Professor: <a href="{{route('profRate.show', $val->taught_by)}}">{{\App\Models\Professor::where('id', $val->taught_by)->first()->name}}</a></span>
+            <br/>
+            <span>Semester: {{$val->semester}} {{$val->year}}</span>
+            <br/>
+            <span>Members: {{\App\Models\ClassMember::where('course_id', $val->id)->count()}}</span>
+        </div>
     </div>
-</div>
+    <br>
 @endforeach
+
+@if (count($user_classes) > 0)
+    <a href="{{route('class.all')}}">View all classes</a>
+@endif
+
+
 
 
 <!-- Modal to create a new class -->
