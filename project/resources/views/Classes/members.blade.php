@@ -22,6 +22,7 @@
 
 <hr/>
 
+<!-- All class members displayed here -->
 <table class="table">
     @forelse($users as $u)
     <tr>

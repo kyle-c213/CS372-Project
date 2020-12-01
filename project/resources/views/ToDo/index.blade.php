@@ -250,7 +250,6 @@
     }
 </script>
 
-{{-- <div class="container py-4"> --}}
 @section('content')
 <div class="card">
     <div class="card-header">
@@ -286,7 +285,6 @@
         <span class="refresh" onclick="refresh()">Sort List</span>
     </div>
 </div>
-{{-- </div> --}}
 
 <script src="/js/moment.min.js"></script>
 <script src="/js/bootstrap-datetimepicker.min.js"></script>

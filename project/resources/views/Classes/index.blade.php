@@ -16,6 +16,7 @@
     <h4>No classes exist yet. <a href='#' data-toggle="modal" data-target="#createClass">Create a new one!</a></h4>
 @endif
 
+<!-- Show classes user has joined -->
 @foreach($user_classes as $c=>$val)
     <div class="card">
         <div class="card-body">

@@ -15,7 +15,7 @@ class ContactController extends Controller
         $this->middleware('auth');
     }
 
-
+    // adds user as a contact
     public function addContact(Request $request)
     {
         $contact = new Contact();
@@ -24,15 +24,15 @@ class ContactController extends Controller
         $contact->save();
     }
 
+    // removes user as a contact
     public function removeContact(Request $request)
     {
         $contact = Contact::where('first_user', $request->first_user)
                             -> where('second_user', $request->second_user)
                             ->delete();
-        // $contact->delete();
     }
 
-    // for the contacts search bar
+    // for the contacts search bar in right nav bar
     // return users that match search
     public function search(Request $request)
     {
@@ -51,6 +51,7 @@ class ContactController extends Controller
         }
     }
 
+    // go to email page, not used as of right now
     public function email($user_id)
     {
         $user = User::findOrFail($user_id);

@@ -24,7 +24,7 @@
 
 @section('content')
     <div class="text-center top-page">
-        <h1>{{ $class->class_name }}</h1>  <!--Placeholder for class name -->
+        <h1>{{ $class->class_name }}</h1> 
         <h5 class="text-secondary font-italic"><a class="unlink" href="{{route('profRate.show', $prof->id)}}">{{$prof->name}}</a></h5> <!-- place holder for profs name-->
         <h6 class="text-secondary">{{$class->semester}} {{$class->year}}</h6>
         <button class="btn btn-outline-primary" onclick="window.location.href='{{route('class.join', ['class_id' => $class->id])}}';">Join</button>
@@ -166,15 +166,6 @@
             @endforeach
         </div>        
     </div>
-{{-- </div> --}}
-
-
-{{-- <div class="col">
-    <!-- Contacts menu on Right-->
-    @include('inc.contactsidebar')
-</div> --}}
-{{-- </div>
-</div> --}}
 
 <!-- Delete Post modal-->
 <div class="modal fade" tabindex="-1" role=dialog id="deletePost"> 
@@ -298,17 +289,11 @@
             </div>
         </div>
     </div>
-    </div>
-
-
-
-
-<br><br>
-
+</div>
 
 @endsection
 
-
+<!-- Members side nav. This section is displayed below the contacts side nav -->
 @section('class_members')
 <div class="card-header">
     <h2 class="">Members</h2>
@@ -317,27 +302,23 @@
     <button class="btn btn-block btn-outline-secondary" onclick="window.location.href='{{route('class.members', ['class_id' => $class->id])}}';">View All Members</button>
     <hr/>
     <ul class="nav flex-column" id="membersList">
-        <?php
-            $hasMembers = false;
-        ?>
-        @foreach($members as $key=>$val)
+        <!-- Show members in class -->
+        @forelse($members as $key=>$val)
             <?php
                 $hasMembers = true;
                 $memberName = \App\Models\User::where('id', $val->user_id)->first()->name;
             ?>
             <li class="p-1">                           
                 <a href="{{route('profile.show', $val->user_id)}}">{{$memberName}}</a>
-                {{-- if we want to include images on contacts panel <img src="{{ asset('/storage/'.config('chatify.user_avatar.folder').'/'. \App\Models\User::where('id', $val->second_user)->first()->avatar) }}" class="rounded-circle float-right" style="width:25px;max-width:25px;"> --}}
-                {{-- <span class="fas fa-comment"></span> can be added later for quick messaging --}}
             </li>
-        @endforeach
-        @if($hasMembers == false)
-        <li id="noMembersMessage">
-            This class has no members!
-        </li>
-        @endif
+        @empty
+            <li id="noMembersMessage">
+                This class has no members!
+            </li>
+        @endforelse
     </ul>
 </div>
+
 <script src="/js/moment.min.js"></script>
 <script src="/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript">
@@ -352,6 +333,7 @@
 
 @endsection
 
+<!-- Important Dates sections. Is displayed in left side panel -->
 @section('importantdates')
     <div class="card-header">
         <h2 class="">Events</h2>
@@ -360,12 +342,14 @@
         <button class="btn btn-block btn-outline-secondary" data-toggle="modal" data-target="#addDate">Add An Event</button>
         <hr/>
         @forelse($events as $e)
-    <button onclick="window.location.href='{{route('event.show', ['id' => $e->id])}}';" class="btn btn-block btn-light limit">{{$e->due_date->format('M j')}}: {{$e->title}}</button>
+            <button onclick="window.location.href='{{route('event.show', ['id' => $e->id])}}';" class="btn btn-block btn-light limit">{{$e->due_date->format('M j')}}: {{$e->title}}</button>
         @empty
+            <span>This class has no events!</span>
         @endforelse
     </div>
 @endsection
 
+<!-- Class listings section. Displayed in left side panel under events -->
 @section('classlistings')
     <div class="card-header">
         <h2 class="">Listings</h2>

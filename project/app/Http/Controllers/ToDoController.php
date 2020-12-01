@@ -12,6 +12,7 @@ class ToDoController extends Controller
         $this->middleware('auth');
     }
     
+    // shows a users to do list
     public function index(){
         // current user
         $user = auth()->user();

@@ -24,6 +24,7 @@ class MailController extends Controller
         return view('Mails.index', compact('rec_mails'));
     }
 
+    // page where user can compose a message
     public function send($to_id, $listing_id)
     {
         $user = User::findOrFail($to_id);
@@ -31,6 +32,7 @@ class MailController extends Controller
         return view('Mails.send', compact('user', 'listing'));
     }
 
+    // sends message to a specific user
     public function send_post(Request $request)
     {
         $mail = new Mail();
@@ -48,6 +50,7 @@ class MailController extends Controller
         return redirect(Route('listing.index'));
     }
 
+    // displays a message that has been sent to the user
     public function show($mail_id)
     {
         $mail = Mail::findOrFail($mail_id);
@@ -59,6 +62,7 @@ class MailController extends Controller
         return view('Mails.show', compact('mail'));
     }
 
+    // deleted a message from inbox
     public function delete(Request $request)
     {
         $mail = Mail::findOrFail($request->mail_id);

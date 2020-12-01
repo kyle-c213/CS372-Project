@@ -2,6 +2,7 @@
 
 @section('content')
 
+<!-- Search Form -->
 <form action="{{route('class.search_post')}}" method="POST">
     @csrf
     <div class="form-group">
@@ -12,6 +13,7 @@
     </div>
 </form>
 
+<!-- Search results -->
 @forelse($records as $r)
 <div class="card">
     <div class="card-body">

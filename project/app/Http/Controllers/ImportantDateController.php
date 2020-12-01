@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ImportantDateController extends Controller
 {
-    //
+    // add an important date to a class
     public function add(Request $request)
     {
         // if user is not in class, add them
@@ -31,9 +31,11 @@ class ImportantDateController extends Controller
         $event->due_date = $request->due_date;
         $event->save();
 
+        // return to event page
         return redirect(route('event.show', $event->id));     
     }
 
+    // shows details for an important date
     public function show($id)
     {
         $event = ImportantDates::findOrFail($id);
