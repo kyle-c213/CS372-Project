@@ -37415,19 +37415,3 @@ $('.comments').find('a.dltComment').on('click', function(event) {
   });
 });
 
-/*$('#dltComment').on('click', function(){
-
-  var urlCom = "{{ route('comment.destroy') }}";
-  $.ajax({
-      method: "DELETE",
-      url: urlCom,
-      data: {commentID: commentId,
-          _token: token},
-      error: function(){
-          alert("something went wrong");
-  }
-})
-.done(function(){
-  location.reload();
-  });
-});*/

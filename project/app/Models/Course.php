@@ -12,4 +12,9 @@ class Course extends Model
     protected $fillable = [
         'created_by', 'class_name', 'year', 'semester', 'taught_by'
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::Class);
+    }
 }

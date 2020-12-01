@@ -26,8 +26,7 @@ class PostController extends Controller
         $data = request()->validate([
             'title' => 'required',
             'body' => 'required',
-            //***IMPLEMENT CLASS THEN UNCOMMENT***
-            // 'classSelect' => '',
+            'course_id' => '',
             'pic' => 'image',
         ]);
         
@@ -40,40 +39,6 @@ class PostController extends Controller
             $picArray = ['pic' => $picPath];
         }
 
-        //***IMPLEMENT CLASS THEN UNCOMMENT***
-        /*
-        //find what user chose for which class to put post in
-        $class = request()->query('classSelect', 'All');
-        //if all classes selected
-        if($class == 'All')
-        {
-            //loop through all courses with the course_id starting at 0
-            for($i = 0; $i <= Course::count(); $i++)
-            {
-                $data['course_id'] = $i;
-                //create post in the class
-                auth()->user()->posts()->create(array_merge($data, $picPath ?? []));
-            }   
-        }
-        //find the certain class' id
-        else
-        {
-            for($i = 0; $i <= Courses::count(); $i++)
-            {
-                if($class == $post()->$course()->course_name)
-                {
-                    $found = true;
-                    $data['course_id'] = $i;
-                    //create post in the class
-                    auth()->user()->posts()->create(array_merge($data, $picPath ?? []));
-                    break;
-                }
-            }
-
-            if(!$found)
-                echo("Class not found! Post not created!");
-        }
-        */
 
         auth()->user()->posts()->create(array_merge($data, $picArray ?? []));
         return redirect()->back();
@@ -98,8 +63,6 @@ class PostController extends Controller
             $data = request()->validate([
                 'editTitle' => 'required',
                 'editBody' => 'required',
-                //***IMPLEMENT CLASS THEN UNCOMMENT***
-                // 'classSelect' => '',
                 'editPic' => 'image',
             ]);
 
