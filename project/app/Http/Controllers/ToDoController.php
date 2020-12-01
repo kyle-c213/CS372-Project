@@ -39,7 +39,11 @@ class ToDoController extends Controller
         $todo->deleted = false;
         // save instance to db
         $todo->save();
-        return ['id' => $todo->id];
+
+        // format the date
+        $date = $todo->due_date->format('F d, Y');
+
+        return ['id' => $todo->id, 'date' => $date];
     }
 
     // mark task as complete

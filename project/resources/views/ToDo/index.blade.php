@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-
-
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
@@ -17,7 +15,7 @@
     }
 
     #add:hover{
-        color: rgb(0, 172, 0);
+        color: rgb(0, 70, 0);
         cursor: pointer;
     }
 
@@ -26,7 +24,7 @@
     }
 
     .check:hover{
-        color: rgb(0, 172, 0);
+        color: rgb(0, 70, 0);
         cursor: pointer;
     }
 
@@ -35,16 +33,25 @@
     }
 
     .refresh:hover{
-        color: rgb(0, 172, 0);
+        color: rgb(0, 70, 0);
         cursor: pointer;
+    }
+
+    .completeCol{
+        width:2%;
+    }
+
+    .bodyCol{
+        width:60%;
+    }
+
+    .dateCol{
+        width:20%;
     }
 </style>
 
 <script>
     var count = 0;
-    // $(window).load(function(){
-    //     count = "{{$count}}";
-    // });
 
     function addTask(){
         let body = $("#body").val();
@@ -105,7 +112,7 @@
                 var newDateType = document.createAttribute("type");
                 newDateId.value = "datetime" + count;
                 newDateClass.value = "form-control";
-                newDateValue.value = date;
+                newDateValue.value = response.date;
                 newDateType.value = "text";
                 newDateInput.setAttributeNode(newDateId);
                 newDateInput.setAttributeNode(newDateClass);
@@ -132,8 +139,11 @@
                 let cell2 = row.insertCell(1);
                 let cell3 = row.insertCell(2);
                 cell1.appendChild(newCheck);
+                cell1.classList.add('completeCol');
                 cell2.appendChild(newBodyInput);
+                cell2.classList.add('bodyCol');
                 cell3.appendChild(newDateInput);
+                cell3.classList.add('dateCol');
                 table.appendChild(newHidden);
 
                 // event for completing task
@@ -244,9 +254,10 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h2>Your To-Do List <span class="refresh fas fa-sync" onclick="refresh()"></span></h2>
+        <h2>Your To-Do List</h2>
     </div>
     <div class="card-body">
+    
     <table class="table table-sm">
         <tr>
             <td style="width: 60%;"><input id="body" type="text" class="form-control" placeholder="Enter a new task" /></td>
@@ -261,15 +272,18 @@
                 $tempdate = date('F d, Y', strtotime($val->due_date));
             ?>
             <tr>
-                <td style="width: 2%"><span class="fas fa-check-square fa-2x align-middle check" onclick="completeTask(event, '{{$count}}')"></span></td>
-                <td style="width: 60%;"><input id="body{{$count}}" type="text" class="form-control" value="{{$val->body}}" onchange="updateBody('{{$count}}')" /></td>
-                <td style="width: 20%"><input id="datetime{{$count}}" class="date form-control" type="text" value="{{$tempdate}}" onchange="updateDate('{{$count}}')"/></td>
+                <td class="completeCol"><span class="fas fa-check-square fa-2x align-middle check" onclick="completeTask(event, '{{$count}}')"></span></td>
+                <td class="bodyCol"><input id="body{{$count}}" type="text" class="form-control" value="{{$val->body}}" onchange="updateBody('{{$count}}')" /></td>
+                <td class="dateCol"><input id="datetime{{$count}}" class="date form-control" type="text" value="{{$tempdate}}" onchange="updateDate('{{$count}}')"/></td>
                 <input type="hidden" value="{{$val->id}}" id="id{{$count}}"/>
             </tr>
             <?php $count++ ?>
             <script>count = {{$count}};</script>
         @endforeach
     </table>
+    </div>
+    <div class="card-footer">
+        <span class="refresh" onclick="refresh()">Sort List</span>
     </div>
 </div>
 {{-- </div> --}}
