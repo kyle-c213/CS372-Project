@@ -38,8 +38,9 @@ class ClassController extends Controller
 
     public function allClasses()
     {
+        $professors = Professor::all();
         $classes = Course::orderBy('created_at')->get();
-        return view('Classes.all', compact('classes'));
+        return view('Classes.all', compact('classes', 'professors'));
     }
 
     public function search()
