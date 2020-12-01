@@ -3,6 +3,11 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+<script>
+    var token = '{{ Session::token() }}';
+    var urlDestroy = '{{ route('post.destroy') }}';
+    var urlCom = '{{ route('comment.destroy') }}';
+</script>
 
 <style>
     a.unlink {
@@ -56,7 +61,7 @@
                     <input type="file" class="form-control col-md-4" id="pic" name="pic">
                 </div>
 
-                <input type="hidden" name="class" value="{{$class->id}}" />
+                <input type="hidden" name="course_id" value="{{$class->id}}" />
 
                 <div class="form-group row">
                     <input type="submit" class="btn btn-primary" value="Share"/>
@@ -113,7 +118,9 @@
 
                     <!--  Content of post  -->   
                     <div class="card-body" data-postid="{{ $post->id }}" data-count="{{ $count }}">
-                        <h3><strong>{{ $post->title }}</strong></h3>
+                        <div class="d-flex justify-content-between">
+                            <h3><strong>{{ $post->title }}</strong></h3>
+                        </div> 
                         <hr style="border-top: 1px solid #D3D3D3; margin-top: -5px;" >
                         <div class="d-flex justify-content-between">
                             <p class="pt-1">

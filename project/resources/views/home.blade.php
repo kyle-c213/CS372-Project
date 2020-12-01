@@ -84,7 +84,7 @@
                         <div class="form-group row pl-3">
                             <label for="course_id" class="pr-3">Class</label>
                             <select id="course_id" name="course_id">
-                                    <option value="">No class</option>  
+                                    <option value="">Your Profile</option>  
                                 @forelse($classes as $class)
                                     <option value="{{$class->id}}">{{$class->class_name}}</option>
                                 @empty  
@@ -146,7 +146,12 @@
 
                             <!--  Content of post  -->   
                             <div class="card-body" data-postid="{{ $post->id }}" data-count="{{ $count }}">
-                                <h3><strong>{{ $post->title }}</strong></h3>
+                                <div class="d-flex justify-content-between">
+                                    <h3 id="postTitle"><strong>{{ $post->title }}</strong></h3>
+                                    @if($post->course_id)
+                                        <h5>{{$post->course->class_name}}</h5>
+                                    @endif
+                                </div> 
                                 <hr style="border-top: 1px solid #D3D3D3; margin-top: -5px;" >
                                 <div class="d-flex justify-content-between">
                                     <p class="pt-1">

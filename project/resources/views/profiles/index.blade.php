@@ -225,15 +225,13 @@
 
                             <!--  Content of post  -->   
                             <div class="card-body" data-postid="{{ $post->id }}" data-count="{{ $count }}">
-                                <h3>
-                                    <strong>
-                                        {{ $post->title }}
-                                        @if($post->course_id)
-                                            <div class="flex-grow-1"></div>
-                                            {{$post->course->class_name}}
-                                        @endif
-                                    </strong>
-                                </h3>
+                                <div class="d-flex justify-content-between">
+                                    <h3><strong>{{ $post->title }}</strong></h3>
+                                    @if($post->course_id)
+                                        <h5>{{$post->course->class_name}}</h5>
+                                    @endif
+                                </div> 
+                                
                                 <hr style="border-top: 1px solid #D3D3D3; margin-top: -5px;" >
                                 <div class="d-flex justify-content-between">
                                     <p class="pt-1">
@@ -370,10 +368,10 @@
                                     $classes = \App\Models\Course::all();
                                 ?>
                                 <!-- Class Selection -->
-                                <div class="row">
+                                <div class="row pt-3">
                                     <label for="course_id" class="col-md-4 col-form-label">Class</label>
                                     <select id="course_id" name="course_id">
-                                            <option value="">No class</option>
+                                            <option value="">Your profile</option>
                                         @forelse($classes as $class)
                                             <option value="{{$class->id}}">{{$class->class_name}}</option>
                                         @empty
