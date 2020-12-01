@@ -8,7 +8,7 @@ Student Zone is a social media platform designed to cater to the needs of studen
 The motivation for this project is to give university students an all in one social media platform for all things related to university. It will give students easier access to buy and sell textbooks, meet new people, and get help with classes. Most students at one time or another have had a class where they do not understand a subject or a question, but if you do not know anyone in the class and can not make the professor's office hours this can make it difficult to get help. With our social media platform, it will be much easier to find other people in the class to help each other with studying. 
 # Features
 <h3>Classes</h3>
-  The core of the site is centered around classes. Classes are set up by users where students can join and discuss anything related to the class. Students can make posts to receive help on assignments from their fellow classmates, or to clear up any confusion related to course content. Students will be able to upload notes for others to use and mark important dates for the course.
+  The core of the site is centered around classes. Classes are set up by users where students can join and discuss anything related to the class. Students can make posts to receive help on assignments from their fellow classmates, or to clear up any confusion related to course content. In addition, students can mark important dates for things like exams, assignments, and project due dates.
 <h3>ToDo</h3>
   Each student is given access to their own to do list. Here they can keep track of any tasks they wish to enter.
 <h3>Message Center</h3>
@@ -44,3 +44,31 @@ The motivation for this project is to give university students an all in one soc
   <li><a href="https://pusher.com/">Pusher</a></li>
   <li><a href="https://fontawesome.com/">Font Awesome</a></li>
 </ul>
+
+# Project Setup
+<ol>
+  <li>Clone the repository (git clone &lt;repository&gt;)</li>
+  <li><a href="https://www.apachefriends.org/index.html">Download XAMPP</a> (make sure to include phpMyAdmin) or another web server of your choice.</li>
+  <li><a href="https://getcomposer.org/download/">Download composer</a></li>
+  <li><a href="https://nodejs.org/en/">Download nodejs</a></li>
+  <li>Run cp .env.example .env and configure your .env file to match your database.</li>
+  <li>
+    In the terminal, navigate to the project directory and run the following commands:
+    <ul>
+      <li>composer global require laravel/installer</li>
+      <li>composer install</li>
+      <li>npm install</li>
+      <li>php artisan storage:link</li>
+      <li>php artisan key:generate</li>
+    </ul>
+  <li>
+    Build & run the project
+    <ul>
+      <li>npm run dev (or npm run watch)</li>
+      <li>php artisan serve</li>
+      <li>Navigate to localhost:8000 (default) in your browser</li>
+    </ul>
+  </li>
+  </li>
+</ol>
+
