@@ -66,7 +66,7 @@ class ProfRateController extends Controller
         return view('profRate.rate', compact('records', 'prof'))->with('avgRate', $avg);
     }
 
-    //toadd a new professor to db
+    //to add a new professor to db
     public function create()
     {
         return view('profRate.create');
@@ -87,16 +87,6 @@ class ProfRateController extends Controller
             'faculty' => ['required', 'string'],
         ]);
 
-        /* //another up validation method
-        $request->validate([
-            'name' => ['required', 'string'],
-            'faculty' => ['required', 'string'],
-        ]);
-
-        if($data->fails()) {
-            return Redirect::back()->withErrors($data);
-        }
-        */
         $prof = new Professor();//new Professor variable
         $prof->name = $request->name; //gets professor's name from name field in form
         $prof->faculty = $request->faculty; //gets professor's faculty from faculty field in form
