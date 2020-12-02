@@ -47,8 +47,8 @@ function formatCurrency()
                         <input id="price" class="form-control col-md-2" type="text" name="price" onchange="formatCurrency()"/>
                     </div>
                     <div class="form-group">
-                        <label>Describe your item here!</label>
-                        <textarea class="form-control" placeholder="Enter an item description..." name="description"></textarea>
+                        <label>Describe your item here</label>
+                        <textarea class="form-control" name="description"></textarea>
                     </div>
                     <div class="form-group">
                         <select name="course" class="form-control col-md-6">

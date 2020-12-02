@@ -24,7 +24,7 @@ class Post extends Model
 
     public function course()
     {
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(Course::class)->orderBy('updated_at', 'DESC');
     }
 
     public function comments()

@@ -25,13 +25,12 @@ Route::get('/', function () {
     }
     else
     {
-        $posts = \App\Models\Post::orderBy('updated_at', 'desc')->get();
-        return view('home', ['posts' => $posts]);
+        return redirect(route('home.index'));
     }
 });
 
 
-Route::get('/Home', [HomeController::class, 'index']);
+Route::get('/Home', [HomeController::class, 'index'])->name('home.index');
 
 Route::get('/Home/login', [HomeController::class, 'login']);
 

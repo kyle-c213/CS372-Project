@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use \App\Models\User;
 use \App\Models\Contact;
+use \App\Models\ClassMember;
 use Illuminate\Support\Facades\Auth;
 use Chatify\Facades\ChatifyMessenger as Chatify;
 

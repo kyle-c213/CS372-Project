@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use \App\Models\ClassMember;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +16,6 @@ class Course extends Model
 
     public function posts()
     {
-        return $this->hasMany(Post::Class);
+        return $this->hasMany(Post::Class)->orderBy('updated_at', 'DESC');
     }
 }
