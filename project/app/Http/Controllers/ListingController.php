@@ -45,7 +45,8 @@ class ListingController extends Controller
         $price = str_replace(",", "", $price);
         $listing->price = $price;
         
-        $listing->description = $request->description;
+        $listing->description = $request->description == null ? "" : $request->description;
+
         $listing->posted_by = auth()->user()->id;
         if ($request->course != null)
         {
