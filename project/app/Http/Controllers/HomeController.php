@@ -40,7 +40,6 @@ class HomeController extends Controller
             }
             array_push($classes, Course::where('id', $val->course_id)->first());
         }
-        //$posts = Post::orderBy('updated_at', 'desc')->get();
 
         return view('home', compact('classes', 'posts'));
     }

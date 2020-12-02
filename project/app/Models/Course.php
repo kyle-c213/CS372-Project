@@ -16,6 +16,6 @@ class Course extends Model
 
     public function posts()
     {
-        return $this->hasMany(Post::Class);
+        return $this->hasMany(Post::Class)->orderBy('updated_at', 'DESC');
     }
 }
