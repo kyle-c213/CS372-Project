@@ -67,6 +67,25 @@
                 break;
         }
     }
+
+    function check(event){
+
+        var rate = document.getElementById("rating").value;
+        var count =0;
+
+        //checks that a rating is selected
+        if(rate == "" || rate == null) {
+            errorAlert = document.getElementById("rateError");
+            errorAlert.innerHTML = "please select a rating";
+            errorCount++;
+            event.preventDefault();
+        } else {
+            errorAlert = document.getElementById("rateError");
+            errorAlert.innerHTML = "";
+        }
+
+        return;
+    }
 </script>
 
 <!-- Main body content-->
@@ -177,13 +196,12 @@
                             <div class="col-8 offset-2">                       
                                 <input id="rating" name="rating" type="hidden" value="0" />
                                 <input id="prof_rated" name="professor_rated" type="hidden" value="{{$prof->id}}" />
-
+                                <p id='rateError' style='color:red;'></p>
                                 <!--Content-->
                                 <div class="form-group row">
                                     <textarea name="body" id="body" cols="50" rows="4"
                                     class="form-control{{ $errors->has('body') ? ' is-invalid' : '' }}"
                                     autocomplete="body" autofocus placeholder="Add any comments here">{{ old('body') }}</textarea>
-
                                     @if ($errors->has('body'))
                                         <strong>{{ $errors->first('body') }}</strong>
                                     @endif

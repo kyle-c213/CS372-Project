@@ -63,13 +63,13 @@
                         // if listed name is in return data
                         if (data.professors.filter(x => x.name === listItems[j].firstChild.innerHTML).length > 0)
                         {
-                            // do not remove from list, user is present in return data
+                            // do not remove from list, prof is present in return data
                             // add to listed Profs array
                             listedProfs.push(listItems[j].firstChild.innerHTML); 
                         }
                         else
                         {
-                            // user needs to be removed
+                            // prof needs to be removed
                             removeAtIndexes.push(j);
                         }                                               
                     }
@@ -85,7 +85,7 @@
                     {                       
                         var addToList;
                         
-                        // if returned user is listed, do not add new element
+                        // if returned prof is listed, do not add new element
                         // otherwise add to display
                         if (listedProfs.includes(data.professors[i].name) == true)
                         {
@@ -99,19 +99,12 @@
                         if (addToList == true){
                             var li = document.createElement("li");
                             var a = document.createElement("a");
-                            // var span = document.createElement("span");
 
                             a.innerHTML = data.professors[i].name;
                             
                             a.href = "{{route('profRate.show', ':id')}}";
                             a.href = a.href.replace(':id', data.professors[i].id);
-                            // span.classList.add("fas");
-                            // span.classList.add("fa-user-plus");
-                            // span.classList.add("float-right");
-                            // span.classList.add("text-primary");
-                            // span.classList.add("addContact");
-                            li.appendChild(a);                     
-                            // li.appendChild(span);
+                            li.appendChild(a);
                             li.classList.add("bg-light");
                             li.classList.add("p-2");
                             ul.appendChild(li);
