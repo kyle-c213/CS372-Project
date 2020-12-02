@@ -51,13 +51,15 @@ class HomeController extends Controller
             array_push($posts, $post);
         }
 
-        //sort the array
-        foreach ($posts as $key => $row)
+        //sort the array if not empty
+        if(!empty($posts))
         {
-            $count[$key] = $row['updated_at'];
+            foreach ($posts as $key => $row)
+            {
+                $count[$key] = $row['updated_at'];
+            }
+            array_multisort($count, SORT_DESC, $posts);
         }
-        array_multisort($count, SORT_DESC, $posts);
-        
 
         return view('home', compact('classes', 'posts'));
     }
