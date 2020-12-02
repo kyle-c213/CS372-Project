@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use \App\Models\Course;
 use App\Models\ClassMember;
+use \App\Models\Contact;
 
 class HomeController extends Controller
 {
@@ -31,15 +32,32 @@ class HomeController extends Controller
         $classes = array();
         $posts = array();
         $class_posts = array();
+
+        //get all posts from classes user registered in
         foreach($user_joined_classes as $u=>$val)
         {
             $class_posts = Post::where('course_id', $val->course_id)->get();
             foreach($class_posts as $c=>$post)
             {
-                array_push($posts, $class_posts->first());
+                array_push($posts, $post);
             }
             array_push($classes, Course::where('id', $val->course_id)->first());
         }
+
+        //get all the user's profile posts
+        $profile_posts = Post::whereNull('course_id')->get();
+        foreach($profile_posts as $p=>$post)
+        {
+            array_push($posts, $post);
+        }
+
+        //sort the array
+        foreach ($posts as $key => $row)
+        {
+            $count[$key] = $row['updated_at'];
+        }
+        array_multisort($count, SORT_DESC, $posts);
+        
 
         return view('home', compact('classes', 'posts'));
     }
