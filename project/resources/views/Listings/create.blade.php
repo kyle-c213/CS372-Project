@@ -22,6 +22,38 @@ function formatCurrency()
     price = Number(price);
     $("#price").val("$" + price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
 }
+
+
+function check(event){
+
+    var title = document.getElementById("title").value;
+    var price = document.getElementById("price").value;
+    var errorCount = 0;
+
+    //checks that a title is entered
+    if(title == "" || title == null) {
+        errorAlert = document.getElementById("titleError");
+        errorAlert.innerHTML = "Please enter an ad title";
+        errorCount++;
+        event.preventDefault();
+    } else {
+        errorAlert = document.getElementById("titleError");
+        errorAlert.innerHTML = "";
+    }
+
+    //checks that a price is entered
+    if(price == "" || price == null) {
+        errorAlert = document.getElementById("priceError");
+        errorAlert.innerHTML = "Please enter a price";
+        errorCount++;
+        event.preventDefault();
+    } else {
+        errorAlert = document.getElementById("priceError");
+        errorAlert.innerHTML = "";
+        return;
+    }
+    return;
+}
 </script>
 
 @section('content')
@@ -40,11 +72,13 @@ function formatCurrency()
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
                         <label class="">Ad Title</label>
-                        <input class="form-control col-sm-6" type="text" name="title"/>
+                        <input id="title" class="form-control col-sm-6" type="text" name="title"/>
+                        <p class="text-danger" id="titleError"></p>
                     </div>
                     <div class="form-group">
                         <label class="">Price</label>
                         <input id="price" class="form-control col-md-2" type="text" name="price" onchange="formatCurrency()"/>
+                        <p class="text-danger" id="priceError"></p>
                     </div>
                     <div class="form-group">
                         <label>Describe your item here</label>
@@ -65,7 +99,7 @@ function formatCurrency()
                         <input type="file" class="form-control col-md-6" id="picture" name="picture" onchange="readURL(this)">
                         <img id="uploadedImage" src="#" alt=""/>
                     </div>
-                    <input type="submit" class="btn btn-primary" value="Post"/>
+                    <input type="submit" class="btn btn-primary" value="Post" onclick="check(event)"/>
                 </form>
             </div>
         </div>

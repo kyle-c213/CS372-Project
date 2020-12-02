@@ -11,7 +11,7 @@
         //checks that a name is entered
         if(name == "" || name == null) {
             errorAlert = document.getElementById("nameError");
-            errorAlert.innerHTML = "please enter a name";
+            errorAlert.innerHTML = "Please enter a name";
             errorCount++;
             event.preventDefault();
         } else {
@@ -22,7 +22,7 @@
         //checks that a faculty is entered
         if(faculty == "" || faculty == null) {
             errorAlert = document.getElementById("facultyError");
-            errorAlert.innerHTML = "please enter a faculty";
+            errorAlert.innerHTML = "Please enter a faculty";
             errorCount++;
             event.preventDefault();
         } else {
@@ -42,7 +42,7 @@
                         <h3>Add A New Professor</h3>
                     </div>
                     <div class="card-body">
-                        <form name="ratingSub" id="ratingSub" action="store" method="post" onsubmit='check()' enctype="multipart/form-data">
+                        <form name="ratingSub" id="ratingSub" action="store" method="post" onsubmit='check(event)' enctype="multipart/form-data">
                             @csrf <!--verification that its from the rating page-->
                             <h5>You will be sent to the new professor's rating page once filled out</h5>
                             <p> Professor Name: <input type="text" name="name" id="name" class="form-control col-md-6"/><p id='nameError' style='color:red;'></p>
